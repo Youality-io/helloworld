@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Page Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Youality is a personal navigation system for your life — bringing creativity and structure together so you can design, track, and live the reality you choose." />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --color-bg: #EDF4F3;
+            --color-bg-deep: #EDEFF7;
+            --color-text: #1E1E24;
+            --color-muted: #6E7180;
+            --color-border: #D3D6E0;
+            --color-accent-start: #369799;
+            --color-accent-end: #24769C;
+            --color-accent-soft: rgba(54, 151, 153, 0.12);
+            --color-card: rgba(255, 255, 255, 0.9);
+            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.10);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-pill: 999px;
+            --transition-fast: 0.2s ease-out;
+            --transition-med: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .page-container {
+            min-height: 100vh;
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .header-intro {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 24px;
+        }
+
+        .header-description {
+            font-size: 0.9375rem;
+            color: var(--color-muted);
+            line-height: 1.6;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .header-brand img {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .sections {
+            display: grid;
+            gap: 32px;
+        }
+
+        .section {
+            background: transparent;
+            padding: 0;
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-description {
+            font-size: 0.875rem;
+            color: var(--color-muted);
+        }
+
+        .index-note {
+            margin-top: 48px;
+            padding: 20px;
+            background: var(--color-accent-soft);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .index-note-text {
+            font-size: 0.875rem;
+            color: var(--color-muted);
+            line-height: 1.6;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .page-link {
+            display: block;
+            padding: 16px 20px;
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all var(--transition-fast);
+        }
+
+        .page-link:hover {
+            border-color: var(--color-accent-start);
+            background: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        .page-link-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        .page-link-file {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 40px 16px;
+            }
+
+            .header {
+                margin-bottom: 32px;
+            }
+
+            .page-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="header-brand">
+                <img src="../youality_logo.svg" alt="Youality logo" />
+            </div>
+            <div class="header-intro">
+                <p class="header-description">
+                    Youality is a calm, visual space where you can organize your life as a whole — not just tasks or
+                    goals.
+                    Think of it as a personal navigation system that blends reflection, planning, and decision-making
+                    into one
+                    coherent experience.
+                </p>
+            </div>
+        </header>
+
+        <div class="sections">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Landing Pages</h2>
+                    <p class="section-description">Marketing and landing page variations</p>
+                </div>
+                <div class="page-grid">
+                    <a href="wip1.html" class="page-link">
+                        <div class="page-link-title">Work in Progress 1</div>
+                        <div class="page-link-file">wip1.html</div>
+                    </a>
+                    <a href="wip2.html" class="page-link">
+                        <div class="page-link-title">Work in Progress 2</div>
+                        <div class="page-link-file">wip2.html</div>
+                    </a>
+                    <a href="wip3.html" class="page-link">
+                        <div class="page-link-title">Work in Progress 3</div>
+                        <div class="page-link-file">wip3.html</div>
+                    </a>
+                    <a href="wip4.html" class="page-link">
+                        <div class="page-link-title">Work in Progress 4</div>
+                        <div class="page-link-file">wip4.html</div>
+                    </a>
+                    <a href="index1.html" class="page-link">
+                        <div class="page-link-title">Landing Page 1</div>
+                        <div class="page-link-file">index1.html</div>
+                    </a>
+                    <a href="index2.html" class="page-link">
+                        <div class="page-link-title">Landing Page 2</div>
+                        <div class="page-link-file">index2.html</div>
+                    </a>
+                    <a href="index3.html" class="page-link">
+                        <div class="page-link-title">Landing Page 3</div>
+                        <div class="page-link-file">index3.html</div>
+                    </a>
+                    <a href="index4.html" class="page-link">
+                        <div class="page-link-title">Landing Page 4</div>
+                        <div class="page-link-file">index4.html</div>
+                    </a>
+                    <a href="index5.html" class="page-link">
+                        <div class="page-link-title">Landing Page 5</div>
+                        <div class="page-link-file">index5.html</div>
+                    </a>
+                    <a href="index6.html" class="page-link">
+                        <div class="page-link-title">Landing Page 6</div>
+                        <div class="page-link-file">index6.html</div>
+                    </a>
+                    <a href="index7.html" class="page-link">
+                        <div class="page-link-title">Landing Page 7</div>
+                        <div class="page-link-file">index7.html</div>
+                    </a>
+                    <a href="index8.html" class="page-link">
+                        <div class="page-link-title">Landing Page 8</div>
+                        <div class="page-link-file">index8.html</div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">App Prototypes</h2>
+                    <p class="section-description">Interface and application prototype designs</p>
+                </div>
+                <div class="page-grid">
+                    <a href="app1.html" class="page-link">
+                        <div class="page-link-title">App Prototype 1</div>
+                        <div class="page-link-file">app1.html</div>
+                    </a>
+                    <a href="app2.html" class="page-link">
+                        <div class="page-link-title">App Prototype 2</div>
+                        <div class="page-link-file">app2.html</div>
+                    </a>
+                    <a href="app3.html" class="page-link">
+                        <div class="page-link-title">App Prototype 3</div>
+                        <div class="page-link-file">app3.html</div>
+                    </a>
+                    <a href="app4.html" class="page-link">
+                        <div class="page-link-title">App Prototype 4</div>
+                        <div class="page-link-file">app4.html</div>
+                    </a>
+                    <a href="app5.html" class="page-link">
+                        <div class="page-link-title">App Prototype 5</div>
+                        <div class="page-link-file">app5.html</div>
+                    </a>
+                    <a href="app6.html" class="page-link">
+                        <div class="page-link-title">App Prototype 6</div>
+                        <div class="page-link-file">app6.html</div>
+                    </a>
+                    <a href="app7.html" class="page-link">
+                        <div class="page-link-title">App Prototype 7</div>
+                        <div class="page-link-file">app7.html</div>
+                    </a>
+                    <a href="app8.html" class="page-link">
+                        <div class="page-link-title">App Prototype 8</div>
+                        <div class="page-link-file">app8.html</div>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <div class="index-note">
+            <p class="index-note-text">
+                This index showcases prototype designs and variations. Each page includes navigation controls
+                to browse between prototypes. Early access members will co-create the final experience.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
