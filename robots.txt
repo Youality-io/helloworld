@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /wip/
+
+Sitemap: https://youality.io/sitemap.xml
