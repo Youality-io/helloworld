@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Navigate Your Reality, Masterfully</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Youality brand palette */
+            --yl-bg: #EDF4F3;
+            /* primary soft background */
+            --yl-accent: #369799;
+            /* teal accent 1 */
+            --yl-accent-dark: #24769C;
+            /* teal accent 2 (for gradient & hover) */
+            --yl-text-main: #1E1E24;
+            /* Phantom */
+            --yl-text-muted: #6E7180;
+            /* Graphite */
+            --yl-border-subtle: #EDEFF7;
+            /* Cloud */
+            --yl-chip-bg: #EDEFF7;
+            --yl-chip-text: #40424D;
+            /* Arsenic */
+            --yl-card-bg: #FFFFFF;
+            --yl-shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.06);
+            --yl-radius-lg: 18px;
+            --yl-radius-xl: 24px;
+            --yl-radius-pill: 999px;
+            --yl-transition-fast: 150ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #EDF4F3 0%, #EDEFF7 35%, #FFFFFF 100%);
+            color: var(--yl-text-main);
+            -webkit-font-smoothing: antialiased;
+            padding-top: 45px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation – Airbnb-inspired */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: linear-gradient(to bottom, rgba(237, 244, 243, 0.96), rgba(237, 244, 243, 0.85));
+            border-bottom: 1px solid rgba(210, 215, 225, 0.6);
+        }
+
+        .top-nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            background: conic-gradient(from 150deg, var(--yl-accent), var(--yl-accent-dark), var(--yl-accent));
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 18px;
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--yl-text-muted);
+        }
+
+        .nav-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-tabs {
+            display: inline-flex;
+            padding: 4px;
+            border-radius: var(--yl-radius-pill);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            gap: 2px;
+        }
+
+        .nav-tab {
+            border-radius: var(--yl-radius-pill);
+            padding: 6px 14px;
+            font-size: 13px;
+            color: var(--yl-text-muted);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background var(--yl-transition-fast), color var(--yl-transition-fast),
+                box-shadow var(--yl-transition-fast), transform var(--yl-transition-fast);
+        }
+
+        .nav-tab span.icon {
+            font-size: 14px;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--yl-accent), var(--yl-accent-dark));
+            color: #ffffff;
+            box-shadow: 0 10px 24px rgba(36, 118, 156, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .nav-tab:not(.active):hover {
+            background: rgba(237, 239, 247, 0.8);
+            color: var(--yl-text-main);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-pill {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: var(--yl-radius-pill);
+            border: 1px solid rgba(157, 162, 179, 0.5);
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--yl-text-muted);
+            cursor: pointer;
+            transition: background var(--yl-transition-fast), border-color var(--yl-transition-fast),
+                transform var(--yl-transition-fast), box-shadow var(--yl-transition-fast);
+        }
+
+        .nav-pill:hover {
+            background: #ffffff;
+            border-color: var(--yl-accent);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .avatar-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 6px 4px 12px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            transition: box-shadow var(--yl-transition-fast), transform var(--yl-transition-fast);
+        }
+
+        .avatar-badge:hover {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .avatar-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--yl-accent), #EDEFF7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .avatar-label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .avatar-label-main {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .avatar-label-sub {
+            font-size: 10px;
+            color: var(--yl-text-muted);
+        }
+
+        .avatar-menu-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--yl-text-muted);
+            background: #ffffff;
+        }
+
+        /* Layout main content */
+        .main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 26px 20px 40px;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr);
+            gap: 26px;
+        }
+
+        @media (max-width: 960px) {
+            .nav-center {
+                display: none;
+            }
+
+            .main {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .top-nav-inner {
+                padding-inline: 16px;
+            }
+
+            .main {
+                padding-inline: 16px;
+            }
+        }
+
+        /* Hero / Focus Column */
+        .hero-block {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px 4px 4px;
+            border-radius: var(--yl-radius-pill);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            font-size: 11px;
+            color: var(--yl-text-muted);
+            width: fit-content;
+        }
+
+        .eyebrow-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--yl-accent), var(--yl-accent-dark));
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 10px 24px rgba(36, 118, 156, 0.35);
+        }
+
+        .hero-title {
+            font-size: clamp(30px, 3vw + 8px, 40px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+            max-width: 620px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, var(--yl-accent), var(--yl-accent-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            max-width: 520px;
+            color: var(--yl-text-muted);
+        }
+
+        /* Focus search panel – Airbnb-like card */
+        .focus-panel {
+            margin-top: 6px;
+            border-radius: 999px;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            background: #ffffff;
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 720px) {
+            .focus-panel {
+                flex-direction: column;
+                border-radius: var(--yl-radius-xl);
+            }
+        }
+
+        .focus-field {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-right: 1px solid rgba(230, 233, 240, 0.9);
+        }
+
+        .focus-field-icon {
+            font-size: 18px;
+        }
+
+        .focus-field-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 100%;
+        }
+
+        .focus-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--yl-text-muted);
+        }
+
+        .focus-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .focus-input {
+            border: none;
+            outline: none;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .focus-input::placeholder {
+            color: #9DA2B3;
+        }
+
+        .chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .chip {
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: var(--yl-radius-pill);
+            background: var(--yl-chip-bg);
+            color: var(--yl-chip-text);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            cursor: pointer;
+            transition: background var(--yl-transition-fast), transform var(--yl-transition-fast),
+                box-shadow var(--yl-transition-fast), border-color var(--yl-transition-fast);
+        }
+
+        .chip span.icon {
+            font-size: 12px;
+        }
+
+        .chip:hover {
+            background: #ffffff;
+            border-color: var(--yl-accent);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .focus-cta {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px 10px 18px;
+            gap: 12px;
+            background: radial-gradient(circle at top left, var(--yl-accent), var(--yl-accent-dark));
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: transform var(--yl-transition-fast), box-shadow var(--yl-transition-fast),
+                filter var(--yl-transition-fast), background-position 180ms ease-out;
+            background-size: 140% 140%;
+            background-position: 0% 50%;
+        }
+
+        .focus-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 32px rgba(36, 118, 156, 0.5);
+            filter: brightness(1.02);
+            background-position: 100% 50%;
+        }
+
+        .focus-cta .icon-pill {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .focus-cta {
+                border-top: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 0 0 var(--yl-radius-xl) var(--yl-radius-xl);
+            }
+        }
+
+        .section-header {
+            margin-top: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .section-sub {
+            font-size: 12px;
+            color: var(--yl-text-muted);
+            margin-top: 2px;
+        }
+
+        .section-header-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .badge-soft {
+            padding: 4px 8px;
+            border-radius: var(--yl-radius-pill);
+            border: 1px dashed rgba(157, 162, 179, 0.7);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Spaces grid */
+        .spaces-grid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .space-card {
+            position: relative;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            padding: 12px 12px 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform var(--yl-transition-fast), box-shadow var(--yl-transition-fast),
+                border-color var(--yl-transition-fast), background var(--yl-transition-fast);
+        }
+
+        .space-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+            border-color: var(--yl-accent);
+            background: #ffffff;
+        }
+
+        .space-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .space-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .space-name-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .space-icon-pill {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: #EDF4F3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .space-name {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .space-tagline {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+            max-width: 220px;
+        }
+
+        .space-meta-pill {
+            align-self: flex-start;
+            padding: 4px 9px;
+            border-radius: var(--yl-radius-pill);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            background: #EDEFF7;
+            color: #40424D;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+        }
+
+        .space-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .space-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .space-tag {
+            font-size: 10px;
+            padding: 3px 7px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.8);
+            color: var(--yl-chip-text);
+            border: 1px solid rgba(210, 214, 224, 0.9);
+        }
+
+        .space-cta {
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            color: var(--yl-text-main);
+        }
+
+        .space-cta span.icon {
+            font-size: 12px;
+        }
+
+        /* Right column – Snapshot & Timeline */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .snapshot-card {
+            border-radius: var(--yl-radius-xl);
+            background: #ffffff;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            box-shadow: var(--yl-shadow-soft);
+            padding: 16px 18px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .snapshot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .snapshot-title-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .snapshot-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .snapshot-subtitle {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .snapshot-badge {
+            padding: 4px 8px;
+            border-radius: var(--yl-radius-pill);
+            background: #EDF4F3;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--yl-chip-text);
+        }
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .snapshot-tile {
+            border-radius: 14px;
+            padding: 8px 9px;
+            background: #F7F8FC;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .tile-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--yl-text-muted);
+        }
+
+        .tile-main {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .tile-sub {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .meter-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .meter-label {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .meter-bar {
+            flex: 1;
+            height: 9px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--yl-accent), var(--yl-accent-dark));
+            width: 76%;
+        }
+
+        .meter-value {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .mini-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .mini-note {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .mini-link {
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            background: #ffffff;
+        }
+
+        .timeline-card {
+            border-radius: var(--yl-radius-xl);
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            box-shadow: var(--yl-shadow-soft);
+            padding: 14px 16px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .timeline-sub {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .timeline-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .timeline-chip {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            color: #40424D;
+        }
+
+        .timeline-list {
+            margin: 4px 0 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 8px;
+        }
+
+        .dot-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .timeline-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            border: 2px solid var(--yl-accent-dark);
+            background: #ffffff;
+        }
+
+        .timeline-line {
+            flex: 1;
+            width: 1px;
+            background: #D3D6E0;
+        }
+
+        .timeline-body {
+            border-radius: 12px;
+            padding: 7px 9px;
+            background: #F7F8FC;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .timeline-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .timeline-time {
+            font-size: 10px;
+            color: var(--yl-text-muted);
+        }
+
+        .timeline-desc {
+            font-size: 11px;
+            color: var(--yl-text-muted);
+        }
+
+        .timeline-pill-row {
+            margin-top: 2px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-pill {
+            font-size: 10px;
+            padding: 3px 7px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid rgba(210, 214, 224, 0.9);
+        }
+
+        /* Simple “active section” area toggling for main nav */
+        .section-flag {
+            margin-top: 10px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--yl-text-muted);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px 20px;
+            font-size: 11px;
+            color: var(--yl-text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        @media (max-width: 720px) {
+            footer {
+                padding-inline: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--yl-border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--yl-text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all var(--yl-transition-fast);
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--yl-accent-dark);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--yl-text-main);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="app1.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">App Prototype 2 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="app3.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="top-nav-inner">
+                <div class="brand-block">
+                    <img src="../youality_emblem.svg" alt="Youality logo"
+                        style="height:32px; width:32px; object-fit: contain;" />
+                    <div class="brand-text">
+                        <div class="brand-name">Youality</div>
+                        <div class="brand-tagline">Navigate Your Reality, Masterfully</div>
+                    </div>
+                </div>
+
+                <div class="nav-center">
+                    <div class="nav-tabs" id="mainTabs">
+                        <button class="nav-tab active" data-section="today">
+                            <span class="icon">✨</span>
+                            Today
+                        </button>
+                        <button class="nav-tab" data-section="map">
+                            <span class="icon">🗺️</span>
+                            Life Map
+                        </button>
+                        <button class="nav-tab" data-section="library">
+                            <span class="icon">📚</span>
+                            Library
+                        </button>
+                        <button class="nav-tab" data-section="labs">
+                            <span class="icon">🧪</span>
+                            Labs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="nav-right">
+                    <button class="nav-pill" id="modeToggle">
+                        <span>Calm mode</span>
+                        <span>🌿</span>
+                    </button>
+                    <div class="avatar-badge">
+                        <div class="avatar-circle">J</div>
+                        <div class="avatar-label">
+                            <span class="avatar-label-main">My Space</span>
+                            <span class="avatar-label-sub">Alignment in progress</span>
+                        </div>
+                        <div class="avatar-menu-icon">⋯</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="main">
+            <!-- Left: Hero & Spaces -->
+            <section class="hero-block">
+                <div class="eyebrow">
+                    <div class="eyebrow-pill">●</div>
+                    <span>Systemic life planning · You as the center of the map</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Design your
+                    <span class="hero-highlight">reality</span>
+                    like it’s your most meaningful project.
+                </h1>
+
+                <p class="hero-subtitle">
+                    One interface to clarify your direction, align your days with what matters,
+                    and navigate the moving pieces of life with calm, intentional focus.
+                </p>
+
+                <!-- Focus search panel -->
+                <section aria-label="What do you want to focus on today?">
+                    <div class="focus-panel">
+                        <div class="focus-field">
+                            <div class="focus-field-icon">🔍</div>
+                            <div class="focus-field-content">
+                                <span class="focus-label">What do you want to focus on today?</span>
+                                <div class="focus-input-wrap">
+                                    <input id="focusInput" type="text" class="focus-input"
+                                        placeholder="E.g. Plan my week, clarify a decision, map my relationships..." />
+                                </div>
+                                <div class="chips-row">
+                                    <button class="chip" data-text="Clarify my next 90 days">
+                                        <span class="icon">🎯</span><span>Next 90 days</span>
+                                    </button>
+                                    <button class="chip" data-text="Design a calm, focused week">
+                                        <span class="icon">📅</span><span>Design my week</span>
+                                    </button>
+                                    <button class="chip" data-text="Map my current relationships">
+                                        <span class="icon">🕸️</span><span>Web of connections</span>
+                                    </button>
+                                    <button class="chip" data-text="Check in with my energy and inner weather">
+                                        <span class="icon">🌤️</span><span>Inner weather</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="focus-cta" id="focusButton">
+                            <span>Open a guided flow</span>
+                            <span class="icon-pill">➜</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Active section label (changes with nav tabs) -->
+                <div class="section-flag" id="sectionFlag">
+                    VIEW · TODAY SNAPSHOT
+                </div>
+
+                <!-- Spaces section -->
+                <header class="section-header">
+                    <div>
+                        <div class="section-title">Spaces in your Youality</div>
+                        <div class="section-sub">
+                            Each space is a lens on your life system – goals, rhythms, relationships and more.
+                        </div>
+                    </div>
+                    <div class="section-header-right">
+                        <span class="badge-soft">Work in progress – evolve as you go</span>
+                    </div>
+                </header>
+
+                <section class="spaces-grid" aria-label="Main Youality spaces">
+                    <!-- Space card 1 -->
+                    <article class="space-card" data-space="field-of-becoming">
+                        <div class="space-row">
+                            <div class="space-labels">
+                                <div class="space-name-row">
+                                    <div class="space-icon-pill">🌾</div>
+                                    <div class="space-name">Field of Becoming</div>
+                                </div>
+                                <div class="space-tagline">
+                                    See who you’re growing into across roles, seasons, and identity layers.
+                                </div>
+                            </div>
+                            <div class="space-meta-pill">Vision layer</div>
+                        </div>
+                        <div class="space-footer">
+                            <div class="space-tags">
+                                <span class="space-tag">Big picture</span>
+                                <span class="space-tag">Identity</span>
+                                <span class="space-tag">Why am I here?</span>
+                            </div>
+                            <button class="space-cta">
+                                <span>Open map</span><span class="icon">➜</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Space card 2 -->
+                    <article class="space-card" data-space="navigator">
+                        <div class="space-row">
+                            <div class="space-labels">
+                                <div class="space-name-row">
+                                    <div class="space-icon-pill">🧭</div>
+                                    <div class="space-name">Daily Navigator</div>
+                                </div>
+                                <div class="space-tagline">
+                                    Translate your long-term direction into grounded, doable steps for today.
+                                </div>
+                            </div>
+                            <div class="space-meta-pill">Today · Week</div>
+                        </div>
+                        <div class="space-footer">
+                            <div class="space-tags">
+                                <span class="space-tag">Focus 3</span>
+                                <span class="space-tag">Energy baskets</span>
+                                <span class="space-tag">Eisenhower</span>
+                            </div>
+                            <button class="space-cta">
+                                <span>Start session</span><span class="icon">▶</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Space card 3 -->
+                    <article class="space-card" data-space="web-of-life">
+                        <div class="space-row">
+                            <div class="space-labels">
+                                <div class="space-name-row">
+                                    <div class="space-icon-pill">🕸️</div>
+                                    <div class="space-name">Web of Life Areas</div>
+                                </div>
+                                <div class="space-tagline">
+                                    Visualize how health, work, love, creativity and money interact as one system.
+                                </div>
+                            </div>
+                            <div class="space-meta-pill">Systems view</div>
+                        </div>
+                        <div class="space-footer">
+                            <div class="space-tags">
+                                <span class="space-tag">Balance</span>
+                                <span class="space-tag">Dependencies</span>
+                                <span class="space-tag">What’s overloaded?</span>
+                            </div>
+                            <button class="space-cta">
+                                <span>View canvas</span><span class="icon">🖼️</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Space card 4 -->
+                    <article class="space-card" data-space="relationships">
+                        <div class="space-row">
+                            <div class="space-labels">
+                                <div class="space-name-row">
+                                    <div class="space-icon-pill">🤝</div>
+                                    <div class="space-name">Web of Connections</div>
+                                </div>
+                                <div class="space-tagline">
+                                    Map the people, projects, and communities that shape your reality.
+                                </div>
+                            </div>
+                            <div class="space-meta-pill">Relational</div>
+                        </div>
+                        <div class="space-footer">
+                            <div class="space-tags">
+                                <span class="space-tag">Support circle</span>
+                                <span class="space-tag">Commitments</span>
+                                <span class="space-tag">Energy exchange</span>
+                            </div>
+                            <button class="space-cta">
+                                <span>See web</span><span class="icon">🕸️</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Space card 5 -->
+                    <article class="space-card" data-space="rhythms">
+                        <div class="space-row">
+                            <div class="space-labels">
+                                <div class="space-name-row">
+                                    <div class="space-icon-pill">🌙</div>
+                                    <div class="space-name">Rhythms & Rituals</div>
+                                </div>
+                                <div class="space-tagline">
+                                    Align your days and weeks with simple rituals that keep your inner fire steady.
+                                </div>
+                            </div>
+                            <div class="space-meta-pill">Habits</div>
+                        </div>
+                        <div class="space-footer">
+                            <div class="space-tags">
+                                <span class="space-tag">Morning</span>
+                                <span class="space-tag">Evening</span>
+                                <span class="space-tag">Check-ins</span>
+                            </div>
+                            <button class="space-cta">
+                                <span>Design a ritual</span><span class="icon">🧘</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Space card 6 -->
+                    <article class="space-card" data-space="library">
+                        <div class="space-row">
+                            <div class="space-labels">
+                                <div class="space-name-row">
+                                    <div class="space-icon-pill">📚</div>
+                                    <div class="space-name">Library of Self</div>
+                                </div>
+                                <div class="space-tagline">
+                                    A living archive of reflections, insights, decisions and lessons learned.
+                                </div>
+                            </div>
+                            <div class="space-meta-pill">Library</div>
+                        </div>
+                        <div class="space-footer">
+                            <div class="space-tags">
+                                <span class="space-tag">Journals</span>
+                                <span class="space-tag">Decisions</span>
+                                <span class="space-tag">Patterns</span>
+                            </div>
+                            <button class="space-cta">
+                                <span>Browse entries</span><span class="icon">📖</span>
+                            </button>
+                        </div>
+                    </article>
+                </section>
+            </section>
+
+            <!-- Right column: Snapshot & Timeline -->
+            <aside class="right-column">
+                <!-- Today's snapshot -->
+                <section class="snapshot-card" aria-label="Today snapshot">
+                    <header class="snapshot-header">
+                        <div class="snapshot-title-wrap">
+                            <div class="snapshot-title">Today’s snapshot</div>
+                            <div class="snapshot-subtitle">A quick read on your direction, energy and load.</div>
+                        </div>
+                        <div class="snapshot-badge">
+                            <span>Inner weather: Clear with curiosity</span><span>🌤️</span>
+                        </div>
+                    </header>
+
+                    <div class="snapshot-grid">
+                        <div class="snapshot-tile">
+                            <div class="tile-label">Clarity</div>
+                            <div class="tile-main">78%</div>
+                            <div class="tile-sub">You named 3 priority threads.</div>
+                        </div>
+                        <div class="snapshot-tile">
+                            <div class="tile-label">Energy</div>
+                            <div class="tile-main">Balanced</div>
+                            <div class="tile-sub">2 focus blocks · 1 rest anchor.</div>
+                        </div>
+                        <div class="snapshot-tile">
+                            <div class="tile-label">Load</div>
+                            <div class="tile-main">Light+</div>
+                            <div class="tile-sub">7 tasks · 2 must-do.</div>
+                        </div>
+                    </div>
+
+                    <div class="meter-row">
+                        <div class="meter-label">Alignment with Field of Becoming</div>
+                        <div class="meter-bar">
+                            <div class="meter-fill"></div>
+                        </div>
+                        <div class="meter-value">76%</div>
+                    </div>
+
+                    <div class="mini-row">
+                        <p class="mini-note">
+                            Suggestion: Protect one 90-minute deep work block today for what matters most.
+                        </p>
+                        <button class="mini-link" id="deepBlockButton">
+                            <span>Block it in</span><span>⏱️</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Timeline / Rituals -->
+                <section class="timeline-card" aria-label="Timeline and rituals">
+                    <header class="timeline-header">
+                        <div>
+                            <div class="timeline-title">Today’s rhythm</div>
+                            <div class="timeline-sub">Anchor points that keep you in tune.</div>
+                        </div>
+                        <div class="timeline-chips">
+                            <span class="timeline-chip">Aligned</span>
+                            <span class="timeline-chip">Gentle pace</span>
+                        </div>
+                    </header>
+
+                    <ul class="timeline-list">
+                        <li class="timeline-item">
+                            <div class="dot-column">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-line"></div>
+                            </div>
+                            <div class="timeline-body">
+                                <div class="timeline-label-row">
+                                    <span class="timeline-label">Inner Fire check-in</span>
+                                    <span class="timeline-time">Morning</span>
+                                </div>
+                                <p class="timeline-desc">
+                                    Quick scan of body, mind and heart. Name your weather, pick one word for the day.
+                                </p>
+                                <div class="timeline-pill-row">
+                                    <span class="timeline-pill">5 minutes</span>
+                                    <span class="timeline-pill">Breath & posture</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="timeline-item">
+                            <div class="dot-column">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-line"></div>
+                            </div>
+                            <div class="timeline-body">
+                                <div class="timeline-label-row">
+                                    <span class="timeline-label">Focus Flight</span>
+                                    <span class="timeline-time">Midday</span>
+                                </div>
+                                <p class="timeline-desc">
+                                    One protected block for the highest-leverage move inside your current season.
+                                </p>
+                                <div class="timeline-pill-row">
+                                    <span class="timeline-pill">90 minutes</span>
+                                    <span class="timeline-pill">No notifications</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="timeline-item">
+                            <div class="dot-column">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-line"></div>
+                            </div>
+                            <div class="timeline-body">
+                                <div class="timeline-label-row">
+                                    <span class="timeline-label">Landing Ritual</span>
+                                    <span class="timeline-time">Evening</span>
+                                </div>
+                                <p class="timeline-desc">
+                                    Close the loop gently: wins, learnings, and one small promise to tomorrow-you.
+                                </p>
+                                <div class="timeline-pill-row">
+                                    <span class="timeline-pill">Journal prompt</span>
+                                    <span class="timeline-pill">Inbox of longing</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+        </main>
+
+        <footer>
+            <span>© 2025 · Youality · All rights reserved</span>
+            <span>Work in progress · Interface evolving with user feedback</span>
+        </footer>
+    </div>
+
+    <script>
+        // Simple interactivity to make the prototype feel "alive"
+
+        // 1. Chips populate the focus input
+        const chips = document.querySelectorAll(".chip");
+        const focusInput = document.getElementById("focusInput");
+        const focusButton = document.getElementById("focusButton");
+
+        chips.forEach(chip => {
+            chip.addEventListener("click", () => {
+                const text = chip.getAttribute("data-text") || chip.textContent.trim();
+                focusInput.value = text;
+                focusInput.focus();
+            });
+        });
+
+        // 2. Focus button opens a lightweight "flow started" toast
+        focusButton.addEventListener("click", () => {
+            const value = focusInput.value.trim() || "Design a calm, focused day";
+            showToast("Guided flow started: " + value);
+        });
+
+        // 3. Deep work block suggestion
+        const deepBlockButton = document.getElementById("deepBlockButton");
+        deepBlockButton.addEventListener("click", () => {
+            showToast("✨ Deep work block penciled in. Protect 90 minutes for your highest-leverage move.");
+        });
+
+        // 4. Main nav tab switching – updates section flag, not separate pages
+        const tabs = document.querySelectorAll(".nav-tab");
+        const sectionFlag = document.getElementById("sectionFlag");
+
+        const sectionLabels = {
+            today: "VIEW · TODAY SNAPSHOT",
+            map: "VIEW · LIFE MAP & SYSTEMS",
+            library: "VIEW · LIBRARY OF SELF",
+            labs: "VIEW · EXPERIMENTS & PROTOTYPES"
+        };
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                const section = tab.getAttribute("data-section");
+                sectionFlag.textContent = sectionLabels[section] || "VIEW";
+            });
+        });
+
+        // 5. Calm mode toggle – gently changes background + shadows
+        const modeToggle = document.getElementById("modeToggle");
+        let calmOn = false;
+
+        modeToggle.addEventListener("click", () => {
+            calmOn = !calmOn;
+            document.body.style.background = calmOn
+                ? "radial-gradient(circle at top, #EDF4F3 0%, #EDEFF7 40%, #EDF4F3 100%)"
+                : "radial-gradient(circle at top left, #EDF4F3 0%, #EDEFF7 35%, #FFFFFF 100%)";
+
+            modeToggle.innerHTML = calmOn
+                ? "<span>Calm mode on</span><span>🌊</span>"
+                : "<span>Calm mode</span><span>🌿</span>";
+
+            showToast(calmOn ? "Calm mode on – visuals softened." : "Calm mode off – back to default view.");
+        });
+
+        // 6. Space card interaction – show which space you clicked
+        const spaceCards = document.querySelectorAll(".space-card");
+        spaceCards.forEach(card => {
+            card.addEventListener("click", (event) => {
+                // Avoid double-trigger when clicking the CTA button itself
+                if (event.target.closest(".space-cta")) {
+                    const name = card.querySelector(".space-name")?.textContent.trim();
+                    showToast("Opening: " + (name || "Space"));
+                } else {
+                    const name = card.querySelector(".space-name")?.textContent.trim();
+                    showToast("Focused on space: " + (name || "Space"));
+                }
+            });
+        });
+
+        // Simple toast system
+        let toastTimeout;
+        function showToast(message) {
+            let toast = document.getElementById("ylToast");
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "ylToast";
+                document.body.appendChild(toast);
+                Object.assign(toast.style, {
+                    position: "fixed",
+                    left: "50%",
+                    bottom: "24px",
+                    transform: "translateX(-50%) translateY(120%)",
+                    padding: "8px 14px",
+                    borderRadius: "999px",
+                    background: "#1E1E24",
+                    color: "#ffffff",
+                    fontSize: "12px",
+                    boxShadow: "0 16px 32px rgba(0,0,0,0.3)",
+                    opacity: "0",
+                    transition: "opacity 150ms ease-out, transform 150ms ease-out",
+                    zIndex: "9999",
+                    maxWidth: "90%",
+                    textAlign: "center",
+                    pointerEvents: "none"
+                });
+            }
+
+            toast.textContent = message;
+            toast.style.opacity = "1";
+            toast.style.transform = "translateX(-50%) translateY(0%)";
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(-50%) translateY(120%)";
+            }, 2600);
+        }
+    </script>
+</body>
+
+</html>

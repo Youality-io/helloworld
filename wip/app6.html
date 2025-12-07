@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Main Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            /* Brand base */
+            --bg-main: #EDF4F3;
+            --bg-soft: #EDEFF7;
+            --accent-teal: #369799;
+            --accent-blue: #24769C;
+            --text-main: #1E1E24;
+            --text-muted: #6E7180;
+            --text-soft: #9DA2B3;
+            --surface: #FFFFFF;
+            --border-subtle: #D3D6E0;
+            --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.06);
+
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --radius-pill: 999px;
+
+            --transition-fast: 160ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #EDEFF7 0, #EDF4F3 40%, #EDF4F3 100%);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            padding-top: 45px;
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 20px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Header / Top Nav */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 16px;
+            background: conic-gradient(from 210deg, var(--accent-teal), var(--accent-blue), var(--accent-teal));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.9), transparent 55%);
+            opacity: 0.8;
+        }
+
+        .brand-mark span {
+            position: relative;
+            font-weight: 700;
+            font-size: 15px;
+            color: #1E1E24;
+            letter-spacing: 0.06em;
+        }
+
+        .brand-text-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-soft);
+        }
+
+        .nav-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-link {
+            font-size: 13px;
+            padding: 8px 14px;
+            border-radius: var(--radius-pill);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .nav-link.is-active {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            color: #ffffff;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .nav-link:hover {
+            background: rgba(237, 239, 247, 0.9);
+            color: var(--text-main);
+        }
+
+        .nav-link.is-active:hover {
+            filter: brightness(1.03);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-shell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: var(--radius-pill);
+            padding: 6px 11px 6px 12px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(14px);
+        }
+
+        .search-shell input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            color: var(--text-main);
+            width: 160px;
+        }
+
+        .search-shell input::placeholder {
+            color: var(--text-soft);
+        }
+
+        .search-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-soft);
+            flex-shrink: 0;
+        }
+
+        .pill-subtle {
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(211, 214, 224, 0.85);
+            color: var(--text-soft);
+            background: rgba(237, 239, 247, 0.6);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 0%, #ffffff, #d3d6e0);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            border: 1px solid rgba(220, 224, 235, 0.9);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .avatar::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            border: 2px solid #ffffff;
+        }
+
+        /* Page layout */
+        .page-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(0, 1.05fr);
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* Left: Hero & Focus */
+        .panel {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: var(--radius-lg);
+            padding: 20px 22px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            backdrop-filter: blur(16px);
+        }
+
+        .panel-hero {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .panel-hero::before {
+            content: "";
+            position: absolute;
+            inset: -25%;
+            background:
+                radial-gradient(circle at -20% -20%, rgba(54, 151, 153, 0.18), transparent 55%),
+                radial-gradient(circle at 120% 0%, rgba(36, 118, 156, 0.22), transparent 55%),
+                linear-gradient(135deg, rgba(237, 244, 243, 0.95), rgba(237, 239, 247, 0.98));
+            opacity: 0.95;
+            z-index: -1;
+        }
+
+        .hero-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .hero-title-block h1 {
+            margin: 0 0 6px;
+            font-size: 26px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title-block p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 360px;
+        }
+
+        .hero-subchips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .chip {
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chip-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            box-shadow: 0 0 0 3px rgba(54, 151, 153, 0.18);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            border-radius: var(--radius-pill);
+            padding: 8px 16px;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            color: white;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+        }
+
+        .btn-primary span.icon {
+            font-size: 14px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 38px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-muted);
+            border: 1px solid rgba(211, 214, 224, 0.95);
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+            color: var(--text-main);
+        }
+
+        .hero-meta {
+            font-size: 11px;
+            color: var(--text-soft);
+        }
+
+        .hero-meta strong {
+            color: var(--text-muted);
+        }
+
+        .hero-bottom-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .mini-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .metric-pill {
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .metric-pill span.value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .metric-pill span.label {
+            color: var(--text-soft);
+        }
+
+        .wip-pill {
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: var(--radius-pill);
+            background: rgba(30, 30, 36, 0.92);
+            color: #f5f5f7;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
+        }
+
+        .wip-pill span.badge {
+            padding: 2px 8px;
+            border-radius: var(--radius-pill);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            color: #ffffff;
+        }
+
+        .wip-pill span.text {
+            opacity: 0.9;
+        }
+
+        /* Focus / Today section */
+        .panel-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .panel-section-header h2 {
+            margin: 0;
+            font-size: 15px;
+            letter-spacing: -0.01em;
+        }
+
+        .panel-section-header p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .toggle-group {
+            display: inline-flex;
+            padding: 3px;
+            border-radius: var(--radius-pill);
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            gap: 2px;
+        }
+
+        .toggle-btn {
+            border: none;
+            padding: 4px 9px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-soft);
+            transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .toggle-btn.is-active {
+            background: #ffffff;
+            color: var(--text-main);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .card-focus {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 10px 11px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            transition: box-shadow var(--transition-fast), transform var(--transition-fast), border var(--transition-fast), background var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-focus::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 0 0, rgba(54, 151, 153, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+            pointer-events: none;
+        }
+
+        .card-focus:hover {
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            border-color: rgba(36, 118, 156, 0.35);
+            background: linear-gradient(135deg, rgba(237, 244, 243, 0.95), rgba(237, 239, 247, 0.96));
+        }
+
+        .card-focus:hover::before {
+            opacity: 1;
+        }
+
+        .card-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-soft);
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .card-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .tag-soft {
+            padding: 4px 7px;
+            border-radius: var(--radius-pill);
+            font-size: 10px;
+            background: rgba(237, 239, 247, 0.9);
+            color: var(--text-soft);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag-soft-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+        }
+
+        .progress-pill {
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: var(--radius-pill);
+            background: rgba(30, 30, 36, 0.9);
+            color: rgba(255, 255, 255, 0.92);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .progress-pill span.bar {
+            width: 36px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.7);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-pill span.bar::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            width: 65%;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+        }
+
+        .card-footnote {
+            font-size: 11px;
+            color: var(--text-soft);
+            margin-top: 2px;
+        }
+
+        /* Right: Inner weather + Overview */
+        .panel.side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .panel-inner {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            border: 1px solid rgba(211, 214, 224, 0.92);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .panel-inner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .panel-inner-header h3 {
+            margin: 0;
+            font-size: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .panel-inner-header span {
+            font-size: 11px;
+            color: var(--text-soft);
+        }
+
+        .weather-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+            gap: 12px;
+            align-items: center;
+        }
+
+        .weather-main-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .weather-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .weather-slider {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg,
+                    rgba(64, 66, 77, 0.2),
+                    rgba(54, 151, 153, 0.7),
+                    rgba(36, 118, 156, 0.9));
+            overflow: hidden;
+        }
+
+        .weather-knob {
+            position: absolute;
+            top: 50%;
+            left: 58%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 2px solid rgba(36, 118, 156, 0.85);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .weather-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .pill-weather {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            background: rgba(237, 239, 247, 0.85);
+            color: var(--text-soft);
+        }
+
+        .weather-badge {
+            text-align: right;
+            font-size: 11px;
+            color: var(--text-soft);
+        }
+
+        .weather-badge strong {
+            color: var(--text-main);
+        }
+
+        .pill-circle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: var(--radius-pill);
+            background: #1E1E24;
+            color: #f5f5f7;
+            font-size: 10px;
+        }
+
+        .pill-circle span.dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .area-card {
+            border-radius: var(--radius-md);
+            padding: 9px 10px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.95);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast), border var(--transition-fast);
+        }
+
+        .area-card:hover {
+            background: #ffffff;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            border-color: rgba(36, 118, 156, 0.38);
+        }
+
+        .area-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .area-label-row span.name {
+            font-weight: 600;
+        }
+
+        .area-label-row span.score {
+            font-size: 11px;
+            color: var(--text-soft);
+        }
+
+        .area-meter {
+            width: 100%;
+            height: 5px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .area-meter::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            width: var(--fill, 60%);
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+        }
+
+        .area-micro {
+            font-size: 10px;
+            color: var(--text-soft);
+            display: flex;
+            justify-content: space-between;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .time-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .time-row-main {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-badge {
+            font-size: 10px;
+            padding: 3px 7px;
+            border-radius: var(--radius-pill);
+            background: rgba(237, 239, 247, 0.9);
+            color: var(--text-soft);
+        }
+
+        .tag-tiny {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: var(--radius-pill);
+            background: #ffffff;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            color: var(--text-soft);
+        }
+
+        .link-sub {
+            font-size: 11px;
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .link-sub:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .app-shell {
+                padding: 18px 14px 26px;
+            }
+
+            .page-body {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .nav-main {
+                display: none;
+            }
+
+            .hero-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-actions {
+                align-items: flex-start;
+            }
+
+            .focus-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .app-header {
+                flex-wrap: wrap;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .search-shell input {
+                width: 100px;
+            }
+
+            .focus-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .weather-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .areas-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 150ms ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-blue);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="app5.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">App Prototype 6 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="app7.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="app-shell">
+        <!-- Top navigation -->
+        <header class="app-header">
+            <div class="brand-block">
+                <img src="../youality_emblem.svg" alt="Youality logo"
+                    style="height:36px; width:36px; object-fit: contain;" />
+                <div class="brand-text-main">
+                    <div class="brand-name">Youality</div>
+                    <div class="brand-tagline">Navigate your reality, masterfully</div>
+                </div>
+            </div>
+
+            <nav class="nav-main" aria-label="Primary">
+                <a href="#" class="nav-link is-active">Home</a>
+                <a href="#" class="nav-link">Map</a>
+                <a href="#" class="nav-link">Journeys</a>
+                <a href="#" class="nav-link">Reflections</a>
+                <a href="#" class="nav-link">Library</a>
+            </nav>
+
+            <div class="header-right">
+                <div class="search-shell">
+                    <span class="search-icon">⌕</span>
+                    <input type="search" placeholder="Search your life map…" aria-label="Search" />
+                </div>
+                <span class="pill-subtle">v0.1 · live prototype</span>
+                <div class="avatar" title="Open profile">
+                    <span>J</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main body -->
+        <main class="page-body">
+            <!-- LEFT: Hero + Focus -->
+            <section aria-label="Today view">
+                <div class="panel panel-hero">
+                    <div class="hero-header-row">
+                        <div class="hero-title-block">
+                            <h1>Good afternoon, John.</h1>
+                            <p>
+                                Design today with intention. Youality weaves your goals, energy, and inner weather
+                                into one clear, living map.
+                            </p>
+                            <div class="hero-subchips">
+                                <div class="chip">
+                                    <span class="chip-dot"></span>
+                                    <span>Systemic life planning</span>
+                                </div>
+                                <div class="chip">
+                                    <span class="chip-dot"></span>
+                                    <span>Self-mastery rituals</span>
+                                </div>
+                                <div class="chip">
+                                    <span class="chip-dot"></span>
+                                    <span>Reality navigation OS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-actions">
+                            <div class="hero-buttons">
+                                <button class="btn btn-primary">
+                                    <span class="icon">●</span>
+                                    <span>Start daily ritual</span>
+                                </button>
+                                <button class="btn btn-secondary">
+                                    <span>Open life map</span>
+                                </button>
+                            </div>
+                            <div class="hero-meta">
+                                <strong>Next:</strong> Weekly review in 2h · 3 celebrations waiting
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-bottom-row">
+                        <div class="mini-metrics">
+                            <div class="metric-pill">
+                                <span class="value">3</span>
+                                <span class="label">high-leverage moves</span>
+                            </div>
+                            <div class="metric-pill">
+                                <span class="value">2</span>
+                                <span class="label">energy restores</span>
+                            </div>
+                            <div class="metric-pill">
+                                <span class="value">1</span>
+                                <span class="label">open loop to close</span>
+                            </div>
+                        </div>
+                        <div class="wip-pill">
+                            <span class="badge">WIP</span>
+                            <span class="text">Living prototype · the system evolves with you</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-section-header">
+                        <div>
+                            <h2>Today’s focus</h2>
+                            <p>Anchor the day in 3 moves — aligned with your bigger map.</p>
+                        </div>
+                        <div class="toggle-group" aria-label="Time horizon">
+                            <button class="toggle-btn is-active" data-time-view="today">Today</button>
+                            <button class="toggle-btn" data-time-view="week">This week</button>
+                        </div>
+                    </div>
+
+                    <!-- Today view -->
+                    <div class="focus-grid" data-time-section="today">
+                        <article class="card-focus">
+                            <span class="card-label">Inner alignment</span>
+                            <div class="card-title">Morning calibration ritual</div>
+                            <div class="card-meta-row">
+                                <div class="tag-soft">
+                                    <span class="tag-soft-dot"></span>
+                                    <span>15 min · breath, check-in, intentions</span>
+                                </div>
+                                <div class="progress-pill">
+                                    <span class="bar"></span>
+                                    <span>2/3</span>
+                                </div>
+                            </div>
+                            <div class="card-footnote">Next micro-step: choose today’s primary feeling tone.</div>
+                        </article>
+
+                        <article class="card-focus">
+                            <span class="card-label">Creative work</span>
+                            <div class="card-title">Youality roadmap block</div>
+                            <div class="card-meta-row">
+                                <div class="tag-soft">
+                                    <span class="tag-soft-dot"></span>
+                                    <span>60 min deep focus</span>
+                                </div>
+                                <div class="progress-pill">
+                                    <span class="bar" style="--fill: 40%;"></span>
+                                    <span>0/1</span>
+                                </div>
+                            </div>
+                            <div class="card-footnote">Define 1–3 next experiments for the platform.</div>
+                        </article>
+
+                        <article class="card-focus">
+                            <span class="card-label">Energy & body</span>
+                            <div class="card-title">Movement + micro-celebration</div>
+                            <div class="card-meta-row">
+                                <div class="tag-soft">
+                                    <span class="tag-soft-dot"></span>
+                                    <span>30 min · move + savor a win</span>
+                                </div>
+                                <div class="progress-pill">
+                                    <span class="bar" style="--fill: 20%;"></span>
+                                    <span>0/1</span>
+                                </div>
+                            </div>
+                            <div class="card-footnote">Close the day naming what felt most alive.</div>
+                        </article>
+                    </div>
+
+                    <!-- Week view -->
+                    <div class="focus-grid" data-time-section="week" style="display: none;">
+                        <article class="card-focus">
+                            <span class="card-label">Vision</span>
+                            <div class="card-title">Update Life Map for Q1</div>
+                            <div class="card-meta-row">
+                                <div class="tag-soft">
+                                    <span class="tag-soft-dot"></span>
+                                    <span>90 min this week</span>
+                                </div>
+                                <div class="progress-pill">
+                                    <span class="bar" style="--fill: 55%;"></span>
+                                    <span>1/2</span>
+                                </div>
+                            </div>
+                            <div class="card-footnote">Refine top 3 themes: work, love, adventure.</div>
+                        </article>
+
+                        <article class="card-focus">
+                            <span class="card-label">Relationships</span>
+                            <div class="card-title">Connection rituals</div>
+                            <div class="card-meta-row">
+                                <div class="tag-soft">
+                                    <span class="tag-soft-dot"></span>
+                                    <span>3 meaningful check-ins</span>
+                                </div>
+                                <div class="progress-pill">
+                                    <span class="bar" style="--fill: 33%;"></span>
+                                    <span>1/3</span>
+                                </div>
+                            </div>
+                            <div class="card-footnote">Who feels most “up next” to reach out to?</div>
+                        </article>
+
+                        <article class="card-focus">
+                            <span class="card-label">Systems</span>
+                            <div class="card-title">Refine Youality rituals</div>
+                            <div class="card-meta-row">
+                                <div class="tag-soft">
+                                    <span class="tag-soft-dot"></span>
+                                    <span>Experiment & iterate</span>
+                                </div>
+                                <div class="progress-pill">
+                                    <span class="bar" style="--fill: 10%;"></span>
+                                    <span>0/2</span>
+                                </div>
+                            </div>
+                            <div class="card-footnote">Add one new question to your daily check-in.</div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT: Inner Weather + Areas + Timeline -->
+            <aside class="panel side">
+                <!-- Inner weather -->
+                <section class="panel-inner">
+                    <div class="panel-inner-header">
+                        <div>
+                            <h3>Inner weather</h3>
+                            <span>How does your inner sky feel right now?</span>
+                        </div>
+                        <div class="pill-circle">
+                            <span class="dot"></span>
+                            <span>Self-awareness mode</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-row">
+                        <div>
+                            <div class="weather-main-label">Calm brightness with pockets of fog</div>
+                            <div class="weather-sub">
+                                Notice where things feel clear versus hazy. Use that to choose your next move.
+                            </div>
+                            <div class="weather-slider" aria-hidden="true">
+                                <div class="weather-knob"></div>
+                            </div>
+                            <div class="weather-tags">
+                                <span class="pill-weather">Clarity: 7/10</span>
+                                <span class="pill-weather">Energy: 6/10</span>
+                                <span class="pill-weather">Nervous system: steady</span>
+                            </div>
+                        </div>
+                        <div class="weather-badge">
+                            <div>Suggested focus:</div>
+                            <strong>1 grounding · 1 creative push · 1 celebration</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Life areas pulse -->
+                <section class="panel-inner">
+                    <div class="panel-inner-header">
+                        <div>
+                            <h3>Life areas – quick pulse</h3>
+                            <span>Where is attention most requested this week?</span>
+                        </div>
+                        <a href="#" class="link-sub">Open full wheel →</a>
+                    </div>
+
+                    <div class="areas-grid">
+                        <div class="area-card" style="--fill: 72%;">
+                            <div class="area-label-row">
+                                <span class="name">Work & creation</span>
+                                <span class="score">7.2</span>
+                            </div>
+                            <div class="area-meter"></div>
+                            <div class="area-micro">
+                                <span>Inspired</span>
+                                <span>Needs structure</span>
+                            </div>
+                        </div>
+
+                        <div class="area-card" style="--fill: 64%;">
+                            <div class="area-label-row">
+                                <span class="name">Love & connection</span>
+                                <span class="score">6.4</span>
+                            </div>
+                            <div class="area-meter"></div>
+                            <div class="area-micro">
+                                <span>Rich web</span>
+                                <span>Intimacy up next</span>
+                            </div>
+                        </div>
+
+                        <div class="area-card" style="--fill: 58%;">
+                            <div class="area-label-row">
+                                <span class="name">Body & energy</span>
+                                <span class="score">5.8</span>
+                            </div>
+                            <div class="area-meter"></div>
+                            <div class="area-micro">
+                                <span>Good base</span>
+                                <span>Wants rhythm</span>
+                            </div>
+                        </div>
+
+                        <div class="area-card" style="--fill: 81%;">
+                            <div class="area-label-row">
+                                <span class="name">Spirit & meaning</span>
+                                <span class="score">8.1</span>
+                            </div>
+                            <div class="area-meter"></div>
+                            <div class="area-micro">
+                                <span>Deep currents</span>
+                                <span>Integration phase</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Timeline -->
+                <section class="panel-inner">
+                    <div class="panel-inner-header">
+                        <div>
+                            <h3>Today’s timeline</h3>
+                            <span>A light structure you can actually breathe in.</span>
+                        </div>
+                        <span style="font-size: 10px; color: var(--text-soft);">Drag & re-arrange (coming soon)</span>
+                    </div>
+
+                    <div class="timeline-list">
+                        <div class="time-row">
+                            <div class="time-row-main">
+                                <span class="time-badge">Now</span>
+                                <span>Center + choose “one thing that matters”</span>
+                            </div>
+                            <span class="tag-tiny">5 min</span>
+                        </div>
+
+                        <div class="time-row">
+                            <div class="time-row-main">
+                                <span class="time-badge">Next</span>
+                                <span>Youality build block · roadmap / interface</span>
+                            </div>
+                            <span class="tag-tiny">60 min focus</span>
+                        </div>
+
+                        <div class="time-row">
+                            <div class="time-row-main">
+                                <span class="time-badge">Later</span>
+                                <span>Body & breath · move energy</span>
+                            </div>
+                            <span class="tag-tiny">30 min</span>
+                        </div>
+
+                        <div class="time-row">
+                            <div class="time-row-main">
+                                <span class="time-badge">Evening</span>
+                                <span>Micro-reflection + celebration</span>
+                            </div>
+                            <span class="tag-tiny">10 min</span>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        // Simple toggle between "Today" and "This week" focus views
+        document.addEventListener("DOMContentLoaded", function () {
+            var toggleButtons = document.querySelectorAll(".toggle-btn[data-time-view]");
+            var sections = document.querySelectorAll("[data-time-section]");
+
+            function setView(view) {
+                sections.forEach(function (sec) {
+                    sec.style.display = sec.getAttribute("data-time-section") === view ? "grid" : "none";
+                });
+            }
+
+            toggleButtons.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    var view = btn.getAttribute("data-time-view");
+                    toggleButtons.forEach(function (b) {
+                        b.classList.toggle("is-active", b === btn);
+                    });
+                    setView(view);
+                });
+            });
+
+            // Ensure initial state
+            setView("today");
+        });
+    </script>
+</body>
+
+</html>

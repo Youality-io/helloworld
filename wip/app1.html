@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Personal Navigation System (Prototype)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Youality – a personal navigation system to design, align, and live your reality, masterfully." />
+
+    <!-- Brand font -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            /* Brand palette */
+            --bg: #EDF4F3;
+            --primary: #369799;
+            --primary-dark: #24769C;
+            --ink: #1E1E24;
+            --muted: #6E7180;
+            --card: #FFFFFF;
+            --border-soft: #D3D6E0;
+            --border-strong: #BCBFCC;
+            --shadow-soft: 0 18px 45px rgba(30, 30, 36, 0.08);
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --radius-pill: 999px;
+            --transition-fast: 150ms ease-out;
+            --transition-med: 220ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 0% 0%, rgba(54, 151, 153, 0.10), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(36, 118, 156, 0.12), transparent 55%),
+                var(--bg);
+            min-height: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* Layout */
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shell {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px clamp(18px, 3vw, 32px) 64px;
+        }
+
+        header {
+            position: sticky;
+            top: 45px;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: linear-gradient(to bottom, rgba(237, 244, 243, 0.95), rgba(237, 244, 243, 0.85));
+            border-bottom: 1px solid rgba(211, 214, 224, 0.7);
+        }
+
+        .nav-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 12px clamp(18px, 3vw, 32px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            font-size: 1.02rem;
+            text-transform: uppercase;
+        }
+
+        .brand-tagline {
+            font-size: 0.76rem;
+            color: var(--muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 0.9rem;
+        }
+
+        .nav-link {
+            padding: 6px 2px;
+            position: relative;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            transition: width var(--transition-fast);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.is-active::after {
+            width: 100%;
+        }
+
+        .nav-link.is-active {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(36, 118, 156, 0.14);
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 24px rgba(30, 30, 36, 0.06);
+            cursor: pointer;
+            font-size: 0.86rem;
+            font-weight: 600;
+            transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .nav-cta span.dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, #EDF4F3, var(--primary));
+            box-shadow: 0 0 0 4px rgba(54, 151, 153, 0.35);
+        }
+
+        .nav-cta:hover {
+            background: #FFFFFF;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(30, 30, 36, 0.09);
+        }
+
+        /* Hero */
+
+        main {
+            flex: 1;
+        }
+
+        section {
+            padding: 52px 0;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            background: rgba(237, 239, 247, 0.85);
+            border: 1px solid rgba(211, 214, 224, 0.7);
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .hero-kicker-pill {
+            width: 6px;
+            height: 16px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 3vw, 2.9rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            max-width: 480px;
+            font-size: 0.98rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            border: none;
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 0.94rem;
+            cursor: pointer;
+            box-shadow: 0 18px 36px rgba(36, 118, 156, 0.45);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform var(--transition-med), box-shadow var(--transition-med), filter var(--transition-med);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.02);
+            box-shadow: 0 22px 40px rgba(36, 118, 156, 0.55);
+        }
+
+        .btn-ghost {
+            padding: 9px 16px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(64, 66, 77, 0.18);
+            background: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-1px);
+            border-color: rgba(64, 66, 77, 0.28);
+        }
+
+        .hero-footnote {
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-footnote span.badge {
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px dashed rgba(54, 151, 153, 0.5);
+            font-size: 0.72rem;
+            color: var(--primary-dark);
+            background: rgba(237, 244, 243, 0.9);
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 260px;
+        }
+
+        .wip-pill {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 0.74rem;
+            background: #1E1E24;
+            color: #EDF4F3;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            z-index: 2;
+        }
+
+        .wip-pill span.dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #42FFB8;
+            box-shadow: 0 0 10px rgba(66, 255, 184, 0.9);
+            animation: pulse 1.2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+
+            to {
+                transform: scale(1.3);
+                opacity: 0.4;
+            }
+        }
+
+        .prototype-shell {
+            position: relative;
+            margin-top: 32px;
+            border-radius: var(--radius-xl);
+            background: radial-gradient(circle at 10% 0%, rgba(237, 239, 247, 0.8), transparent 60%),
+                #1E1E24;
+            padding: 12px 12px 14px;
+            box-shadow: var(--shadow-soft);
+            color: #EDF4F3;
+            overflow: hidden;
+        }
+
+        .prototype-window-bar {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding-inline: 4px;
+            font-size: 0.78rem;
+            color: rgba(237, 244, 243, 0.8);
+        }
+
+        .prototype-window-bar>span:nth-child(2) {
+            text-align: center;
+        }
+
+        .window-dots {
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .window-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.2);
+        }
+
+        .window-dot:nth-child(1) {
+            background: #FF5F57;
+        }
+
+        .window-dot:nth-child(2) {
+            background: #FEBB2E;
+        }
+
+        .window-dot:nth-child(3) {
+            background: #28C93F;
+        }
+
+        .prototype-app {
+            border-radius: 18px;
+            background: radial-gradient(circle at 0% 0%, rgba(54, 151, 153, 0.18), transparent 55%),
+                radial-gradient(circle at 110% 10%, rgba(36, 118, 156, 0.26), transparent 60%),
+                #15151B;
+            border: 1px solid rgba(188, 191, 204, 0.65);
+            padding: 14px;
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 14px;
+            min-height: 260px;
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            border-radius: 14px;
+            background: radial-gradient(circle at 0% 0%, rgba(237, 244, 243, 0.15), transparent 55%),
+                rgba(14, 14, 20, 0.92);
+            border: 1px solid rgba(211, 214, 224, 0.35);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            border: 1px solid rgba(237, 244, 243, 0.8);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.76rem;
+            background: radial-gradient(circle at 30% 20%, #EDF4F3, rgba(237, 244, 243, 0.1));
+            color: #1E1E24;
+            font-weight: 600;
+        }
+
+        .sidebar-user {
+            font-size: 0.78rem;
+        }
+
+        .sidebar-user span {
+            display: block;
+            line-height: 1.3;
+        }
+
+        .sidebar-user span.name {
+            font-weight: 600;
+        }
+
+        .sidebar-user span.role {
+            color: rgba(237, 244, 243, 0.6);
+            font-size: 0.7rem;
+        }
+
+        .sidebar-nav-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: rgba(237, 244, 243, 0.6);
+            margin-top: 6px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .sidebar-nav button {
+            text-align: left;
+            padding: 7px 9px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: rgba(237, 244, 243, 0.75);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .sidebar-nav button span.label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar-nav button span.bullet {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.4);
+        }
+
+        .sidebar-nav button span.badge {
+            font-size: 0.72rem;
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: rgba(23, 110, 146, 0.7);
+        }
+
+        .sidebar-nav button.is-active {
+            background: linear-gradient(135deg, rgba(54, 151, 153, 0.8), rgba(36, 118, 156, 0.9));
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        .sidebar-nav button.is-active span.bullet {
+            background: #FFFFFF;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(188, 191, 204, 0.6);
+            font-size: 0.7rem;
+            color: rgba(237, 244, 243, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sidebar-footer span.mode {
+            padding: 2px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(237, 244, 243, 0.35);
+            background: rgba(21, 21, 27, 0.85);
+        }
+
+        /* Prototype main area */
+
+        .prototype-main {
+            border-radius: 14px;
+            background: rgba(8, 8, 14, 0.9);
+            border: 1px solid rgba(188, 191, 204, 0.6);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .prototype-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-bottom: 1px solid rgba(188, 191, 204, 0.45);
+            padding-bottom: 6px;
+        }
+
+        .prototype-tab-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 0.78rem;
+            background: transparent;
+            color: rgba(237, 244, 243, 0.7);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .prototype-tab-btn span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.4);
+        }
+
+        .prototype-tab-btn.is-active {
+            background: rgba(237, 244, 243, 0.12);
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        .prototype-tab-btn.is-active span.dot {
+            background: #42FFB8;
+            box-shadow: 0 0 12px rgba(66, 255, 184, 0.9);
+        }
+
+        .prototype-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: rgba(237, 244, 243, 0.7);
+        }
+
+        .prototype-header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .prototype-header-title strong {
+            font-size: 0.9rem;
+            color: #FFFFFF;
+        }
+
+        .prototype-header-badges {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .prototype-badge {
+            padding: 2px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.7);
+            font-size: 0.7rem;
+            background: rgba(14, 14, 22, 0.85);
+            white-space: nowrap;
+        }
+
+        .prototype-content {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr);
+            gap: 10px;
+            margin-top: 4px;
+            align-items: flex-start;
+        }
+
+        .card {
+            border-radius: 12px;
+            background: rgba(11, 11, 18, 0.92);
+            border: 1px solid rgba(188, 191, 204, 0.55);
+            padding: 10px;
+            font-size: 0.78rem;
+            color: rgba(237, 244, 243, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.76rem;
+        }
+
+        .card-header strong {
+            font-size: 0.82rem;
+        }
+
+        .pill {
+            padding: 1px 6px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.7);
+            font-size: 0.72rem;
+        }
+
+        .pill.emphasis {
+            border-color: rgba(54, 151, 153, 0.9);
+            background: rgba(54, 151, 153, 0.25);
+            color: #E5FBF6;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meter-track {
+            flex: 1;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.3);
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            transition: width 400ms ease-out;
+        }
+
+        .metric-label {
+            font-size: 0.76rem;
+            color: rgba(237, 244, 243, 0.85);
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            padding: 2px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.45);
+            font-size: 0.72rem;
+            color: rgba(237, 244, 243, 0.85);
+            background: rgba(14, 14, 20, 0.9);
+        }
+
+        .chip.positive {
+            border-color: rgba(54, 151, 153, 0.9);
+            background: rgba(54, 151, 153, 0.2);
+            color: #E5FBF6;
+        }
+
+        .list-condensed {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .list-condensed li {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.76rem;
+        }
+
+        .badge-soft {
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.25);
+            font-size: 0.7rem;
+            color: rgba(237, 244, 243, 0.9);
+            white-space: nowrap;
+        }
+
+        /* Intention input */
+
+        .intention-input-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .intention-input-row input {
+            flex: 1;
+            padding: 5px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.7);
+            background: rgba(8, 8, 14, 0.85);
+            color: rgba(237, 244, 243, 0.96);
+            font-size: 0.76rem;
+        }
+
+        .intention-input-row input:focus {
+            outline: none;
+            border-color: rgba(54, 151, 153, 0.9);
+            box-shadow: 0 0 0 1px rgba(54, 151, 153, 0.8);
+        }
+
+        .intention-input-row button {
+            padding: 5px 9px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            background: rgba(54, 151, 153, 0.2);
+            color: #E5FBF6;
+            font-size: 0.72rem;
+            font-weight: 600;
+            transition: background var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .intention-input-row button:hover {
+            background: rgba(54, 151, 153, 0.35);
+            transform: translateY(-0.5px);
+        }
+
+        .intention-list {
+            margin-top: 4px;
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 82px;
+            overflow-y: auto;
+        }
+
+        .intention-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            font-size: 0.74rem;
+        }
+
+        .intention-list span.bullet {
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background: rgba(54, 151, 153, 0.9);
+        }
+
+        .intention-list button.remove {
+            border: none;
+            background: transparent;
+            color: rgba(237, 244, 243, 0.6);
+            cursor: pointer;
+            font-size: 0.76rem;
+        }
+
+        /* Secondary sections */
+
+        .section-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            max-width: 480px;
+            font-size: 0.92rem;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 14px 14px 16px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 10px 28px rgba(30, 30, 36, 0.05);
+            font-size: 0.86rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .info-card h3 {
+            margin: 0;
+            font-size: 0.98rem;
+        }
+
+        .info-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.5;
+        }
+
+        .info-card span.tag {
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border-strong);
+            font-size: 0.72rem;
+            color: var(--muted);
+            align-self: flex-start;
+            background: #F9FAFB;
+        }
+
+        .pill-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .pill-row span {
+            padding: 2px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(54, 151, 153, 0.15);
+            font-size: 0.76rem;
+            background: rgba(237, 244, 243, 0.9);
+            color: var(--muted);
+        }
+
+        /* CTA */
+
+        .cta {
+            background: linear-gradient(135deg, rgba(54, 151, 153, 0.15), rgba(36, 118, 156, 0.15));
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(54, 151, 153, 0.35);
+            padding: 18px 18px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .cta-main {
+            max-width: 540px;
+        }
+
+        .cta-main h2 {
+            margin: 0 0 6px;
+            font-size: 1.2rem;
+        }
+
+        .cta-main p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .cta-pill {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px dashed rgba(64, 66, 77, 0.25);
+            color: var(--muted);
+        }
+
+        footer {
+            border-top: 1px solid rgba(211, 214, 224, 0.7);
+            padding: 14px 0 24px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        footer .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding-inline: clamp(18px, 3vw, 32px);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* Modal */
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 40;
+        }
+
+        .modal-backdrop.is-open {
+            display: flex;
+        }
+
+        .modal {
+            width: min(420px, 92vw);
+            border-radius: 18px;
+            background: #FFFFFF;
+            padding: 18px 18px 16px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-soft);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-title {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .modal-title h2 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .modal-title p {
+            margin: 0;
+            font-size: 0.86rem;
+            color: var(--muted);
+        }
+
+        .modal-close {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+            line-height: 1;
+            color: var(--muted);
+        }
+
+        .modal-body {
+            font-size: 0.88rem;
+            color: var(--muted);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .modal-field-group label {
+            font-size: 0.82rem;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .modal-field-group input {
+            padding: 8px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-strong);
+            font-size: 0.86rem;
+        }
+
+        .modal-field-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px rgba(54, 151, 153, 0.7);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .modal-footer .hint {
+            font-size: 0.76rem;
+            color: var(--muted);
+        }
+
+        .modal-footer button {
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 960px) {
+            .hero {
+                grid-template-columns: minmax(0, 1.1fr);
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .prototype-app {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .prototype-content {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .nav-inner {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                gap: 26px;
+            }
+
+            .grid-3 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .cta {
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition: none !important;
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--primary-dark);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--ink);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="index8.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">App Prototype 1 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="app2.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <header>
+            <div class="nav-inner">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <img src="../youality_emblem.svg" alt="Youality logo" />
+                    </div>
+                    <div>
+                        <div class="brand-name">Youality</div>
+                        <div class="brand-tagline">Personal Navigation System</div>
+                    </div>
+                </div>
+                <nav class="nav-links" aria-label="Primary">
+                    <button class="nav-link is-active" data-scroll="#top">Platform</button>
+                    <button class="nav-link" data-scroll="#framework">Framework</button>
+                    <button class="nav-link" data-scroll="#modules">Modules</button>
+                    <button class="nav-link" data-scroll="#cta">For Coaches</button>
+                </nav>
+                <button class="nav-cta" data-open-modal>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span>Enter prototype</span>
+                </button>
+            </div>
+        </header>
+
+        <main id="top">
+            <div class="shell">
+                <!-- HERO & PROTOTYPE -->
+                <section aria-label="Youality overview">
+                    <div class="hero">
+                        <div>
+                            <div class="hero-kicker">
+                                <span class="hero-kicker-pill"></span>
+                                <span>Work-in-progress · Live prototype</span>
+                            </div>
+                            <h1 class="hero-title">
+                                Design your <span class="hero-highlight">reality</span> with a
+                                personal operating system.
+                            </h1>
+                            <p class="hero-subtitle">
+                                Youality turns reflection, planning, and follow-through into one
+                                harmonised flow. Map your life, choose your focus, and move with
+                                intention — without drowning in tools.
+                            </p>
+                            <div class="hero-actions">
+                                <button class="btn-primary" data-open-modal>
+                                    Enter Youality
+                                    <span aria-hidden="true">↗</span>
+                                </button>
+                                <button class="btn-ghost" data-scroll="#framework">
+                                    See how it works
+                                </button>
+                            </div>
+                            <div class="hero-footnote">
+                                <span class="badge">Prototype • No signup required</span>
+                                <span>Try the cards on the right — everything is interactive.</span>
+                            </div>
+                        </div>
+
+                        <div class="hero-visual" aria-label="Prototype preview">
+                            <div class="wip-pill">
+                                <span class="dot"></span>
+                                <span>Building in public</span>
+                            </div>
+
+                            <div class="prototype-shell">
+                                <div class="prototype-window-bar">
+                                    <div class="window-dots">
+                                        <span class="window-dot"></span>
+                                        <span class="window-dot"></span>
+                                        <span class="window-dot"></span>
+                                    </div>
+                                    <span>Youality · Today</span>
+                                    <span style="font-size:0.72rem; opacity:0.8;">alpha</span>
+                                </div>
+
+                                <div class="prototype-app">
+                                    <aside class="sidebar" aria-label="App navigation">
+                                        <div class="sidebar-header">
+                                            <div class="avatar-circle" aria-hidden="true">Y</div>
+                                            <div class="sidebar-user">
+                                                <span class="name">You · Today</span>
+                                                <span class="role">CEO of your life</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="sidebar-nav-label">Spaces</div>
+                                        <div class="sidebar-nav">
+                                            <button class="sidebar-btn is-active" data-space="day">
+                                                <span class="label">
+                                                    <span class="bullet"></span>
+                                                    <span>My Day</span>
+                                                </span>
+                                                <span class="badge">Live</span>
+                                            </button>
+                                            <button class="sidebar-btn" data-space="map">
+                                                <span class="label">
+                                                    <span class="bullet"></span>
+                                                    <span>Life Map</span>
+                                                </span>
+                                            </button>
+                                            <button class="sidebar-btn" data-space="rhythm">
+                                                <span class="label">
+                                                    <span class="bullet"></span>
+                                                    <span>Rhythms</span>
+                                                </span>
+                                            </button>
+                                            <button class="sidebar-btn" data-space="library">
+                                                <span class="label">
+                                                    <span class="bullet"></span>
+                                                    <span>Library of Self</span>
+                                                </span>
+                                            </button>
+                                        </div>
+
+                                        <div class="sidebar-footer">
+                                            <span>Inner weather: clear with sparks</span>
+                                            <span class="mode">Solo mode · v0.1</span>
+                                        </div>
+                                    </aside>
+
+                                    <section class="prototype-main">
+                                        <div class="prototype-tabs" role="tablist">
+                                            <button class="prototype-tab-btn is-active" data-tab="overview" role="tab"
+                                                aria-selected="true">
+                                                <span class="dot"></span>
+                                                Overview
+                                            </button>
+                                            <button class="prototype-tab-btn" data-tab="focus" role="tab"
+                                                aria-selected="false">
+                                                <span class="dot"></span>
+                                                Focus for today
+                                            </button>
+                                            <button class="prototype-tab-btn" data-tab="life-areas" role="tab"
+                                                aria-selected="false">
+                                                <span class="dot"></span>
+                                                Garden of life
+                                            </button>
+                                            <button class="prototype-tab-btn" data-tab="logbook" role="tab"
+                                                aria-selected="false">
+                                                <span class="dot"></span>
+                                                Logbook
+                                            </button>
+                                        </div>
+
+                                        <div class="prototype-header">
+                                            <div class="prototype-header-title">
+                                                <strong id="prototypeHeading">Today’s Navigation</strong>
+                                                <span id="prototypeSubheading">Align your energy, focus, and next steps
+                                                    in one glance.</span>
+                                            </div>
+                                            <div class="prototype-header-badges">
+                                                <span class="prototype-badge">Morning check-in</span>
+                                                <span class="prototype-badge">5–7 minutes</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="prototype-content">
+                                            <!-- Left column cards -->
+                                            <div id="prototypePrimaryColumn">
+                                                <!-- Content will be swapped by JS based on tab -->
+                                                <article class="card" data-tab-panel="overview">
+                                                    <div class="card-header">
+                                                        <strong>Inner Compass</strong>
+                                                        <span class="pill emphasis">Clarity level: 78%</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Energy</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill" style="width: 72%;"></div>
+                                                        </div>
+                                                        <span class="badge-soft">steady</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Emotional weather</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill"
+                                                                style="width: 64%; background: linear-gradient(90deg,#42FFB8,#369799);">
+                                                            </div>
+                                                        </div>
+                                                        <span class="badge-soft">sun with clouds</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Mental focus</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill" style="width: 82%;"></div>
+                                                        </div>
+                                                        <span class="badge-soft">sharp</span>
+                                                    </div>
+                                                    <p
+                                                        style="margin:6px 0 0; font-size:0.76rem; color:rgba(237,244,243,0.8);">
+                                                        Note: today is a good day for strategic thinking and gentle
+                                                        execution — not for overloading.
+                                                    </p>
+                                                </article>
+
+                                                <article class="card" data-tab-panel="focus" hidden>
+                                                    <div class="card-header">
+                                                        <strong>Focus field</strong>
+                                                        <span class="pill emphasis">Max 3 stones</span>
+                                                    </div>
+                                                    <p style="margin:0; font-size:0.76rem;">
+                                                        What actually moves the needle today?
+                                                    </p>
+                                                    <ul class="list-condensed">
+                                                        <li>
+                                                            <span>1. Clarify top life area for this week</span>
+                                                            <span class="badge-soft">10 min</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>2. Move one meaningful project 1 step</span>
+                                                            <span class="badge-soft">45–60 min</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>3. Schedule one act of self-nourishing</span>
+                                                            <span class="badge-soft">15 min</span>
+                                                        </li>
+                                                    </ul>
+                                                    <p
+                                                        style="margin:6px 0 0; font-size:0.76rem; color:rgba(237,244,243,0.8);">
+                                                        Youality keeps “big rocks” visible so the day doesn’t get
+                                                        hijacked by sand.
+                                                    </p>
+                                                </article>
+
+                                                <article class="card" data-tab-panel="life-areas" hidden>
+                                                    <div class="card-header">
+                                                        <strong>Garden of Life snapshot</strong>
+                                                        <span class="pill">Holistic view</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Body & Vitality</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill" style="width: 76%;"></div>
+                                                        </div>
+                                                        <span class="badge-soft">growing</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Work & Creation</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill" style="width: 68%;"></div>
+                                                        </div>
+                                                        <span class="badge-soft">shifting</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Relationships</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill" style="width: 81%;"></div>
+                                                        </div>
+                                                        <span class="badge-soft">rich</span>
+                                                    </div>
+                                                    <div class="metric-row">
+                                                        <span class="metric-label">Inner world</span>
+                                                        <div class="meter-track">
+                                                            <div class="meter-fill"
+                                                                style="width: 70%; background: linear-gradient(90deg,#42FFB8,#369799);">
+                                                            </div>
+                                                        </div>
+                                                        <span class="badge-soft">deepening</span>
+                                                    </div>
+                                                    <p
+                                                        style="margin:6px 0 0; font-size:0.76rem; color:rgba(237,244,243,0.8);">
+                                                        Each area is a “world” with its own rhythm, intentions, and
+                                                        experiments.
+                                                    </p>
+                                                </article>
+
+                                                <article class="card" data-tab-panel="logbook" hidden>
+                                                    <div class="card-header">
+                                                        <strong>Logbook highlights</strong>
+                                                        <span class="pill">Last 7 days</span>
+                                                    </div>
+                                                    <ul class="list-condensed">
+                                                        <li>
+                                                            <span>✔ Re-aligned weekly compass</span>
+                                                            <span class="badge-soft">Sunday</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>✔ Finished “Under Construction” project review</span>
+                                                            <span class="badge-soft">Wed</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>★ Celebrated “Victory Arch” moment</span>
+                                                            <span class="badge-soft">Fri</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>✎ Journaled a new “Field of Becoming” insight</span>
+                                                            <span class="badge-soft">Today</span>
+                                                        </li>
+                                                    </ul>
+                                                    <p
+                                                        style="margin:6px 0 0; font-size:0.76rem; color:rgba(237,244,243,0.8);">
+                                                        Youality remembers your story, so your progress is visible — not
+                                                        forgotten.
+                                                    </p>
+                                                </article>
+                                            </div>
+
+                                            <!-- Right column card(s) – intentions etc. -->
+                                            <div id="prototypeSecondaryColumn">
+                                                <article class="card">
+                                                    <div class="card-header">
+                                                        <strong>Intentions for today</strong>
+                                                        <span class="pill">Write · then live them</span>
+                                                    </div>
+
+                                                    <p style="margin:0; font-size:0.76rem;">
+                                                        Capture 1–3 sentences that define how you want to show up. This
+                                                        list is just
+                                                        for you — type anything and add it to feel the flow.
+                                                    </p>
+
+                                                    <div class="intention-input-row">
+                                                        <input type="text" id="intentionInput"
+                                                            placeholder="e.g. Move with calm, clear, focused energy." />
+                                                        <button type="button" id="addIntentionBtn">Add</button>
+                                                    </div>
+
+                                                    <ul class="intention-list" id="intentionList" aria-live="polite">
+                                                        <!-- JS populated -->
+                                                    </ul>
+                                                </article>
+
+                                                <article class="card">
+                                                    <div class="card-header">
+                                                        <strong>Micro-rituals</strong>
+                                                        <span class="pill">Keep it light</span>
+                                                    </div>
+                                                    <div class="chip-row">
+                                                        <span class="chip positive">2-minute breath reset</span>
+                                                        <span class="chip">Stretch between calls</span>
+                                                        <span class="chip">Sunlight micro-walk</span>
+                                                        <span class="chip">Gratitude line before sleep</span>
+                                                    </div>
+                                                    <p
+                                                        style="margin:6px 0 0; font-size:0.76rem; color:rgba(237,244,243,0.8);">
+                                                        Tiny actions that keep your inner system regulated as you
+                                                        navigate the day.
+                                                    </p>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FRAMEWORK -->
+                <section id="framework" aria-labelledby="frameworkTitle">
+                    <div class="section-label">Framework</div>
+                    <h2 class="section-title" id="frameworkTitle">A systemic way to navigate your life.</h2>
+                    <p class="section-subtitle">
+                        Behind the interface is a clear model: see your whole system, choose your focus, move in
+                        aligned,
+                        sustainable steps — and celebrate the journey.
+                    </p>
+
+                    <div class="grid-3">
+                        <article class="info-card">
+                            <span class="tag">1 · See clearly</span>
+                            <h3>Map your worlds</h3>
+                            <p>
+                                Visualise your Garden of Life, projects, and relationships as a living system. Instead
+                                of a long
+                                to-do list, you see how everything connects.
+                            </p>
+                            <div class="pill-row">
+                                <span>Garden of Life</span>
+                                <span>Web of Worlds</span>
+                                <span>Library of Self</span>
+                            </div>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">2 · Choose leverage</span>
+                            <h3>Focus the compass</h3>
+                            <p>
+                                Use the Inner Compass to decide what truly matters this week. Youality highlights “big
+                                stones” and
+                                keeps them visible across your days.
+                            </p>
+                            <div class="pill-row">
+                                <span>Compass vs Clock</span>
+                                <span>Big rocks</span>
+                                <span>Victory Arches</span>
+                            </div>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">3 · Move & integrate</span>
+                            <h3>Align action & energy</h3>
+                            <p>
+                                Daily navigation cards meet your real energy and emotional weather, so the way you move
+                                fits your inner
+                                state — not just your calendar.
+                            </p>
+                            <div class="pill-row">
+                                <span>Inner weather</span>
+                                <span>Rhythms & rituals</span>
+                                <span>Celebration zone</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- MODULES -->
+                <section id="modules" aria-labelledby="modulesTitle">
+                    <div class="section-label">Key modules</div>
+                    <h2 class="section-title" id="modulesTitle">What the first version of Youality includes.</h2>
+                    <p class="section-subtitle">
+                        This prototype imagines a v1 focused on solo users. Future iterations unlock coach-client spaces
+                        and
+                        shared maps.
+                    </p>
+
+                    <div class="grid-3">
+                        <article class="info-card">
+                            <span class="tag">Core space</span>
+                            <h3>My Day · Navigation</h3>
+                            <p>
+                                A lightweight daily check-in where you update your energy, pick your focus, and write
+                                intentions that
+                                your future self will actually read.
+                            </p>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">System view</span>
+                            <h3>Life Map · Web of Worlds</h3>
+                            <p>
+                                A bird’s-eye map of your life areas, projects, and roles, using metaphors like Garden of
+                                Life and Web
+                                of Worlds instead of endless lists.
+                            </p>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">Rhythm</span>
+                            <h3>Inner & outer cycles</h3>
+                            <p>
+                                Weekly and monthly rhythm views that sync your plans with your actual energy patterns
+                                and seasons of
+                                life — not just arbitrary dates.
+                            </p>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">Memory</span>
+                            <h3>Library of Self</h3>
+                            <p>
+                                A structured archive of insights, decisions, and “breadcrumbs” so you can see how you’re
+                                evolving over
+                                time without digging through notes.
+                            </p>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">Celebration</span>
+                            <h3>Victory Arches</h3>
+                            <p>
+                                Visual milestones that mark important transitions: finishing a project, shifting an
+                                identity, or
+                                completing a personal quest.
+                            </p>
+                        </article>
+
+                        <article class="info-card">
+                            <span class="tag">Future</span>
+                            <h3>Coach & companion view</h3>
+                            <p>
+                                A future layer where a coach can see a client’s map, rhythms, and intentions and support
+                                them with
+                                context — without micromanaging.
+                            </p>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- CTA / FOR COACHES -->
+                <section id="cta" aria-labelledby="ctaTitle">
+                    <div class="cta">
+                        <div class="cta-main">
+                            <h2 id="ctaTitle">This is a prototype. The real Youality is in motion.</h2>
+                            <p>
+                                This working mockup is here to sense the flow: how the interface feels, how the
+                                metaphors land, and how
+                                life planning can feel alive instead of heavy. From here, it can evolve into a full
+                                product.
+                            </p>
+                        </div>
+                        <div class="cta-actions">
+                            <button class="btn-primary" data-open-modal>Try the prototype flow</button>
+                            <div style="display:flex; flex-direction:column; gap:6px;">
+                                <span class="cta-pill">Perfect for: solo creators, founders, and high performers</span>
+                                <span style="font-size:0.8rem; color:var(--muted);">
+                                    Future: coach dashboards, shared maps, and ceremony-friendly reflection modes.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Youality · All rights reserved.</span>
+                <span>Prototype UI · Brand colors & typography based on the Youality guideline.</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- LOGIN / ENTER MODAL -->
+    <div class="modal-backdrop" id="prototypeModal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <h2 id="modalTitle">Enter Youality prototype</h2>
+                    <p>No password, no friction. This is just a taste of the future platform.</p>
+                </div>
+                <button class="modal-close" type="button" aria-label="Close" data-close-modal>×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-field-group">
+                    <label for="nameField">What should we call you?</label>
+                    <input id="nameField" type="text" placeholder="Your name (optional in this prototype)" />
+                </div>
+                <div class="modal-field-group">
+                    <label for="focusField">What are you navigating right now?</label>
+                    <input id="focusField" type="text"
+                        placeholder="e.g. Career shift, new relationship, burnout recovery…" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="hint">We’ll just update the sidebar name and a line of copy — nothing is stored.</span>
+                <button class="btn-ghost" type="button" data-close-modal>Skip</button>
+                <button class="btn-primary" type="button" id="enterPrototypeBtn">
+                    Enter prototype
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utility: smooth scroll for nav links
+        document.querySelectorAll('.nav-link, .btn-ghost[data-scroll], .btn-primary[data-scroll]').forEach(function (el) {
+            el.addEventListener('click', function () {
+                const target = this.getAttribute('data-scroll');
+                if (!target) return;
+                const section = document.querySelector(target);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelectorAll('.nav-link').forEach(function (nl) {
+                        nl.classList.toggle('is-active', nl === el);
+                    });
+                }
+            });
+        });
+
+        // Tabs
+        const tabButtons = document.querySelectorAll('.prototype-tab-btn');
+        const tabPanels = document.querySelectorAll('[data-tab-panel]');
+
+        const headings = {
+            'overview': {
+                title: "Today’s Navigation",
+                subtitle: "Align your energy, focus, and next steps in one glance."
+            },
+            'focus': {
+                title: "Focus field",
+                subtitle: "Choose the few actions that make today genuinely meaningful."
+            },
+            'life-areas': {
+                title: "Garden of Life snapshot",
+                subtitle: "See the areas that need tending, rest, or celebration."
+            },
+            'logbook': {
+                title: "Logbook highlights",
+                subtitle: "Remember what you’ve already moved, so you don’t minimise your progress."
+            }
+        };
+
+        tabButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const tab = this.getAttribute('data-tab');
+                tabButtons.forEach(function (b) {
+                    b.classList.toggle('is-active', b === btn);
+                    b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+                });
+                tabPanels.forEach(function (panel) {
+                    const panelTab = panel.getAttribute('data-tab-panel');
+                    const show = panelTab === tab;
+                    panel.hidden = !show;
+                });
+
+                const heading = headings[tab];
+                if (heading) {
+                    document.getElementById('prototypeHeading').textContent = heading.title;
+                    document.getElementById('prototypeSubheading').textContent = heading.subtitle;
+                }
+            });
+        });
+
+        // Sidebar space buttons (visual only for now)
+        const sidebarButtons = document.querySelectorAll('.sidebar-btn');
+        sidebarButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                sidebarButtons.forEach(function (b) { b.classList.remove('is-active'); });
+                btn.classList.add('is-active');
+            });
+        });
+
+        // Intentions list
+        const intentionInput = document.getElementById('intentionInput');
+        const intentionList = document.getElementById('intentionList');
+        const addIntentionBtn = document.getElementById('addIntentionBtn');
+
+        const defaultIntentions = [
+            "Move with calm, clear, grounded energy.",
+            "Treat my body and mind as allies, not machines.",
+            "Approach hard conversations with honesty and warmth."
+        ];
+
+        function renderIntention(text) {
+            const li = document.createElement('li');
+            const left = document.createElement('div');
+            left.style.display = 'flex';
+            left.style.alignItems = 'center';
+            left.style.gap = '6px';
+
+            const bullet = document.createElement('span');
+            bullet.className = 'bullet';
+            left.appendChild(bullet);
+
+            const content = document.createElement('span');
+            content.textContent = text;
+            left.appendChild(content);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove';
+            removeBtn.type = 'button';
+            removeBtn.textContent = '×';
+            removeBtn.title = 'Remove intention';
+            removeBtn.addEventListener('click', function () {
+                li.remove();
+            });
+
+            li.appendChild(left);
+            li.appendChild(removeBtn);
+            intentionList.appendChild(li);
+        }
+
+        defaultIntentions.forEach(renderIntention);
+
+        function addIntention() {
+            const value = intentionInput.value.trim();
+            if (!value) return;
+            renderIntention(value);
+            intentionInput.value = '';
+            intentionInput.focus();
+        }
+
+        addIntentionBtn.addEventListener('click', addIntention);
+        intentionInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addIntention();
+            }
+        });
+
+        // Modal behaviour
+        const modalBackdrop = document.getElementById('prototypeModal');
+        const openModalEls = document.querySelectorAll('[data-open-modal]');
+        const closeModalEls = document.querySelectorAll('[data-close-modal]');
+        const nameField = document.getElementById('nameField');
+        const focusField = document.getElementById('focusField');
+        const enterBtn = document.getElementById('enterPrototypeBtn');
+
+        function openModal() {
+            modalBackdrop.classList.add('is-open');
+            modalBackdrop.setAttribute('aria-hidden', 'false');
+            setTimeout(() => nameField.focus(), 50);
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.remove('is-open');
+            modalBackdrop.setAttribute('aria-hidden', 'true');
+        }
+
+        openModalEls.forEach(function (el) {
+            el.addEventListener('click', openModal);
+        });
+
+        closeModalEls.forEach(function (el) {
+            el.addEventListener('click', closeModal);
+        });
+
+        modalBackdrop.addEventListener('click', function (event) {
+            if (event.target === modalBackdrop) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        enterBtn.addEventListener('click', function () {
+            const name = nameField.value.trim();
+            const focus = focusField.value.trim();
+
+            // Update sidebar label
+            const nameSpan = document.querySelector('.sidebar-user .name');
+            if (name && nameSpan) {
+                nameSpan.textContent = name + " · Today";
+            }
+
+            // Update a line of copy in header
+            if (focus) {
+                document.getElementById('prototypeSubheading').textContent =
+                    "You’re currently navigating: “" + focus + "”. Let’s make your next moves intentional.";
+            }
+
+            closeModal();
+        });
+
+        // Year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

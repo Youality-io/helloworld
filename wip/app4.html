@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Main Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --you-bg: #EDF4F3;
+            --you-bg-soft: #EDEFF7;
+            --you-text-main: #1E1E24;
+            --you-text-muted: #6E7180;
+            --you-border-subtle: #D3D6E0;
+            --you-border-strong: #9DA2B3;
+            --you-accent: #24769C;
+            --you-accent-soft: #369799;
+            --you-card: #FFFFFF;
+            --you-shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+            --radius-lg: 18px;
+            --radius-xl: 26px;
+            --radius-pill: 999px;
+            --transition-fast: 150ms ease-out;
+            --transition-med: 220ms ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                sans-serif;
+            background: radial-gradient(circle at top left, #EDEFF7 0, #EDF4F3 45%, #FFFFFF 100%);
+            color: var(--you-text-main);
+            -webkit-font-smoothing: antialiased;
+            padding-top: 45px;
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Nav / Header */
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(24px);
+            background: linear-gradient(to right,
+                    rgba(237, 244, 243, 0.82),
+                    rgba(237, 239, 247, 0.92));
+            border-bottom: 1px solid rgba(211, 214, 224, 0.5);
+        }
+
+        .topbar-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+        }
+
+        .brand-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: conic-gradient(from 190deg,
+                    var(--you-accent),
+                    var(--you-accent-soft),
+                    #369799,
+                    #24769C);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-icon::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.75), transparent 55%);
+            mix-blend-mode: screen;
+        }
+
+        .brand-wordmark {
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            font-size: 15px;
+        }
+
+        .brand-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(54, 151, 153, 0.06);
+            color: var(--you-accent);
+            border: 1px solid rgba(54, 151, 153, 0.18);
+            font-weight: 500;
+        }
+
+        .top-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 10px;
+            flex: 1;
+        }
+
+        .top-nav-link {
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 13px;
+            color: var(--you-text-muted);
+            border: 1px solid transparent;
+            cursor: pointer;
+            background: transparent;
+            transition: all var(--transition-fast);
+        }
+
+        .top-nav-link:hover {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--you-text-main);
+        }
+
+        .top-nav-link.is-active {
+            background: #ffffff;
+            color: var(--you-accent);
+            border-color: rgba(54, 151, 153, 0.4);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pill-button {
+            border-radius: 999px;
+            padding: 7px 14px;
+            border: 1px solid rgba(157, 162, 179, 0.6);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--you-text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .pill-button span.icon {
+            font-size: 15px;
+        }
+
+        .pill-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.14);
+            border-color: rgba(36, 118, 156, 0.7);
+        }
+
+        .pill-button.primary {
+            border: none;
+            background: linear-gradient(135deg, var(--you-accent-soft), var(--you-accent));
+            color: #ffffff;
+            box-shadow: 0 13px 28px rgba(36, 118, 156, 0.4);
+        }
+
+        .pill-button.primary:hover {
+            filter: brightness(1.04);
+            transform: translateY(-1px) translateZ(0);
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #ffffff, #D3D6E0, #9DA2B3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--you-text-main);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+            cursor: pointer;
+        }
+
+        /* Main layout */
+
+        .layout {
+            flex: 1;
+            max-width: 1160px;
+            margin: 18px auto 26px auto;
+            padding: 0 20px 16px;
+            display: grid;
+            grid-template-columns: minmax(220px, 270px) minmax(0, 1.7fr) minmax(260px, 320px);
+            gap: 20px;
+        }
+
+        @media (max-width: 1040px) {
+            .layout {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+                grid-template-rows: auto;
+                grid-template-areas:
+                    "sidebar main"
+                    "sidebar right";
+            }
+
+            .sidebar {
+                grid-area: sidebar;
+            }
+
+            .main {
+                grid-area: main;
+            }
+
+            .secondary {
+                grid-area: right;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .layout {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .sidebar,
+        .main,
+        .secondary {
+            min-width: 0;
+        }
+
+        /* Cards / Panels */
+
+        .panel {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(211, 214, 224, 0.8);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+            padding: 16px 16px 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel.soft {
+            background: linear-gradient(145deg,
+                    rgba(237, 244, 243, 0.94),
+                    rgba(237, 239, 247, 0.96));
+            border-color: rgba(188, 191, 204, 0.8);
+            box-shadow: 0 20px 42px rgba(15, 23, 42, 0.1);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--you-text-muted);
+        }
+
+        .panel-sub {
+            font-size: 12px;
+            color: var(--you-text-muted);
+        }
+
+        .pill-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            color: var(--you-text-muted);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #ffffff, var(--you-accent-soft));
+            box-shadow: 0 0 0 3px rgba(54, 151, 153, 0.26);
+        }
+
+        /* Sidebar */
+
+        .sidebar-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .day-heading {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 3px;
+            margin-bottom: 2px;
+        }
+
+        .day-subline {
+            font-size: 13px;
+            color: var(--you-text-muted);
+        }
+
+        .scopes {
+            display: inline-flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .scope-pill {
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 11px;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            color: var(--you-text-muted);
+            transition: all var(--transition-fast);
+        }
+
+        .scope-pill:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .scope-pill.is-active {
+            background: #ffffff;
+            color: var(--you-accent);
+            border-color: rgba(54, 151, 153, 0.6);
+            box-shadow: 0 10px 22px rgba(36, 118, 156, 0.22);
+        }
+
+        .timeline {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr);
+            gap: 8px;
+            align-items: start;
+        }
+
+        .timeline-time {
+            font-size: 11px;
+            color: var(--you-text-muted);
+        }
+
+        .timeline-card {
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .timeline-title {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .timeline-tagline {
+            font-size: 11px;
+            color: var(--you-text-muted);
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .chip {
+            border-radius: 999px;
+            padding: 4px 8px;
+            font-size: 11px;
+            border: 1px solid rgba(188, 191, 204, 0.8);
+            background: rgba(255, 255, 255, 0.88);
+            color: var(--you-text-muted);
+        }
+
+        .meter-row {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-top: 8px;
+        }
+
+        .meter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .meter-label {
+            font-size: 12px;
+            color: var(--you-text-muted);
+            flex: 0 0 90px;
+        }
+
+        .meter-bar-wrap {
+            flex: 1;
+            height: 7px;
+            border-radius: 999px;
+            background: #f3f4f8;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-bar {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--you-accent-soft), var(--you-accent));
+            transform-origin: left;
+            transform: scaleX(0.7);
+            transition: transform var(--transition-med);
+        }
+
+        .meter-value {
+            font-size: 11px;
+            color: var(--you-text-muted);
+            margin-left: 4px;
+            width: 40px;
+            text-align: right;
+        }
+
+        /* Main content */
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .hero {
+            padding: 14px 14px 12px;
+            border-radius: var(--radius-xl);
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.8) 0, transparent 55%),
+                radial-gradient(circle at bottom right, rgba(237, 239, 247, 0.95) 0, rgba(237, 244, 243, 1) 50%);
+            border: 1px solid rgba(188, 191, 204, 0.8);
+            box-shadow: 0 22px 50px rgba(15, 23, 42, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(36, 118, 156, 0.22), transparent 48%),
+                radial-gradient(circle at 90% 100%, rgba(54, 151, 153, 0.2), transparent 55%);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 16px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        @media (max-width: 880px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .hero-heading {
+            font-size: 26px;
+            line-height: 1.25;
+            letter-spacing: 0.01em;
+            margin-bottom: 6px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(120deg, var(--you-accent-soft), var(--you-accent));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 13px;
+            color: var(--you-text-muted);
+            max-width: 380px;
+        }
+
+        .hero-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .meta-pill {
+            border-radius: 999px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            font-size: 11px;
+            color: var(--you-text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .meta-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #ffffff, var(--you-accent-soft));
+        }
+
+        .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .hero-right-card {
+            padding: 10px 10px 9px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hero-right-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .hero-right-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--you-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hero-right-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .small-meter {
+            height: 7px;
+            border-radius: 999px;
+            background: #f3f4f8;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .small-meter-fill {
+            position: absolute;
+            inset: 0;
+            width: 74%;
+            background: linear-gradient(90deg, var(--you-accent-soft), var(--you-accent));
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .hero-badge {
+            border-radius: 999px;
+            padding: 3px 8px;
+            background: rgba(237, 244, 243, 0.9);
+            border: 1px solid rgba(188, 191, 204, 0.8);
+            color: var(--you-text-muted);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 880px) {
+            .main-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--you-text-muted);
+            margin-bottom: 6px;
+        }
+
+        .card-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            background: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .item-row:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+            border-color: rgba(36, 118, 156, 0.6);
+        }
+
+        .item-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .item-label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .item-tagline {
+            font-size: 11px;
+            color: var(--you-text-muted);
+        }
+
+        .item-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-end;
+        }
+
+        .item-pill {
+            font-size: 11px;
+            border-radius: 999px;
+            padding: 2px 7px;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            color: var(--you-text-muted);
+            background: rgba(237, 244, 243, 0.95);
+        }
+
+        .item-score {
+            font-size: 11px;
+            color: var(--you-text-muted);
+        }
+
+        .expandable {
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed rgba(211, 214, 224, 0.9);
+            font-size: 11px;
+            color: var(--you-text-muted);
+            display: none;
+        }
+
+        .item-row.is-open .expandable {
+            display: block;
+        }
+
+        .item-row.is-open {
+            border-style: solid;
+            border-color: rgba(36, 118, 156, 0.75);
+        }
+
+        /* Secondary column */
+
+        .secondary-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .tag-pill {
+            font-size: 11px;
+            border-radius: 999px;
+            padding: 3px 8px;
+            border: 1px dashed rgba(188, 191, 204, 0.9);
+            color: var(--you-text-muted);
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .mini-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .mini-item {
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-label {
+            color: var(--you-text-main);
+        }
+
+        .mini-badge {
+            font-size: 11px;
+            border-radius: 999px;
+            padding: 2px 7px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            color: var(--you-text-muted);
+            background: rgba(237, 244, 243, 0.95);
+        }
+
+        .footer-note {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 20px 18px;
+            font-size: 11px;
+            color: var(--you-text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 640px) {
+            .topbar-inner {
+                flex-wrap: wrap;
+            }
+
+            .top-nav {
+                order: 3;
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 6px;
+            }
+
+            .topbar-actions {
+                margin-left: auto;
+            }
+
+            .footer-note {
+                flex-direction: column;
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--you-border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--you-text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--you-accent);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--you-text-main);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="app3.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">App Prototype 4 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="app5.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="app-shell">
+        <!-- Top Navigation -->
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div class="brand-mark">
+                    <img src="../youality_emblem.svg" alt="Youality logo"
+                        style="height:26px; width:26px; object-fit: contain;" />
+                    <div class="brand-wordmark">Youality</div>
+                    <div class="brand-tag">Navigate your reality</div>
+                </div>
+
+                <nav class="top-nav" aria-label="Primary">
+                    <button class="top-nav-link is-active" data-section="today">Today</button>
+                    <button class="top-nav-link" data-section="map">Map</button>
+                    <button class="top-nav-link" data-section="journeys">Journeys</button>
+                    <button class="top-nav-link" data-section="reflections">Reflections</button>
+                    <button class="top-nav-link" data-section="library">Library</button>
+                </nav>
+
+                <div class="topbar-actions">
+                    <button class="pill-button" type="button">
+                        <span class="icon">⚙️</span>
+                        System view
+                    </button>
+                    <button class="pill-button primary" type="button">
+                        <span class="icon">✦</span>
+                        New intention
+                    </button>
+                    <div class="avatar" title="You">
+                        Y
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main layout -->
+        <div class="layout">
+            <!-- LEFT: Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-stack">
+                    <!-- Today / Timeline card -->
+                    <section class="panel soft">
+                        <header class="panel-header">
+                            <div>
+                                <div class="panel-title">Today’s navigation</div>
+                                <h1 class="day-heading" id="dayTitle">Saturday, 6 December</h1>
+                                <p class="day-subline" id="daySubline">
+                                    Gentle structure, clear focus, plenty of space to improvise.
+                                </p>
+                            </div>
+                            <span class="pill-label">
+                                <span class="pill-dot"></span>
+                                Inner weather: Clear with soft clouds
+                            </span>
+                        </header>
+
+                        <div class="scopes" aria-label="Scope selector">
+                            <button class="scope-pill is-active" data-scope="today">Today</button>
+                            <button class="scope-pill" data-scope="week">This week</button>
+                            <button class="scope-pill" data-scope="month">This month</button>
+                        </div>
+
+                        <div class="timeline" id="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">08:30</div>
+                                <div class="timeline-card">
+                                    <div class="timeline-title">Morning check-in</div>
+                                    <div class="timeline-tagline">
+                                        Scan inner weather, set one clear priority.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-time">11:00</div>
+                                <div class="timeline-card">
+                                    <div class="timeline-title">Deep work pocket</div>
+                                    <div class="timeline-tagline">
+                                        Move one life area forward for 45–60 minutes.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-time">16:30</div>
+                                <div class="timeline-card">
+                                    <div class="timeline-title">Movement & reset</div>
+                                    <div class="timeline-tagline">
+                                        Body, breath, or sun — re-align your nervous system.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-time">21:00</div>
+                                <div class="timeline-card">
+                                    <div class="timeline-title">Evening reflection</div>
+                                    <div class="timeline-tagline">
+                                        Capture wins, learnings, and a single next micro-step.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chip-row" aria-label="Quick filters">
+                            <div class="chip">🧠 Mind</div>
+                            <div class="chip">💛 Relationships</div>
+                            <div class="chip">💼 Work & impact</div>
+                            <div class="chip">🌱 Body & energy</div>
+                        </div>
+                    </section>
+
+                    <!-- Alignment meters -->
+                    <section class="panel">
+                        <header class="panel-header">
+                            <span class="panel-title">Alignment snapshot</span>
+                            <span class="panel-sub">How today maps to what truly matters.</span>
+                        </header>
+
+                        <div class="meter-row">
+                            <div class="meter-item">
+                                <div class="meter-label">Direction</div>
+                                <div class="meter-bar-wrap">
+                                    <div class="meter-bar" style="transform: scaleX(0.82);"></div>
+                                </div>
+                                <div class="meter-value">82%</div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-label">Energy</div>
+                                <div class="meter-bar-wrap">
+                                    <div class="meter-bar" style="transform: scaleX(0.68);"></div>
+                                </div>
+                                <div class="meter-value">68%</div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-label">Relationships</div>
+                                <div class="meter-bar-wrap">
+                                    <div class="meter-bar" style="transform: scaleX(0.54);"></div>
+                                </div>
+                                <div class="meter-value">54%</div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-label">Expression</div>
+                                <div class="meter-bar-wrap">
+                                    <div class="meter-bar" style="transform: scaleX(0.76);"></div>
+                                </div>
+                                <div class="meter-value">76%</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </aside>
+
+            <!-- CENTER: Main -->
+            <main class="main">
+                <!-- Hero -->
+                <section class="hero" aria-label="Primary focus">
+                    <div class="hero-inner">
+                        <div>
+                            <h2 class="hero-heading">
+                                Design today
+                                <span class="hero-highlight">like a life you’d choose again.</span>
+                            </h2>
+                            <p class="hero-sub">
+                                Youality weaves your intentions, energy, and commitments into one clear view —
+                                so each day moves the whole system forward, gently and intentionally.
+                            </p>
+
+                            <div class="hero-meta-row">
+                                <div class="meta-pill">
+                                    <span class="meta-dot"></span>
+                                    Mode: <strong>Solo pilot</strong>
+                                </div>
+                                <div class="meta-pill">
+                                    ✨ <strong>3</strong> active journeys · <strong>7</strong> open threads
+                                </div>
+                                <div class="meta-pill">
+                                    🧭 Next checkpoint in <strong>47 min</strong>
+                                </div>
+                            </div>
+
+                            <div class="hero-cta-row">
+                                <button class="pill-button primary" type="button">
+                                    <span class="icon">▶️</span>
+                                    Start guided check-in
+                                </button>
+                                <button class="pill-button" type="button">
+                                    <span class="icon">📍</span>
+                                    View life map
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hero-right-card">
+                            <header class="hero-right-header">
+                                <div>
+                                    <div class="hero-right-title">Inner alignment</div>
+                                    <div class="panel-sub">
+                                        Based on your check-ins from the last 7 days.
+                                    </div>
+                                </div>
+                                <div class="hero-right-value">74%</div>
+                            </header>
+
+                            <div class="small-meter">
+                                <div class="small-meter-fill"></div>
+                            </div>
+
+                            <div class="hero-badges">
+                                <div class="hero-badge">💚 Body: trending up</div>
+                                <div class="hero-badge">🧡 Relationships: steady</div>
+                                <div class="hero-badge">💙 Focus: more clarity than last week</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main grid -->
+                <section class="main-grid" aria-label="Core views">
+                    <!-- Focus & Journeys -->
+                    <div class="card-list">
+                        <!-- Focus now -->
+                        <div>
+                            <div class="card-section-title">Focus now</div>
+                            <div class="panel">
+                                <div class="card-row">
+                                    <div class="item-row js-expand">
+                                        <div class="item-main">
+                                            <div class="item-label">
+                                                1. One meaningful action
+                                            </div>
+                                            <div class="item-tagline">
+                                                Choose the smallest step that makes the biggest difference today.
+                                            </div>
+                                        </div>
+                                        <div class="item-meta">
+                                            <div class="item-pill">🪣 Priority: High</div>
+                                            <div class="item-score">Est. 25–40 min</div>
+                                        </div>
+                                        <div class="expandable">
+                                            Examples: write one honest message, ship a small feature, schedule
+                                            the health appointment. Youality will track the ripple on your map.
+                                        </div>
+                                    </div>
+
+                                    <div class="item-row js-expand">
+                                        <div class="item-main">
+                                            <div class="item-label">
+                                                2. One nourishing action
+                                            </div>
+                                            <div class="item-tagline">
+                                                Do something your future nervous system will thank you for.
+                                            </div>
+                                        </div>
+                                        <div class="item-meta">
+                                            <div class="item-pill">🌱 Regeneration</div>
+                                            <div class="item-score">Est. 15–30 min</div>
+                                        </div>
+                                        <div class="expandable">
+                                            Walk outside, stretch with music you love, cook something simple, call a
+                                            friend. Log it as a “recharging move” so trends become visible over time.
+                                        </div>
+                                    </div>
+
+                                    <div class="item-row js-expand">
+                                        <div class="item-main">
+                                            <div class="item-label">
+                                                3. One connecting action
+                                            </div>
+                                            <div class="item-tagline">
+                                                Initiate a moment of real connection — with self or with someone else.
+                                            </div>
+                                        </div>
+                                        <div class="item-meta">
+                                            <div class="item-pill">💛 Relationships</div>
+                                            <div class="item-score">Est. 5–20 min</div>
+                                        </div>
+                                        <div class="expandable">
+                                            A voice note, a thank-you, a micro-celebration. Mark who this action
+                                            supports so your relationship map gradually lights up.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active journeys -->
+                        <div>
+                            <div class="card-section-title">Active journeys</div>
+                            <div class="panel">
+                                <div class="card-row">
+                                    <div class="item-row js-expand">
+                                        <div class="item-main">
+                                            <div class="item-label">Body & energy reset (90 days)</div>
+                                            <div class="item-tagline">
+                                                Gentle, sustainable upgrades to sleep, movement, and recovery.
+                                            </div>
+                                        </div>
+                                        <div class="item-meta">
+                                            <div class="item-pill">Progress: 41%</div>
+                                            <div class="item-score">3 threads live</div>
+                                        </div>
+                                        <div class="expandable">
+                                            Next suggested move: lock in two movement blocks this week and mark
+                                            them as protected time on your map.
+                                        </div>
+                                    </div>
+
+                                    <div class="item-row js-expand">
+                                        <div class="item-main">
+                                            <div class="item-label">Creative work, clearly (12 weeks)</div>
+                                            <div class="item-tagline">
+                                                Turn scattered ideas into one focused, moving project.
+                                            </div>
+                                        </div>
+                                        <div class="item-meta">
+                                            <div class="item-pill">Progress: 58%</div>
+                                            <div class="item-score">2 threads live</div>
+                                        </div>
+                                        <div class="expandable">
+                                            Next suggested move: choose one deliverable for this week and say
+                                            “no” to two competing pulls.
+                                        </div>
+                                    </div>
+
+                                    <div class="item-row js-expand">
+                                        <div class="item-main">
+                                            <div class="item-label">Relationships built on truth</div>
+                                            <div class="item-tagline">
+                                                Conversations, boundaries, and rituals that feel like home.
+                                            </div>
+                                        </div>
+                                        <div class="item-meta">
+                                            <div class="item-pill">Progress: 32%</div>
+                                            <div class="item-score">4 threads live</div>
+                                        </div>
+                                        <div class="expandable">
+                                            Next suggested move: one honest check-in (with yourself or someone
+                                            else) using the reflection template.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right side of main column -->
+                    <div class="card-list">
+                        <!-- Inner weather -->
+                        <div>
+                            <div class="card-section-title">Inner weather</div>
+                            <div class="panel">
+                                <div class="card-row">
+                                    <div class="mini-item">
+                                        <span class="mini-label">Mind</span>
+                                        <span class="mini-badge">🧠 Clear with light clouds</span>
+                                    </div>
+                                    <div class="mini-item">
+                                        <span class="mini-label">Body</span>
+                                        <span class="mini-badge">🌱 Slightly low energy</span>
+                                    </div>
+                                    <div class="mini-item">
+                                        <span class="mini-label">Heart</span>
+                                        <span class="mini-badge">💛 Open & available</span>
+                                    </div>
+                                    <div class="mini-item">
+                                        <span class="mini-label">Field</span>
+                                        <span class="mini-badge">🌌 Quiet but receptive</span>
+                                    </div>
+                                </div>
+                                <div class="chip-row">
+                                    <div class="chip">Update check-in</div>
+                                    <div class="chip">View last 30 days</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Life areas -->
+                        <div>
+                            <div class="card-section-title">Life areas, today</div>
+                            <div class="panel">
+                                <div class="meter-row">
+                                    <div class="meter-item">
+                                        <div class="meter-label">Health</div>
+                                        <div class="meter-bar-wrap">
+                                            <div class="meter-bar" style="transform: scaleX(0.62);"></div>
+                                        </div>
+                                        <div class="meter-value">62%</div>
+                                    </div>
+                                    <div class="meter-item">
+                                        <div class="meter-label">Work</div>
+                                        <div class="meter-bar-wrap">
+                                            <div class="meter-bar" style="transform: scaleX(0.71);"></div>
+                                        </div>
+                                        <div class="meter-value">71%</div>
+                                    </div>
+                                    <div class="meter-item">
+                                        <div class="meter-label">Money</div>
+                                        <div class="meter-bar-wrap">
+                                            <div class="meter-bar" style="transform: scaleX(0.49);"></div>
+                                        </div>
+                                        <div class="meter-value">49%</div>
+                                    </div>
+                                    <div class="meter-item">
+                                        <div class="meter-label">Love</div>
+                                        <div class="meter-bar-wrap">
+                                            <div class="meter-bar" style="transform: scaleX(0.77);"></div>
+                                        </div>
+                                        <div class="meter-value">77%</div>
+                                    </div>
+                                    <div class="meter-item">
+                                        <div class="meter-label">Play</div>
+                                        <div class="meter-bar-wrap">
+                                            <div class="meter-bar" style="transform: scaleX(0.58);"></div>
+                                        </div>
+                                        <div class="meter-value">58%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reflection prompts -->
+                        <div>
+                            <div class="card-section-title">Reflection prompts</div>
+                            <div class="panel">
+                                <div class="mini-list">
+                                    <div class="mini-item">
+                                        <span class="mini-label">What felt most alive in me today?</span>
+                                        <span class="mini-badge">3–5 sentences</span>
+                                    </div>
+                                    <div class="mini-item">
+                                        <span class="mini-label">What am I quietly proud of?</span>
+                                        <span class="mini-badge">Micro-win</span>
+                                    </div>
+                                    <div class="mini-item">
+                                        <span class="mini-label">Where did I override myself?</span>
+                                        <span class="mini-badge">Soft honesty</span>
+                                    </div>
+                                    <div class="mini-item">
+                                        <span class="mini-label">What is one easy move tomorrow?</span>
+                                        <span class="mini-badge">Next step</span>
+                                    </div>
+                                </div>
+                                <div class="chip-row">
+                                    <div class="chip">Open journal</div>
+                                    <div class="chip">Use voice note</div>
+                                    <div class="chip">Save as ritual</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- RIGHT: Secondary column -->
+            <aside class="secondary">
+                <div class="secondary-stack">
+                    <!-- Threads -->
+                    <section class="panel">
+                        <header class="panel-header">
+                            <span class="panel-title">Open threads</span>
+                            <span class="panel-sub">Loose ends you flagged in the last 7 days.</span>
+                        </header>
+                        <div class="mini-list">
+                            <div class="mini-item">
+                                <span class="mini-label">Follow up with future collaborator</span>
+                                <span class="mini-badge">💛 Relationships</span>
+                            </div>
+                            <div class="mini-item">
+                                <span class="mini-label">Clarify budget for next 2 months</span>
+                                <span class="mini-badge">💰 Money</span>
+                            </div>
+                            <div class="mini-item">
+                                <span class="mini-label">Decide on upcoming travel window</span>
+                                <span class="mini-badge">🌍 Life design</span>
+                            </div>
+                            <div class="mini-item">
+                                <span class="mini-label">Block time for long-form thinking</span>
+                                <span class="mini-badge">🧠 Strategy</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tags / context -->
+                    <section class="panel">
+                        <header class="panel-header">
+                            <span class="panel-title">Context tags</span>
+                            <span class="panel-sub">Quick filters across your whole map.</span>
+                        </header>
+                        <div class="tag-cloud">
+                            <div class="tag-pill">Solo time</div>
+                            <div class="tag-pill">With others</div>
+                            <div class="tag-pill">Deep focus</div>
+                            <div class="tag-pill">Admin</div>
+                            <div class="tag-pill">Creative</div>
+                            <div class="tag-pill">Outdoors</div>
+                            <div class="tag-pill">Low energy friendly</div>
+                            <div class="tag-pill">High energy</div>
+                        </div>
+                    </section>
+
+                    <!-- Gentle nudge -->
+                    <section class="panel soft">
+                        <header class="panel-header">
+                            <span class="panel-title">Gentle nudge</span>
+                            <span class="panel-sub">A tiny suggestion from your future self.</span>
+                        </header>
+                        <p class="panel-sub">
+                            Before you open another tab, take one breath. Ask:
+                            <strong>“What would make this hour feel well used?”</strong>
+                            Then pick one card on this screen and commit to just the first 5 minutes.
+                        </p>
+                    </section>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer-note">
+            <span>© Youality · Interface concept prototype · v0.1</span>
+            <span>Designed to feel spacious, intentional, and calm — even on busy days.</span>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Top nav active state (visual only)
+            const navLinks = document.querySelectorAll(".top-nav-link");
+            navLinks.forEach((link) => {
+                link.addEventListener("click", () => {
+                    navLinks.forEach((l) => l.classList.remove("is-active"));
+                    link.classList.add("is-active");
+                    // In a future version, you can use link.dataset.section to swap views.
+                });
+            });
+
+            // Scope toggle (Today / Week / Month)
+            const scopePills = document.querySelectorAll(".scope-pill");
+            const dayTitle = document.getElementById("dayTitle");
+            const daySubline = document.getElementById("daySubline");
+            const timeline = document.getElementById("timeline");
+
+            const scopePresets = {
+                today: {
+                    title: "Saturday, 6 December",
+                    sub: "Gentle structure, clear focus, plenty of space to improvise.",
+                    blocks: [
+                        { time: "08:30", title: "Morning check-in", sub: "Scan inner weather, set one clear priority." },
+                        { time: "11:00", title: "Deep work pocket", sub: "Move one life area forward for 45–60 minutes." },
+                        { time: "16:30", title: "Movement & reset", sub: "Body, breath, or sun — re-align your nervous system." },
+                        { time: "21:00", title: "Evening reflection", sub: "Capture wins, learnings, and a single next micro-step." },
+                    ],
+                },
+                week: {
+                    title: "This week’s orientation",
+                    sub: "Zoomed-out view: fewer, cleaner commitments that serve the whole system.",
+                    blocks: [
+                        { time: "Mon", title: "Choose 3 anchors", sub: "Health, relationships, and one key project." },
+                        { time: "Wed", title: "Mid-week recalibration", sub: "Adjust expectations to match real energy & reality." },
+                        { time: "Fri", title: "Integration pocket", sub: "Capture what changed, and what you’d repeat." },
+                        { time: "Sun", title: "Design next week", sub: "Light-touch planning around energy, not just tasks." },
+                    ],
+                },
+                month: {
+                    title: "This month’s arc",
+                    sub: "A gentle narrative across weeks, not a to-do list with extra steps.",
+                    blocks: [
+                        { time: "Week 1", title: "Clarify intentions", sub: "Name 1–3 themes that would make this month feel meaningful." },
+                        { time: "Week 2", title: "Build momentum", sub: "Protect 2–3 recurring focus blocks in your calendar." },
+                        { time: "Week 3", title: "Course-correct", sub: "Say no to what doesn’t belong in this month’s story." },
+                        { time: "Week 4", title: "Harvest & celebrate", sub: "Honour shifts, not just outcomes — close loops gently." },
+                    ],
+                },
+            };
+
+            function renderScope(scopeKey) {
+                const preset = scopePresets[scopeKey] || scopePresets.today;
+                dayTitle.textContent = preset.title;
+                daySubline.textContent = preset.sub;
+
+                timeline.innerHTML = "";
+                preset.blocks.forEach((b) => {
+                    const item = document.createElement("div");
+                    item.className = "timeline-item";
+                    item.innerHTML = `
+            <div class="timeline-time">${b.time}</div>
+            <div class="timeline-card">
+              <div class="timeline-title">${b.title}</div>
+              <div class="timeline-tagline">${b.sub}</div>
+            </div>
+          `;
+                    timeline.appendChild(item);
+                });
+            }
+
+            scopePills.forEach((pill) => {
+                pill.addEventListener("click", () => {
+                    scopePills.forEach((p) => p.classList.remove("is-active"));
+                    pill.classList.add("is-active");
+                    renderScope(pill.dataset.scope || "today");
+                });
+            });
+
+            // Expandable rows
+            const expandableRows = document.querySelectorAll(".item-row.js-expand");
+            expandableRows.forEach((row) => {
+                row.addEventListener("click", () => {
+                    row.classList.toggle("is-open");
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

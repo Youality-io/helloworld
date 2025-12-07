@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Coming Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Youality – Navigate your reality, masterfully. Coming soon." />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #EDF4F3;
+            /* Primary light */
+            --accent-from: #369799;
+            /* Brand gradient start */
+            --accent-to: #24769C;
+            /* Brand gradient end */
+            --text-main: #1E1E24;
+            /* Phantom */
+            --text-muted: #6E7180;
+            /* Graphite */
+            --border-subtle: #D3D6E0;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top right, rgba(54, 151, 153, 0.05), transparent 55%),
+                radial-gradient(circle at bottom left, rgba(36, 118, 156, 0.06), transparent 55%),
+                var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border-subtle);
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.6);
+            padding: 28px 24px 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            gap: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                grid-template-columns: 1fr;
+                padding: 22px 18px 20px;
+            }
+        }
+
+        /* Logo row */
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 0.04em;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Main content */
+        .headline {
+            font-size: clamp(28px, 4vw, 36px);
+            line-height: 1.15;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .subcopy {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 34rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(36, 118, 156, 0.18);
+            background: linear-gradient(135deg,
+                    rgba(54, 151, 153, 0.08),
+                    rgba(36, 118, 156, 0.03));
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            margin-bottom: 12px;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #4ade80 0%, #16a34a 55%, #15803d 100%);
+            box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.2);
+            animation: pulse 1.6s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.25);
+                opacity: 1;
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(22, 163, 74, 0);
+                opacity: 0.9;
+            }
+
+            100% {
+                box-shadow: 0 0 0 4px rgba(22, 163, 74, 0);
+                opacity: 0.7;
+            }
+        }
+
+        .cta-row {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .primary-btn {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 25px rgba(36, 118, 156, 0.35);
+            transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(36, 118, 156, 0.4);
+            filter: brightness(1.03);
+        }
+
+        .primary-btn:active {
+            transform: translateY(0px) scale(0.99);
+            box-shadow: 0 6px 15px rgba(36, 118, 156, 0.3);
+        }
+
+        .secondary-link {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .secondary-link a {
+            color: var(--accent-to);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .secondary-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Right side: “card within card” */
+        .side-panel {
+            border-radius: 18px;
+            padding: 14px 14px 16px;
+            background: radial-gradient(circle at top, rgba(54, 151, 153, 0.12), transparent 65%),
+                #F7F9FA;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .side-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.11em;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+        }
+
+        .metric-value {
+            font-weight: 600;
+        }
+
+        .progress-wrap {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.4);
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 64%;
+            background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+            border-radius: 999px;
+            transform-origin: left center;
+            animation: grow 1.3s ease-out forwards;
+        }
+
+        @keyframes grow {
+            from {
+                transform: scaleX(0);
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .eta {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer span {
+            opacity: 0.9;
+        }
+
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-to);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 1 / 4</div>
+            <div class="prototype-nav-right">
+                <a href="wip2.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="shell">
+        <main class="card" aria-labelledby="youality-coming-soon">
+            <section>
+                <div class="logo-row">
+                    <img src="../youality_emblem.svg" alt="Youality"
+                        style="width: 40px; height: 40px; object-fit: contain;" />
+                    <div>
+                        <div class="logo-text">Youality</div>
+                        <div class="tagline">Navigate your reality, masterfully.</div>
+                    </div>
+                </div>
+
+                <div class="pill">
+                    <span class="pill-dot" aria-hidden="true"></span>
+                    <span>Live soon • Private beta in progress</span>
+                </div>
+
+                <h1 id="youality-coming-soon" class="headline">
+                    A personal navigation system<br />
+                    for your real life, not just your to-do list.
+                </h1>
+
+                <p class="subcopy">
+                    We’re quietly building a space where you can map your life, track what really
+                    matters, and make decisions from a place of clarity and intention.
+                    Youality is in active development – and you’re early.
+                </p>
+
+                <div class="cta-row">
+                    <button class="primary-btn" type="button">
+                        Get early access updates
+                        <span aria-hidden="true">↗</span>
+                    </button>
+
+                    <p class="secondary-link">
+                        Or <a href="mailto:hello@youality.io">email us</a> if you’d like to collaborate.
+                    </p>
+                </div>
+            </section>
+
+            <aside class="side-panel" aria-label="Youality build status">
+                <div class="side-label">Build snapshot</div>
+
+                <div class="metric-row">
+                    <span class="metric-label">Core system design</span>
+                    <span class="metric-value">In progress</span>
+                </div>
+
+                <div class="progress-wrap">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="metric-row">
+                    <span class="metric-label">Focus</span>
+                    <span class="metric-value">Clarity • Navigation • Mastery</span>
+                </div>
+
+                <p class="eta">
+                    First invite-only version rolling out as we integrate the core navigation flows,
+                    reflection tools, and life-mapping system.
+                </p>
+
+                <div class="footer">
+                    <span>© <span id="year"></span> Youality / All rights reserved.</span>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        // Set current year automatically
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

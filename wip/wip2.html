@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Coming Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Youality – A new way to navigate your reality. Coming soon." />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #EDF4F3;
+            --text-main: #1E1E24;
+            --text-muted: #6E7180;
+            --accent-start: #369799;
+            --accent-end: #24769C;
+            --card-bg: #FFFFFF;
+            --border-subtle: #D3D6E0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top right, rgba(54, 151, 153, 0.14), transparent 55%),
+                radial-gradient(circle at bottom left, rgba(36, 118, 156, 0.10), transparent 55%),
+                var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .page {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border-subtle);
+            padding: 32px 28px;
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-orb {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(54, 151, 153, 0.3), transparent 65%);
+            top: -80px;
+            right: -40px;
+            filter: blur(2px);
+            pointer-events: none;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 0.03em;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 12px;
+            line-height: 1.4;
+            color: var(--text-muted);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(36, 118, 156, 0.20);
+            background: rgba(237, 239, 247, 0.7);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 18px;
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #24E37B, #0EA85A);
+            box-shadow: 0 0 12px rgba(14, 168, 90, 0.7);
+            animation: pulse 1.4s infinite ease-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+
+            70% {
+                transform: scale(1.15);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: clamp(28px, 4vw, 36px);
+            line-height: 1.18;
+            margin-bottom: 12px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 36rem;
+            margin-bottom: 24px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            color: white;
+            box-shadow: 0 6px 18px rgba(36, 118, 156, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+            text-decoration: none;
+        }
+
+        .cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(36, 118, 156, 0.45);
+            filter: brightness(1.02);
+        }
+
+        .ghost-link {
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 12px;
+            text-decoration: none;
+            color: var(--text-muted);
+            border: 1px dashed rgba(110, 113, 128, 0.45);
+            background: rgba(237, 244, 243, 0.8);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ghost-link span.icon {
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 18px;
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tiny-separator {
+            width: 4px;
+            height: 4px;
+            border-radius: 999px;
+            background: #BCBFCC;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 24px 18px 22px;
+                border-radius: 20px;
+            }
+
+            header {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-end);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="wip1.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 2 / 4</div>
+            <div class="prototype-nav-right">
+                <a href="wip3.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <div class="card">
+            <div class="glow-orb" aria-hidden="true"></div>
+
+            <header>
+                <img src="../youality_emblem.svg" alt="Youality"
+                    style="width: 32px; height: 32px; object-fit: contain;" />
+                <div>
+                    <div class="logo-text">Youality</div>
+                    <div class="tagline">Navigate your reality, masterfully.</div>
+                </div>
+            </header>
+
+            <main>
+                <div class="pill">
+                    <span class="pill-dot" aria-hidden="true"></span>
+                    <span>In progress</span>
+                </div>
+
+                <h1>
+                    Your new <span class="highlight">life navigation</span> space is on its way.
+                </h1>
+
+                <p class="subtitle">
+                    We’re quietly building a calm, intelligent hub to help you reflect, plan, and steer your life with
+                    clarity.
+                    The first public version of Youality will be launching soon.
+                </p>
+
+                <div class="cta-row">
+                    <!-- Update mailto to your preferred address -->
+                    <a class="cta" href="mailto:hello@youality.io?subject=Keep%20me%20posted%20about%20Youality">
+                        Notify me at launch
+                        <span>↗</span>
+                    </a>
+
+                    <!-- Optional secondary link – update URL when ready -->
+                    <a class="ghost-link" href="#"
+                        onclick="event.preventDefault(); alert('We’re still setting this up. For now, reach us at hello@youality.io ✨');">
+                        <span class="icon">✨</span>
+                        Learn about the vision
+                    </a>
+                </div>
+            </main>
+
+            <footer>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span>© <span id="year"></span> Youality</span>
+                    <span class="tiny-separator"></span>
+                    <span>All rights reserved.</span>
+                </div>
+                <div>Made with intention, still unfolding.</div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Keep copyright year fresh
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

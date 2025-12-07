@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Coming Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Manrope font (brand typeface) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #1E1E24;
+            /* Phantom */
+            --bg-black: #000000;
+            /* Black */
+            --accent-teal-1: #369799;
+            --accent-teal-2: #24769C;
+            --text-main: #EDF4F3;
+            --text-muted: #9DA2B3;
+            --border-soft: #40424D;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(54, 151, 153, 0.45), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(36, 118, 156, 0.4), transparent 55%),
+                linear-gradient(135deg, var(--bg-black), var(--bg-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 960px;
+            border-radius: 18px;
+            border: 1px solid rgba(64, 66, 77, 0.8);
+            background: radial-gradient(circle at top, rgba(237, 244, 243, 0.03), transparent 55%),
+                rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: min(80vh, 540px);
+        }
+
+        @media (min-width: 768px) {
+            .page {
+                padding: 40px 42px;
+            }
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: conic-gradient(from 210deg,
+                    var(--accent-teal-1),
+                    var(--accent-teal-2),
+                    var(--bg-dark),
+                    var(--accent-teal-1));
+            box-shadow: 0 0 18px rgba(54, 151, 153, 0.7);
+            flex-shrink: 0;
+        }
+
+        .brand-name {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        .pill {
+            border-radius: 999px;
+            border: 1px solid rgba(64, 66, 77, 0.9);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #5BE0C1, #1F7D7A);
+            box-shadow: 0 0 10px rgba(91, 224, 193, 0.9);
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 18px;
+            padding-block: 8px;
+        }
+
+        .eyebrow {
+            font-size: 0.8rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        h1 {
+            font-size: clamp(2.4rem, 4vw, 3.4rem);
+            line-height: 1.1;
+            font-weight: 600;
+        }
+
+        h1 span {
+            background: linear-gradient(120deg, var(--accent-teal-1), var(--accent-teal-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            max-width: 480px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .notify {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .notify input[type="email"] {
+            flex: 1 1 180px;
+            min-width: 0;
+            border-radius: 999px;
+            border: 1px solid rgba(64, 66, 77, 0.9);
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.62);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .notify input[type="email"]::placeholder {
+            color: rgba(157, 162, 179, 0.9);
+        }
+
+        .notify button {
+            border: none;
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: radial-gradient(circle at top left, var(--accent-teal-1), var(--accent-teal-2));
+            color: #EDF4F3;
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.6),
+                0 0 18px rgba(54, 151, 153, 0.7);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .notify button:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 16px 40px rgba(0, 0, 0, 0.75),
+                0 0 22px rgba(54, 151, 153, 0.9);
+        }
+
+        .notify button:active {
+            transform: translateY(0);
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.7),
+                0 0 16px rgba(36, 118, 156, 0.8);
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 32px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .bottom span {
+            opacity: 0.85;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 3px;
+        }
+
+        .dots span {
+            width: 3px;
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.45);
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                border-radius: 18px;
+                padding: 24px 18px;
+            }
+
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="top">
+            <div class="brand">
+                <div class="brand-mark"></div>
+                <div>
+                    <div class="brand-name">Youality</div>
+                    <div class="tagline">Navigate your reality, masterfully</div>
+                </div>
+            </div>
+            <div class="pill">
+                <div class="pill-dot"></div>
+                <span>In Quiet Build Mode</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="eyebrow">Coming soon</div>
+            <h1>
+                A new way to<br />
+                <span>navigate your life system</span>
+            </h1>
+            <p class="subtitle">
+                We’re crafting an experience for people who design their reality with intention.
+                Leave your email and we’ll let you know the moment the first doors open.
+            </p>
+
+            <form class="notify" onsubmit="event.preventDefault(); alert('Thanks for your interest in Youality!');">
+                <input type="email" placeholder="Enter your email to get notified" required />
+                <button type="submit">Notify Me</button>
+            </form>
+        </main>
+
+        <footer class="bottom">
+            <span>© 2025 Youality · All rights reserved</span>
+            <span>
+                Version 0.0.1
+                <span class="dots"><span></span><span></span><span></span></span>
+                Work in progress
+            </span>
+        </footer>
+    </div>
+</body>
+
+</html>

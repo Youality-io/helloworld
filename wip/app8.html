@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality · Navigate Your Reality</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --ylty-bg: #EDF4F3;
+            --ylty-accent-1: #369799;
+            --ylty-accent-2: #24769C;
+            --ylty-text-main: #1E1E24;
+            --ylty-text-muted: #6E7180;
+            --ylty-border-subtle: #D3D6E0;
+            --ylty-card: #FFFFFF;
+            --ylty-chip-bg: #EDEFF7;
+            --ylty-chip-border: #BCBFCC;
+            --ylty-nav-bg: rgba(237, 244, 243, 0.9);
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top left, #EDEFF7 0, var(--ylty-bg) 40%, #EDF4F3 100%);
+            color: var(--ylty-text-main);
+            -webkit-font-smoothing: antialiased;
+            padding-top: 45px;
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top navigation (Airbnb-inspired) */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: var(--ylty-nav-bg);
+            border-bottom: 1px solid rgba(211, 214, 224, 0.7);
+        }
+
+        .top-nav-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: conic-gradient(from 220deg, var(--ylty-accent-1), var(--ylty-accent-2), #369799);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 10px 26px rgba(36, 118, 156, 0.35);
+        }
+
+        .brand-text-main {
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            font-size: 18px;
+        }
+
+        .brand-text-sub {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--ylty-text-muted);
+            margin-top: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            color: var(--ylty-text-muted);
+            text-decoration: none;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(237, 239, 247, 0.85);
+            color: var(--ylty-text-main);
+        }
+
+        .nav-link.active {
+            background: #FFFFFF;
+            color: var(--ylty-text-main);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-cta {
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--ylty-accent-1), var(--ylty-accent-2));
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(36, 118, 156, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-cta span.icon {
+            font-size: 16px;
+            transform: translateY(1px);
+        }
+
+        .avatar-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px 4px 4px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.7);
+            background: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+        }
+
+        .avatar-photo {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: linear-gradient(145deg, #EDEFF7, #D3D6E0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .avatar-name {
+            font-size: 12px;
+            color: var(--ylty-text-muted);
+        }
+
+        /* Page layout */
+        .page {
+            flex: 1;
+            padding: 24px 20px 40px;
+        }
+
+        .page-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Hero section */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(0, 1.1fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .hero-left,
+        .hero-right {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 26px;
+            padding: 22px 22px 20px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(237, 239, 247, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-left::before {
+            content: "";
+            position: absolute;
+            inset: -20%;
+            background:
+                radial-gradient(circle at top left, rgba(54, 151, 153, 0.10), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(36, 118, 156, 0.10), transparent 55%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .hero-left-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-kicker {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--ylty-text-muted);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 26px;
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            color: var(--ylty-text-muted);
+            margin-bottom: 18px;
+            max-width: 420px;
+        }
+
+        /* Focus search card (Airbnb search bar vibe) */
+        .focus-card {
+            border-radius: 999px;
+            background: #FFFFFF;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            padding: 10px 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .focus-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--ylty-text-muted);
+            margin-bottom: 2px;
+        }
+
+        .focus-input-block {
+            flex: 1;
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .focus-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 14px;
+            color: var(--ylty-text-main);
+            padding-top: 2px;
+        }
+
+        .focus-input::placeholder {
+            color: #9DA2B3;
+        }
+
+        .focus-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .chip {
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--ylty-chip-border);
+            background: var(--ylty-chip-bg);
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .chip.active {
+            background: #FFFFFF;
+            border-color: var(--ylty-accent-2);
+            color: var(--ylty-accent-2);
+            box-shadow: 0 10px 24px rgba(36, 118, 156, 0.25);
+        }
+
+        .chip-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--ylty-accent-1), var(--ylty-accent-2));
+        }
+
+        .focus-cta {
+            border-radius: 999px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--ylty-accent-1), var(--ylty-accent-2));
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .focus-cta span.icon {
+            font-size: 16px;
+            transform: translateY(1px);
+        }
+
+        .hero-footnote {
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+            margin-top: 6px;
+        }
+
+        .hero-footnote strong {
+            color: var(--ylty-accent-2);
+            font-weight: 600;
+        }
+
+        /* Right hero: snapshot grid */
+        .hero-right-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .hero-right-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-right-subtitle {
+            font-size: 12px;
+            color: var(--ylty-text-muted);
+        }
+
+        .hero-right-view-toggle {
+            display: inline-flex;
+            border-radius: 999px;
+            padding: 3px;
+            background: #EDEFF7;
+            border: 1px solid #D3D6E0;
+            gap: 2px;
+        }
+
+        .view-pill {
+            border-radius: 999px;
+            font-size: 11px;
+            padding: 4px 8px;
+            cursor: pointer;
+            color: var(--ylty-text-muted);
+        }
+
+        .view-pill.active {
+            background: #FFFFFF;
+            color: var(--ylty-text-main);
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .snapshot-card {
+            border-radius: 16px;
+            padding: 10px 11px 10px;
+            background: #FFFFFF;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .snapshot-label {
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+        }
+
+        .snapshot-value-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .snapshot-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .snapshot-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            color: var(--ylty-text-muted);
+        }
+
+        .snapshot-meter-track {
+            margin-top: 4px;
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            overflow: hidden;
+        }
+
+        .snapshot-meter-fill {
+            height: 100%;
+            width: 64%;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--ylty-accent-1), var(--ylty-accent-2));
+        }
+
+        .snapshot-meter-fill.alt {
+            width: 46%;
+        }
+
+        .snapshot-meter-fill.soft {
+            width: 78%;
+            background: linear-gradient(135deg, #9DA2B3, #6E7180);
+        }
+
+        .snapshot-footnote {
+            font-size: 10px;
+            color: var(--ylty-text-muted);
+            margin-top: 8px;
+        }
+
+        /* Lower grid: Today / Life Areas / Inner Weather */
+        .lower-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 22px;
+            padding: 18px 18px 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(237, 239, 247, 0.95);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--ylty-text-muted);
+        }
+
+        .segmented {
+            display: inline-flex;
+            background: #EDEFF7;
+            padding: 3px;
+            border-radius: 999px;
+            border: 1px solid #D3D6E0;
+            gap: 3px;
+        }
+
+        .segmented button {
+            border: none;
+            border-radius: 999px;
+            padding: 4px 8px;
+            font-size: 11px;
+            background: transparent;
+            color: var(--ylty-text-muted);
+            cursor: pointer;
+        }
+
+        .segmented button.active {
+            background: #FFFFFF;
+            color: var(--ylty-text-main);
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Today list */
+        .today-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .today-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 9px;
+            border-radius: 14px;
+            border: 1px solid rgba(211, 214, 224, 0.8);
+            background: #FFFFFF;
+        }
+
+        .today-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            border: 1px solid #D3D6E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+        }
+
+        .today-main {
+            flex: 1;
+        }
+
+        .today-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .today-meta {
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+        }
+
+        .today-tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .mini-tag {
+            font-size: 10px;
+            border-radius: 999px;
+            padding: 2px 6px;
+            background: #EDEFF7;
+            color: var(--ylty-text-muted);
+        }
+
+        .today-right {
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+            white-space: nowrap;
+        }
+
+        /* Life areas */
+        .areas-row {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .area-pill {
+            flex: 0 1 140px;
+            border-radius: 16px;
+            padding: 10px 10px;
+            background: #FFFFFF;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .area-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .area-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .area-score {
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+        }
+
+        .area-bar-track {
+            width: 100%;
+            height: 5px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            overflow: hidden;
+        }
+
+        .area-bar-fill {
+            height: 100%;
+            width: 64%;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--ylty-accent-1), var(--ylty-accent-2));
+        }
+
+        .area-bar-fill.mid {
+            width: 52%;
+        }
+
+        .area-bar-fill.low {
+            width: 34%;
+        }
+
+        .area-tagline {
+            font-size: 10px;
+            color: var(--ylty-text-muted);
+        }
+
+        /* Inner weather */
+        .weather-block {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.8fr);
+            gap: 12px;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .weather-mood {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .weather-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
+            padding: 5px 9px;
+            background: #EDEFF7;
+            color: var(--ylty-text-muted);
+            font-size: 11px;
+            max-width: max-content;
+        }
+
+        .weather-scale {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+        }
+
+        .weather-scale-track {
+            flex: 1;
+            height: 5px;
+            border-radius: 999px;
+            background: #EDEFF7;
+            overflow: hidden;
+        }
+
+        .weather-scale-fill {
+            height: 100%;
+            width: 62%;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--ylty-accent-1), var(--ylty-accent-2));
+        }
+
+        .weather-note {
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+        }
+
+        .weather-wheel {
+            justify-self: center;
+            width: 110px;
+            height: 110px;
+            border-radius: 999px;
+            background:
+                conic-gradient(from 210deg,
+                    rgba(54, 151, 153, 0.8) 0 90deg,
+                    rgba(36, 118, 156, 0.85) 90deg 170deg,
+                    rgba(157, 162, 179, 0.8) 170deg 260deg,
+                    rgba(188, 191, 204, 0.9) 260deg 360deg);
+            position: relative;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+        }
+
+        .weather-wheel-inner {
+            position: absolute;
+            inset: 16px;
+            border-radius: inherit;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2px;
+            text-align: center;
+        }
+
+        .weather-wheel-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--ylty-text-muted);
+        }
+
+        .weather-wheel-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .weather-wheel-sub {
+            font-size: 10px;
+            color: var(--ylty-text-muted);
+        }
+
+        .card-footer {
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-footer a {
+            color: var(--ylty-accent-2);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .card-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 8px 20px 22px;
+            font-size: 11px;
+            color: var(--ylty-text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: var(--ylty-accent-2);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-right {
+                order: -1;
+            }
+
+            .lower-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .top-nav-inner {
+                padding-inline: 12px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page {
+                padding-inline: 12px;
+            }
+
+            .hero-left,
+            .hero-right,
+            .card {
+                padding-inline: 16px;
+            }
+
+            .focus-card {
+                border-radius: 20px;
+            }
+
+            .avatar-pill .avatar-name {
+                display: none;
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--ylty-border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--ylty-text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 150ms ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--ylty-accent-2);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--ylty-text-main);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="app7.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">App Prototype 8 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="index1.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="app-shell">
+        <!-- Top navigation -->
+        <header class="top-nav">
+            <div class="top-nav-inner">
+                <div class="brand">
+                    <img src="../youality_emblem.svg" alt="Youality logo"
+                        style="height:32px; width:32px; object-fit: contain;" />
+                    <div>
+                        <div class="brand-text-main">Youality</div>
+                        <div class="brand-text-sub">Navigate your reality</div>
+                    </div>
+                </div>
+
+                <nav class="nav-links" aria-label="Primary">
+                    <a class="nav-link active" href="#">Dashboard</a>
+                    <a class="nav-link" href="#">Maps</a>
+                    <a class="nav-link" href="#">Rituals</a>
+                    <a class="nav-link" href="#">Library</a>
+                </nav>
+
+                <div class="nav-right">
+                    <button class="nav-cta" type="button">
+                        <span class="icon">✦</span>
+                        Start a check-in
+                    </button>
+                    <button class="avatar-pill" type="button">
+                        <div class="avatar-photo">J</div>
+                        <span class="avatar-name">You</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main page -->
+        <main class="page">
+            <div class="page-inner">
+                <!-- Hero row -->
+                <section class="hero" aria-label="Overview">
+                    <!-- Left: main action -->
+                    <div class="hero-left">
+                        <div class="hero-left-inner">
+                            <div class="hero-kicker">Good morning, John</div>
+                            <h1 class="hero-title">Where do you want to navigate in your reality today?</h1>
+                            <p class="hero-subtitle">
+                                Set your focus, then let Youality hold the map, the structure, and the next small steps.
+                            </p>
+
+                            <div class="focus-card">
+                                <div class="focus-input-block">
+                                    <div class="focus-label">Focus area</div>
+                                    <input class="focus-input" type="text"
+                                        placeholder="Bring more clarity to my next 90 days…" />
+                                    <div class="focus-chips" aria-label="Suggested focuses">
+                                        <button class="chip active" type="button">
+                                            <span class="chip-dot"></span>
+                                            Vision
+                                        </button>
+                                        <button class="chip" type="button">
+                                            <span class="chip-dot"></span>
+                                            Body & Energy
+                                        </button>
+                                        <button class="chip" type="button">
+                                            <span class="chip-dot"></span>
+                                            Relationships
+                                        </button>
+                                        <button class="chip" type="button">
+                                            <span class="chip-dot"></span>
+                                            Work & Creation
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button class="focus-cta" type="button">
+                                    <span class="icon">➜</span>
+                                    Open navigation flow
+                                </button>
+                            </div>
+
+                            <p class="hero-footnote">
+                                <strong>Tip:</strong> Keep your focus sentence short. You can refine it in the next
+                                step.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: snapshot -->
+                    <aside class="hero-right">
+                        <header class="hero-right-header">
+                            <div>
+                                <div class="hero-right-title">Reality snapshot</div>
+                                <div class="hero-right-subtitle">Updated just now · Preview of your system</div>
+                            </div>
+                            <div class="hero-right-view-toggle" aria-label="Timeframe selector">
+                                <button class="view-pill active" type="button">Today</button>
+                                <button class="view-pill" type="button">Week</button>
+                            </div>
+                        </header>
+
+                        <div class="snapshot-grid" aria-label="Key indicators">
+                            <div class="snapshot-card">
+                                <div class="snapshot-label">Clarity level</div>
+                                <div class="snapshot-value-row">
+                                    <div class="snapshot-value">7.4</div>
+                                    <div class="snapshot-tag">On the rise</div>
+                                </div>
+                                <div class="snapshot-meter-track">
+                                    <div class="snapshot-meter-fill"></div>
+                                </div>
+                            </div>
+
+                            <div class="snapshot-card">
+                                <div class="snapshot-label">Energy & body</div>
+                                <div class="snapshot-value-row">
+                                    <div class="snapshot-value">65%</div>
+                                    <div class="snapshot-tag">Grounded</div>
+                                </div>
+                                <div class="snapshot-meter-track">
+                                    <div class="snapshot-meter-fill.alt"></div>
+                                </div>
+                            </div>
+
+                            <div class="snapshot-card">
+                                <div class="snapshot-label">Focus alignment</div>
+                                <div class="snapshot-value-row">
+                                    <div class="snapshot-value">3/4</div>
+                                    <div class="snapshot-tag">Key areas active</div>
+                                </div>
+                                <div class="snapshot-meter-track">
+                                    <div class="snapshot-meter-fill.soft"></div>
+                                </div>
+                            </div>
+
+                            <div class="snapshot-card">
+                                <div class="snapshot-label">Next check-in</div>
+                                <div class="snapshot-value-row">
+                                    <div class="snapshot-value">Tonight</div>
+                                    <div class="snapshot-tag">5 min ritual</div>
+                                </div>
+                                <div class="snapshot-meter-track">
+                                    <div class="snapshot-meter-fill.soft" style="width: 30%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="snapshot-footnote">
+                            These are placeholder metrics to illustrate layout. In the real app, they’d adapt to your
+                            system.
+                        </p>
+                    </aside>
+                </section>
+
+                <!-- Lower grid -->
+                <section class="lower-grid" aria-label="Today and life areas">
+                    <!-- Today card -->
+                    <section class="card" aria-labelledby="today-title">
+                        <header class="card-header">
+                            <div>
+                                <h2 id="today-title" class="card-title">Today’s navigation</h2>
+                                <p class="card-subtitle">Three micro-moves that keep your reality in motion.</p>
+                            </div>
+                            <div class="segmented" aria-label="Scope">
+                                <button class="active" type="button">Today</button>
+                                <button type="button">This week</button>
+                                <button type="button">Inbox</button>
+                            </div>
+                        </header>
+
+                        <div class="today-list">
+                            <article class="today-item">
+                                <div class="today-dot">1</div>
+                                <div class="today-main">
+                                    <div class="today-title">Review your “Field of Becoming” map</div>
+                                    <div class="today-meta">5–7 minutes · Vision · Web of Life</div>
+                                    <div class="today-tag-row">
+                                        <span class="mini-tag">Micro-review</span>
+                                        <span class="mini-tag">Big picture</span>
+                                    </div>
+                                </div>
+                                <div class="today-right">Not started</div>
+                            </article>
+
+                            <article class="today-item">
+                                <div class="today-dot">2</div>
+                                <div class="today-main">
+                                    <div class="today-title">Update inner weather & energy baskets</div>
+                                    <div class="today-meta">3 minutes · Body & emotions</div>
+                                    <div class="today-tag-row">
+                                        <span class="mini-tag">Check-in</span>
+                                        <span class="mini-tag">Self-regulation</span>
+                                    </div>
+                                </div>
+                                <div class="today-right">In progress</div>
+                            </article>
+
+                            <article class="today-item">
+                                <div class="today-dot">3</div>
+                                <div class="today-main">
+                                    <div class="today-title">Choose one “big stone” for today</div>
+                                    <div class="today-meta">10 minutes · Execution · Jar of Priorities</div>
+                                    <div class="today-tag-row">
+                                        <span class="mini-tag">Focus</span>
+                                        <span class="mini-tag">Action</span>
+                                    </div>
+                                </div>
+                                <div class="today-right">Later</div>
+                            </article>
+                        </div>
+
+                        <div class="card-footer">
+                            <span>Drag, reorder, or snooze these in the full version.</span>
+                            <a href="#">Open full planner →</a>
+                        </div>
+                    </section>
+
+                    <!-- Right column: Life areas & inner weather combined -->
+                    <section class="card" aria-label="Life areas and inner weather">
+                        <header class="card-header">
+                            <div>
+                                <h2 class="card-title">Life areas & inner weather</h2>
+                                <p class="card-subtitle">Quick glance at what’s blooming and what needs care.</p>
+                            </div>
+                        </header>
+
+                        <div class="areas-row" aria-label="Life areas">
+                            <button class="area-pill" type="button">
+                                <div class="area-header">
+                                    <div class="area-name">Body & Energy</div>
+                                    <div class="area-score">7.2</div>
+                                </div>
+                                <div class="area-bar-track">
+                                    <div class="area-bar-fill"></div>
+                                </div>
+                                <div class="area-tagline">Steady, wants movement.</div>
+                            </button>
+
+                            <button class="area-pill" type="button">
+                                <div class="area-header">
+                                    <div class="area-name">Work & Creation</div>
+                                    <div class="area-score">6.4</div>
+                                </div>
+                                <div class="area-bar-track">
+                                    <div class="area-bar-fill mid"></div>
+                                </div>
+                                <div class="area-tagline">Ideas rich, asking for structure.</div>
+                            </button>
+
+                            <button class="area-pill" type="button">
+                                <div class="area-header">
+                                    <div class="area-name">Relationships</div>
+                                    <div class="area-score">8.1</div>
+                                </div>
+                                <div class="area-bar-track">
+                                    <div class="area-bar-fill"></div>
+                                </div>
+                                <div class="area-tagline">Supportive & alive.</div>
+                            </button>
+
+                            <button class="area-pill" type="button">
+                                <div class="area-header">
+                                    <div class="area-name">Inner world</div>
+                                    <div class="area-score">6.0</div>
+                                </div>
+                                <div class="area-bar-track">
+                                    <div class="area-bar-fill low"></div>
+                                </div>
+                                <div class="area-tagline">Space for integration.</div>
+                            </button>
+                        </div>
+
+                        <div class="weather-block">
+                            <div class="weather-mood">
+                                <div class="weather-badge">
+                                    <span>🌤</span>
+                                    <span>Inner weather: bright with light clouds</span>
+                                </div>
+                                <div class="weather-scale">
+                                    <span>Grounded</span>
+                                    <div class="weather-scale-track">
+                                        <div class="weather-scale-fill"></div>
+                                    </div>
+                                    <span>Charged</span>
+                                </div>
+                                <p class="weather-note">
+                                    One thing that would make today feel <strong>more harmonious</strong>? Capture it in
+                                    your next check-in.
+                                </p>
+                            </div>
+
+                            <div class="weather-wheel">
+                                <div class="weather-wheel-inner">
+                                    <div class="weather-wheel-label">State</div>
+                                    <div class="weather-wheel-value">Centered</div>
+                                    <div class="weather-wheel-sub">Tilt: creative · future-oriented</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <span>Tap an area to open its dedicated map in the full app.</span>
+                            <a href="#">View full Web of Life →</a>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>© 2025 Youality · All rights reserved</span>
+            <span>
+                <a href="#">Brand guidelines</a> ·
+                <a href="#">Support</a>
+            </span>
+        </footer>
+    </div>
+
+    <script>
+        // Small demo interactions: toggle pills, chips, etc. (purely visual)
+        document.querySelectorAll('.segmented button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const group = btn.parentElement;
+                group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.view-pill').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const group = btn.parentElement;
+                group.querySelectorAll('.view-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

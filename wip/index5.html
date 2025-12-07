@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Navigate Your Reality, Masterfully</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Youality is a personal navigation system to help you see your life clearly, align your choices, and move toward what truly matters." />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Brand font: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Brand palette */
+            --bg-main: #EDF4F3;
+            --bg-surface: #FFFFFF;
+            --text-main: #1E1E24;
+            --text-muted: #6E7180;
+            --border-subtle: #D3D6E0;
+            --accent-teal-start: #369799;
+            --accent-teal-end: #24769C;
+            --gray-phantom: #1E1E24;
+            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.08);
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --transition-fast: 200ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #EDEFF7 0, var(--bg-main) 40%, #EDEFF7 100%);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            padding-top: 45px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .page-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shell-inner {
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px 20px 40px;
+        }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom,
+                    rgba(237, 244, 243, 0.96),
+                    rgba(237, 244, 243, 0.80),
+                    transparent);
+            border-bottom: 1px solid rgba(211, 214, 224, 0.7);
+        }
+
+        .site-header-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 14px 20px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: conic-gradient(from 210deg,
+                    var(--accent-teal-start),
+                    var(--accent-teal-end),
+                    #EDEFF7,
+                    var(--accent-teal-start));
+            position: relative;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3),
+                0 10px 25px rgba(0, 0, 0, 0.18);
+            overflow: hidden;
+        }
+
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            inset: 22%;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 20%, #FFFFFF 0, rgba(255, 255, 255, 0) 55%);
+            mix-blend-mode: screen;
+            opacity: 0.9;
+        }
+
+        .brand-wordmark {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-wordmark-main {
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            font-size: 1.02rem;
+        }
+
+        .brand-wordmark-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links a {
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 1.5px;
+            border-radius: 999px;
+            background: linear-gradient(120deg,
+                    var(--accent-teal-start),
+                    var(--accent-teal-end));
+            transition: width var(--transition-fast);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(36, 118, 156, 0.22);
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: linear-gradient(120deg,
+                    rgba(54, 151, 153, 0.06),
+                    rgba(36, 118, 156, 0.06));
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-cta-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, #fff, var(--accent-teal-start));
+            box-shadow: 0 0 0 4px rgba(54, 151, 153, 0.23);
+            animation: pulseDot 1600ms infinite ease-out;
+        }
+
+        @keyframes pulseDot {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(54, 151, 153, 0.23);
+            }
+
+            60% {
+                transform: scale(1.12);
+                box-shadow: 0 0 0 12px rgba(54, 151, 153, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(54, 151, 153, 0.23);
+            }
+        }
+
+        .nav-burger {
+            display: none;
+            width: 28px;
+            height: 20px;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .nav-burger span {
+            height: 2px;
+            border-radius: 999px;
+            background: var(--gray-phantom);
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 40px;
+            padding-bottom: 32px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 34px;
+            align-items: center;
+        }
+
+        .badge-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(188, 191, 204, 0.7);
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .badge-pill {
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: linear-gradient(120deg, var(--accent-teal-start), var(--accent-teal-end));
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 3.1vw, 3rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(120deg, var(--accent-teal-start), var(--accent-teal-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-copy {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 32rem;
+            margin-bottom: 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .btn-primary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #fff;
+            background:
+                radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.35), transparent 55%),
+                linear-gradient(135deg, var(--accent-teal-start), var(--accent-teal-end));
+            box-shadow: 0 18px 35px rgba(17, 78, 100, 0.45);
+            transition: transform 120ms ease-out, box-shadow 120ms ease-out;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 20px 42px rgba(17, 78, 100, 0.55);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(64, 66, 77, 0.16);
+            background: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: background var(--transition-fast), transform 120ms ease-out;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-1px);
+        }
+
+        .hero-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .hero-note strong {
+            color: var(--text-main);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-orbit {
+            position: absolute;
+            inset: -30px -22px -26px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .hero-orbit::before,
+        .hero-orbit::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 40px;
+            border: 1px dashed rgba(36, 118, 156, 0.26);
+            transform-origin: center;
+            animation: orbitSlow 26s linear infinite;
+        }
+
+        .hero-orbit::after {
+            inset: 10px;
+            border-style: solid;
+            border-color: rgba(188, 191, 204, 0.7);
+            animation-duration: 34s;
+            animation-direction: reverse;
+        }
+
+        @keyframes orbitSlow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .panel-preview {
+            position: relative;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(145deg,
+                    rgba(237, 239, 247, 0.96),
+                    rgba(237, 244, 243, 0.96)),
+                #fff;
+            padding: 18px 18px 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(211, 214, 224, 0.8);
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .panel-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            gap: 10px;
+        }
+
+        .panel-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-label-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal-start), var(--accent-teal-end));
+            box-shadow: 0 0 0 4px rgba(36, 118, 156, 0.25);
+        }
+
+        .panel-tag {
+            font-size: 0.8rem;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.85);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-muted);
+        }
+
+        .panel-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.9fr);
+            gap: 14px;
+        }
+
+        .panel-main-left-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .panel-main-left-copy {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .chip {
+            font-size: 0.74rem;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.2);
+            color: var(--text-main);
+        }
+
+        .chip-chip {
+            background: rgba(36, 118, 156, 0.08);
+            border: 1px solid rgba(36, 118, 156, 0.25);
+        }
+
+        .panel-progress {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .progress-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(211, 214, 224, 0.9);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(120deg, var(--accent-teal-start), var(--accent-teal-end));
+            transform-origin: left;
+            transform: scaleX(0.72);
+            animation: pulseProgress 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseProgress {
+            0% {
+                transform: scaleX(0.6);
+            }
+
+            50% {
+                transform: scaleX(0.82);
+            }
+
+            100% {
+                transform: scaleX(0.7);
+            }
+        }
+
+        .panel-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            font-size: 0.78rem;
+        }
+
+        .metric-card {
+            border-radius: 16px;
+            padding: 8px 9px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(211, 214, 224, 0.85);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+        }
+
+        .metric-value {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .metric-pill {
+            margin-top: 2px;
+            align-self: flex-start;
+            padding: 2px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(54, 151, 153, 0.3);
+            font-size: 0.7rem;
+            color: var(--accent-teal-end);
+            background: rgba(237, 244, 243, 0.9);
+        }
+
+        .panel-glow {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(54, 151, 153, 0.32), transparent 60%);
+            right: -100px;
+            bottom: -120px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Sections */
+        .section {
+            padding: 10px 0 36px;
+        }
+
+        .section-header {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .section-kicker {
+            font-size: 0.76rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-copy {
+            font-size: 0.94rem;
+            color: var(--text-muted);
+            max-width: 32rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            padding: 14px 14px 12px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-label {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .card-copy {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            font-size: 0.74rem;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.23);
+            color: var(--text-main);
+        }
+
+        .tag-soft {
+            background: rgba(237, 239, 247, 0.9);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .timeline-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-teal-start), var(--accent-teal-end));
+            color: #fff;
+            font-size: 0.74rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(17, 78, 100, 0.35);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 4px;
+            margin-left: 10px;
+        }
+
+        .timeline-copy {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-left: 10px;
+        }
+
+        /* Email / Updates */
+        .updates-wrap {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 20px;
+            align-items: center;
+        }
+
+        .updates-panel {
+            border-radius: var(--radius-xl);
+            background: rgba(30, 30, 36, 0.96);
+            color: #fff;
+            padding: 18px 18px 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .updates-panel::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(237, 239, 247, 0.25), transparent 55%),
+                radial-gradient(circle at 90% 100%, rgba(54, 151, 153, 0.35), transparent 55%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .updates-panel-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .updates-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .updates-copy {
+            font-size: 0.88rem;
+            color: rgba(237, 244, 243, 0.9);
+            margin-bottom: 12px;
+            max-width: 24rem;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .field {
+            flex: 1 1 160px;
+            min-width: 0;
+        }
+
+        .field input {
+            width: 100%;
+            border-radius: 999px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            padding: 9px 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .field input:focus {
+            border-color: rgba(54, 151, 153, 0.85);
+            box-shadow: 0 0 0 1px rgba(54, 151, 153, 0.3);
+        }
+
+        .updates-footnote {
+            font-size: 0.7rem;
+            color: rgba(237, 244, 243, 0.8);
+        }
+
+        .updates-items {
+            display: grid;
+            gap: 10px;
+        }
+
+        .updates-item-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .updates-item-main {
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .updates-item-copy {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid rgba(188, 191, 204, 0.7);
+            background: rgba(237, 244, 243, 0.96);
+            margin-top: auto;
+        }
+
+        .site-footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 12px 20px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-left span {
+            opacity: 0.9;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .footer-right a {
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 420ms ease-out, transform 420ms ease-out;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 880px) {
+            .hero-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .updates-wrap {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .timeline {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .site-header-inner {
+                padding-inline: 16px;
+            }
+
+            .shell-inner {
+                padding-inline: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-burger {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: 26px;
+            }
+
+            .grid-3 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .site-footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Burger expanded menu */
+        .nav-links-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px 20px 12px;
+            border-top: 1px solid rgba(211, 214, 224, 0.8);
+            background: rgba(237, 244, 243, 0.97);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links-mobile a {
+            padding: 4px 0;
+        }
+
+        .nav-links-mobile .nav-cta {
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        .nav-links-mobile.open {
+            display: flex;
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-2);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--ink-main);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="index4.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Landing Page 5 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="index6.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page-shell">
+        <header class="site-header">
+            <div class="site-header-inner">
+                <div class="brand-lockup">
+                    <img src="../youality_emblem.svg" alt="Youality logo" style="height:32px; width:32px; object-fit: contain;" />
+                    <div class="brand-wordmark">
+                        <div class="brand-wordmark-main">Youality</div>
+                        <div class="brand-wordmark-sub">Your Reality</div>
+                    </div>
+                </div>
+                <nav class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#product">Product</a>
+                    <a href="#who">Who it's for</a>
+                    <a href="#updates">Updates</a>
+                    <a href="#updates" class="nav-cta">
+                        <span class="nav-cta-dot"></span>
+                        Join early access
+                    </a>
+                </nav>
+                <div class="nav-burger" id="navBurger" aria-label="Toggle navigation" role="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="nav-links-mobile" id="navMobile">
+                <a href="#about">About</a>
+                <a href="#product">Product</a>
+                <a href="#who">Who it's for</a>
+                <a href="#updates">Updates</a>
+                <a href="#updates" class="nav-cta">
+                    <span class="nav-cta-dot"></span>
+                    Join early access
+                </a>
+            </div>
+        </header>
+
+        <main class="shell-inner">
+            <!-- Hero -->
+            <section class="hero">
+                <div class="hero-grid">
+                    <div class="hero-text reveal">
+                        <div class="badge-row">
+                            <span class="badge-pill">Early Access</span>
+                            <span>Personal Navigation System for Real Life</span>
+                        </div>
+                        <h1 class="hero-title">
+                            Navigate your <span class="hero-highlight">reality</span>,<br />
+                            with clarity and intention.
+                        </h1>
+                        <p class="hero-copy">
+                            Youality helps you see your life as a coherent system, choose what truly
+                            matters, and move forward with calm, confident decisions — in work, love,
+                            and everyday life.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn-primary"
+                                onclick="document.getElementById('updates').scrollIntoView({behavior:'smooth'})">
+                                Get early access
+                                <span aria-hidden="true">↗</span>
+                            </button>
+                            <button class="btn-secondary"
+                                onclick="document.getElementById('product').scrollIntoView({behavior:'smooth'})">
+                                Explore how it works
+                            </button>
+                        </div>
+                        <p class="hero-note">
+                            <strong>Currently in private build.</strong> A small circle of early users will
+                            co-shape the first release.
+                        </p>
+                    </div>
+
+                    <div class="hero-visual reveal">
+                        <div class="hero-orbit"></div>
+                        <div class="panel-preview">
+                            <div class="panel-header-row">
+                                <div class="panel-label">
+                                    <span class="panel-label-dot"></span>
+                                    Today’s Snapshot
+                                </div>
+                                <div class="panel-tag">Aligned • In motion</div>
+                            </div>
+                            <div class="panel-main">
+                                <div>
+                                    <div class="panel-main-left-title">Your reality as a clear map</div>
+                                    <div class="panel-main-left-copy">
+                                        Zoom out on your life, see the patterns, and decide the next
+                                        right move without overwhelm.
+                                    </div>
+                                    <div class="chip-row">
+                                        <span class="chip chip-chip">Life areas in harmony</span>
+                                        <span class="chip">Decision clarity</span>
+                                        <span class="chip">Next step defined</span>
+                                    </div>
+                                    <div class="panel-progress">
+                                        <div class="progress-label-row">
+                                            <span>Sense of alignment</span>
+                                            <span>72%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-metrics">
+                                    <div class="metric-card">
+                                        <div class="metric-label">Focus for this week</div>
+                                        <div class="metric-value">3 key moves</div>
+                                        <div class="metric-pill">Deep work • Relationships • Health</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-label">Inner weather</div>
+                                        <div class="metric-value">Calm, aware</div>
+                                        <div class="metric-pill">Updated 2h ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About -->
+            <section id="about" class="section reveal">
+                <div class="section-header">
+                    <div class="section-kicker">About</div>
+                    <h2 class="section-title">What is Youality?</h2>
+                    <p class="section-copy">
+                        Youality is a calm, visual space where you can organize your life as a
+                        whole — not just tasks or goals. Think of it as a personal navigation
+                        system that blends reflection, planning, and decision-making into one
+                        coherent experience.
+                    </p>
+                </div>
+                <div class="grid-3">
+                    <article class="card">
+                        <div class="card-label">Clarity</div>
+                        <div class="card-title">See the whole picture</div>
+                        <div class="card-copy">
+                            Turn scattered ideas, projects, and roles into a simple, living map of
+                            your life — so you can spot patterns, gaps, and leverage points at a
+                            glance.
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-label">Alignment</div>
+                        <div class="card-title">Decide from what matters</div>
+                        <div class="card-copy">
+                            Anchor decisions in your values, season of life, and real constraints,
+                            instead of pressure or noise from outside.
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-label">Momentum</div>
+                        <div class="card-title">Move with gentle focus</div>
+                        <div class="card-copy">
+                            Translate insight into a few meaningful next steps — and stop trying to
+                            do everything at once.
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Product -->
+            <section id="product" class="section reveal">
+                <div class="section-header">
+                    <div class="section-kicker">Product</div>
+                    <h2 class="section-title">A system designed for real humans, not robots.</h2>
+                    <p class="section-copy">
+                        Youality combines the structure you need to stay on track with the
+                        softness you need to stay human. Less “productivity grind,” more
+                        meaningful progress.
+                    </p>
+                </div>
+                <div class="grid-3">
+                    <article class="card">
+                        <div class="card-label">Maps</div>
+                        <div class="card-title">Life as a navigable map</div>
+                        <div class="card-copy">
+                            Visually map life areas, projects, and relationships — and see how they
+                            influence each other over time.
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag tag-soft">Life areas</span>
+                            <span class="tag">Systems view</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-label">Rhythm</div>
+                        <div class="card-title">Weekly navigation rituals</div>
+                        <div class="card-copy">
+                            Gentle check-ins to review your “inner weather,” course-correct, and
+                            choose what gets your energy next.
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag tag-soft">Check-ins</span>
+                            <span class="tag">Energy-aware planning</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-label">Decisions</div>
+                        <div class="card-title">Clarity when it counts</div>
+                        <div class="card-copy">
+                            Structured prompts and visual aids to explore options, test scenarios,
+                            and land on decisions that feel grounded and true.
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag tag-soft">Decision flows</span>
+                            <span class="tag">Future scenarios</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-step" data-step="1">
+                        <div class="timeline-title">Capture your current reality</div>
+                        <div class="timeline-copy">
+                            Map what’s actually on your plate — projects, roles, priorities,
+                            questions — without judging or sorting yet.
+                        </div>
+                    </div>
+                    <div class="timeline-step" data-step="2">
+                        <div class="timeline-title">Find patterns and leverage</div>
+                        <div class="timeline-copy">
+                            See where small moves will have the biggest impact: in your time,
+                            energy, relationships, or work.
+                        </div>
+                    </div>
+                    <div class="timeline-step" data-step="3">
+                        <div class="timeline-title">Choose the next right moves</div>
+                        <div class="timeline-copy">
+                            Commit to a few clear next steps and review them gently each week,
+                            adjusting as life evolves.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Who it's for -->
+            <section id="who" class="section reveal">
+                <div class="section-header">
+                    <div class="section-kicker">Who it’s for</div>
+                    <h2 class="section-title">For people whose lives don’t fit in a simple to-do list.</h2>
+                    <p class="section-copy">
+                        Youality is especially suited for multi-passionate humans, creators, and
+                        leaders who hold many threads at once and want a system that honors that
+                        complexity — without adding more noise.
+                    </p>
+                </div>
+                <div class="grid-3">
+                    <article class="card">
+                        <div class="card-label">Creators</div>
+                        <div class="card-title">Multi-passionate explorers</div>
+                        <div class="card-copy">
+                            You wear several hats — creative, professional, relational, spiritual —
+                            and you want them to coexist in harmony.
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag tag-soft">Creators</span>
+                            <span class="tag">Polymaths</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-label">Leaders</div>
+                        <div class="card-title">Founders & high performers</div>
+                        <div class="card-copy">
+                            You’re responsible for others, and you need a clear way to align your
+                            inner life with the decisions you make in the outer one.
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag tag-soft">Leaders</span>
+                            <span class="tag">Founders</span>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-label">Transitions</div>
+                        <div class="card-title">People in big transitions</div>
+                        <div class="card-copy">
+                            Career, relationships, geography, lifestyle — when several tectonic
+                            plates shift at once, you need a stable inner dashboard.
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag tag-soft">Life transitions</span>
+                            <span class="tag">Re-orientation</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Updates / Early access -->
+            <section id="updates" class="section reveal">
+                <div class="section-header">
+                    <div class="section-kicker">Stay in the loop</div>
+                    <h2 class="section-title">Be part of the early circle.</h2>
+                    <p class="section-copy">
+                        We’re currently building the first version of Youality with a small group
+                        of thoughtful humans. If you’d like to hear when we open the doors — and
+                        possibly co-create some of the experience — leave your email below.
+                    </p>
+                </div>
+
+                <div class="updates-wrap">
+                    <div class="updates-panel">
+                        <div class="updates-panel-inner">
+                            <div class="updates-title">Early Access • Youality</div>
+                            <div class="updates-copy">
+                                You won’t receive generic newsletters. Just occasional, honest updates
+                                about the build, invitations to test, and reflections on designing a
+                                life navigation system that actually feels like you.
+                            </div>
+
+                            <!-- TODO: Replace action with your email service or form handler -->
+                            <form action="#" method="post">
+                                <div class="field">
+                                    <input type="email" name="email" placeholder="you@example.com" required />
+                                </div>
+                                <button type="submit" class="btn-primary">
+                                    Join the list
+                                </button>
+                            </form>
+                            <div class="updates-footnote">
+                                We respect your attention. No spam, no selling your data — ever.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="updates-items">
+                        <div>
+                            <div class="updates-item-label">On the roadmap</div>
+                            <div class="updates-item-main">Guided life reviews</div>
+                            <div class="updates-item-copy">
+                                Quarterly and annual reflections that connect your inner shifts to
+                                outer decisions and concrete next steps.
+                            </div>
+                        </div>
+                        <div>
+                            <div class="updates-item-label">Future</div>
+                            <div class="updates-item-main">Coach & collaborator spaces</div>
+                            <div class="updates-item-copy">
+                                Shared maps so coaches, therapists, and collaborators can work with
+                                you from a clearer view of your world — always with your consent.
+                            </div>
+                        </div>
+                        <div>
+                            <div class="updates-item-label">Philosophy</div>
+                            <div class="updates-item-main">Technology in service of self-trust</div>
+                            <div class="updates-item-copy">
+                                Youality won’t tell you who to be. It will help you hear yourself
+                                more clearly — and then act on what you already know.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="site-footer-inner">
+                <div class="footer-left">
+                    <span>© <span id="year"></span> Youality. All rights reserved.</span>
+                </div>
+                <div class="footer-right">
+                    <a href="#about">About</a>
+                    <a href="#product">Product</a>
+                    <a href="#who">Who it’s for</a>
+                    <a href="#updates">Early access</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Sticky current year
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Mobile nav toggle
+        const burger = document.getElementById("navBurger");
+        const mobileNav = document.getElementById("navMobile");
+
+        burger.addEventListener("click", () => {
+            mobileNav.classList.toggle("open");
+        });
+
+        mobileNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileNav.classList.remove("open");
+            });
+        });
+
+        // Simple scroll reveal
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in-view");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.16 }
+        );
+
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+</body>
+
+</html>

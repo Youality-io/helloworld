@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Navigate Your Reality</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope (brand font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Brand palette */
+            --yo-bg: #EDF4F3;
+            --yo-bg-alt: #EDEFF7;
+            --yo-primary: #24769C;
+            --yo-primary-soft: #369799;
+            --yo-text: #1E1E24;
+            --yo-muted: #6E7180;
+            --yo-border: #D3D6E0;
+            --yo-card-bg: #FFFFFF;
+            --yo-shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.08);
+
+            --radius-lg: 18px;
+            --radius-xl: 22px;
+            --radius-pill: 999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #EDF4F3 0, #EDEFF7 35%, #FFFFFF 70%);
+            color: var(--yo-text);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            padding-top: 45px;
+        }
+
+        /* LAYOUT */
+
+        .app-shell {
+            display: flex;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            gap: 22px;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            min-width: 220px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 20px 18px 18px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(18px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 26px;
+        }
+
+        .logo-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 12px;
+            background: conic-gradient(from 210deg, #24769C, #369799, #EDF4F3, #24769C);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark::after {
+            content: "";
+            position: absolute;
+            inset: 35%;
+            border-radius: inherit;
+            background: rgba(237, 244, 243, 0.95);
+            mix-blend-mode: screen;
+        }
+
+        .logo-mark-spark {
+            width: 14px;
+            height: 14px;
+            border-radius: 6px;
+            border: 2px solid rgba(36, 118, 156, 0.9);
+            box-shadow: 0 0 0 3px rgba(237, 244, 243, 0.9);
+            transform: rotate(15deg);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .logo-word {
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 1.15rem;
+            color: var(--yo-primary);
+        }
+
+        .logo-tagline {
+            font-size: 0.7rem;
+            color: var(--yo-muted);
+            margin-top: 2px;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--yo-muted);
+            margin-bottom: 10px;
+            padding-inline: 4px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            border-radius: 999px;
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.87rem;
+            color: var(--yo-muted);
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
+        }
+
+        .nav-item-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            background: rgba(211, 214, 224, 0.5);
+            color: #40424D;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(36, 118, 156, 0.14), rgba(54, 151, 153, 0.14));
+            color: var(--yo-primary);
+            transform: translateY(-0.5px);
+        }
+
+        .nav-item.active .nav-item-icon {
+            background: linear-gradient(135deg, #24769C, #369799);
+            color: #EDF4F3;
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(237, 239, 247, 0.9);
+            color: #40424D;
+        }
+
+        .nav-label-secondary {
+            margin-top: 18px;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid rgba(211, 214, 224, 0.8);
+            padding-top: 12px;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--yo-muted);
+        }
+
+        .daily-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .daily-score-pill {
+            border-radius: 999px;
+            padding: 4px 10px;
+            background: rgba(36, 118, 156, 0.08);
+            color: var(--yo-primary);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .sidebar-footer-cta {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tiny-chip {
+            padding: 5px 9px;
+            border-radius: 999px;
+            border: 1px dashed rgba(188, 191, 204, 0.9);
+            font-size: 0.7rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.8);
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .tiny-chip:hover {
+            background: var(--yo-bg-alt);
+            border-color: rgba(36, 118, 156, 0.3);
+        }
+
+        /* MAIN */
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 6px 2px;
+        }
+
+        .topbar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .topbar-kicker {
+            font-size: 0.8rem;
+            color: var(--yo-muted);
+        }
+
+        .topbar-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .topbar-title span {
+            background: linear-gradient(135deg, #24769C, #369799);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .topbar-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .pill {
+            border-radius: var(--radius-pill);
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+        }
+
+        .pill-primary {
+            border: none;
+            background: linear-gradient(135deg, #24769C, #369799);
+            color: #EDF4F3;
+            box-shadow: 0 8px 20px rgba(36, 118, 156, 0.32);
+        }
+
+        .pill-primary span.icon {
+            background: rgba(237, 244, 243, 0.22);
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .pill:hover {
+            border-color: rgba(36, 118, 156, 0.5);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            transform: translateY(-0.5px);
+        }
+
+        .pill-primary:hover {
+            box-shadow: 0 12px 26px rgba(36, 118, 156, 0.45);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            border-radius: 999px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            padding: 7px 16px 7px 30px;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.8);
+            min-width: 190px;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        }
+
+        .search-input:focus {
+            border-color: rgba(36, 118, 156, 0.7);
+            box-shadow: 0 0 0 1px rgba(36, 118, 156, 0.18);
+            background: #FFFFFF;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            color: #9DA2B3;
+        }
+
+        .avatar-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            cursor: pointer;
+            transition: box-shadow 0.15s ease, transform 0.1s ease;
+        }
+
+        .avatar-badge:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transform: translateY(-0.5px);
+        }
+
+        .avatar-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 10%, #EDF4F3 0, #369799 40%, #24769C 75%);
+        }
+
+        .avatar-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .avatar-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .avatar-role {
+            font-size: 0.7rem;
+            color: var(--yo-muted);
+        }
+
+        /* CONTENT GRID */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2.1fr 1.4fr;
+            gap: 18px;
+            margin-top: 2px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--yo-card-bg);
+            border-radius: var(--radius-xl);
+            padding: 18px 18px 16px;
+            box-shadow: var(--yo-shadow-soft);
+            border: 1px solid rgba(237, 239, 247, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.02rem;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 0.8rem;
+            color: var(--yo-muted);
+            margin-top: 2px;
+        }
+
+        .card-tag-row {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .tag-pill {
+            border-radius: 999px;
+            padding: 3px 9px;
+            font-size: 0.72rem;
+            background: rgba(237, 239, 247, 0.9);
+            color: #40424D;
+        }
+
+        .tag-pill-ghost {
+            background: rgba(237, 244, 243, 0.95);
+            color: #6E7180;
+        }
+
+        /* TODAY PANEL */
+
+        .today-layout {
+            display: grid;
+            grid-template-columns: 1.4fr 1.2fr;
+            gap: 16px;
+        }
+
+        .today-left {
+            border-right: 1px dashed rgba(211, 214, 224, 0.9);
+            padding-right: 16px;
+        }
+
+        .today-right {
+            padding-left: 4px;
+        }
+
+        .today-heading {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 600;
+            color: var(--yo-muted);
+            margin-bottom: 6px;
+        }
+
+        .today-main-intent {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .today-intent-note {
+            font-size: 0.83rem;
+            color: var(--yo-muted);
+            margin-bottom: 10px;
+        }
+
+        .intent-edit-pill {
+            border-radius: var(--radius-pill);
+            padding: 4px 9px;
+            font-size: 0.75rem;
+            border: 1px dashed rgba(188, 191, 204, 0.9);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .intent-edit-pill span.icon {
+            font-size: 0.9rem;
+        }
+
+        .today-focus-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .focus-card {
+            border-radius: 16px;
+            padding: 10px 10px 9px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            background: rgba(247, 248, 252, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: box-shadow 0.15s ease, transform 0.1s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .focus-card[data-active="true"] {
+            background: radial-gradient(circle at top left, rgba(237, 244, 243, 1) 0, rgba(54, 151, 153, 0.12) 45%, rgba(36, 118, 156, 0.09) 100%);
+            border-color: rgba(36, 118, 156, 0.4);
+            box-shadow: 0 12px 24px rgba(36, 118, 156, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .focus-label {
+            font-weight: 600;
+            font-size: 0.82rem;
+        }
+
+        .focus-meta {
+            font-size: 0.72rem;
+            color: var(--yo-muted);
+        }
+
+        .focus-progress {
+            margin-top: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background: rgba(211, 214, 224, 0.7);
+            overflow: hidden;
+        }
+
+        .focus-progress-bar {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(135deg, #24769C, #369799);
+            width: 62%;
+        }
+
+        .today-right-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .ritual-row {
+            border-radius: 14px;
+            padding: 8px 10px;
+            background: rgba(237, 244, 243, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+        }
+
+        .ritual-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .ritual-label {
+            font-weight: 500;
+        }
+
+        .ritual-meta {
+            font-size: 0.7rem;
+            color: var(--yo-muted);
+        }
+
+        .ritual-cta {
+            border-radius: 999px;
+            padding: 4px 8px;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            background: #FFFFFF;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        /* MAP OF LIFE */
+
+        .life-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .life-card {
+            border-radius: 18px;
+            padding: 10px 11px 10px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            background: rgba(247, 248, 252, 0.95);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.1s ease, background 0.15s ease;
+        }
+
+        .life-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(36, 118, 156, 0.08), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .life-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-color: rgba(36, 118, 156, 0.42);
+            transform: translateY(-1px);
+            background: #FFFFFF;
+        }
+
+        .life-card:hover::after {
+            opacity: 1;
+        }
+
+        .life-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .life-name {
+            font-weight: 600;
+        }
+
+        .life-chip {
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            background: rgba(237, 244, 243, 0.95);
+            color: var(--yo-muted);
+        }
+
+        .life-metrics-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--yo-muted);
+        }
+
+        .metric-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #24769C;
+        }
+
+        .metric-dot.secondary {
+            background: #369799;
+        }
+
+        .life-progress-ring {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: conic-gradient(#24769C 0 220deg, #EDEFF7 220deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .life-progress-inner {
+            width: 22px;
+            height: 22px;
+            border-radius: inherit;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #24769C;
+        }
+
+        /* RIGHT COLUMN CARDS */
+
+        .tabs {
+            display: inline-flex;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            padding: 3px;
+            gap: 3px;
+        }
+
+        .tab {
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--yo-muted);
+            font-weight: 500;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .tab.active {
+            background: #FFFFFF;
+            color: #24769C;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .timeline {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.8rem;
+        }
+
+        .timeline-row {
+            display: grid;
+            grid-template-columns: 70px auto 60px;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 0;
+            border-bottom: 1px dashed rgba(211, 214, 224, 0.7);
+        }
+
+        .timeline-row:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-time {
+            font-size: 0.78rem;
+            color: var(--yo-muted);
+        }
+
+        .timeline-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .timeline-label {
+            font-weight: 500;
+        }
+
+        .timeline-meta {
+            font-size: 0.72rem;
+            color: var(--yo-muted);
+        }
+
+        .timeline-tag {
+            border-radius: 999px;
+            padding: 3px 8px;
+            font-size: 0.72rem;
+            background: rgba(237, 244, 243, 0.95);
+            color: #40424D;
+            text-align: center;
+        }
+
+        .timeline-tag.primary {
+            background: rgba(36, 118, 156, 0.12);
+            color: #24769C;
+        }
+
+        .reflections-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            font-size: 0.8rem;
+        }
+
+        .reflection-row {
+            padding: 7px 10px;
+            border-radius: 14px;
+            background: rgba(247, 248, 252, 0.95);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reflection-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .reflection-title {
+            font-weight: 500;
+        }
+
+        .reflection-meta {
+            font-size: 0.72rem;
+            color: var(--yo-muted);
+        }
+
+        .reflection-cta {
+            font-size: 0.72rem;
+            color: #24769C;
+            cursor: pointer;
+        }
+
+        .card-bg-accent {
+            background:
+                radial-gradient(circle at top left, rgba(237, 244, 243, 1) 0, rgba(237, 239, 247, 1) 36%, rgba(255, 255, 255, 1) 90%);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+            .app-shell {
+                padding: 14px;
+                gap: 16px;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .topbar-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .today-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .today-left {
+                border-right: none;
+                border-bottom: 1px dashed rgba(211, 214, 224, 0.9);
+                padding-right: 0;
+                padding-bottom: 12px;
+                margin-bottom: 6px;
+            }
+
+            .life-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-shell {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 14px 14px 12px;
+            }
+
+            .today-focus-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--yo-border);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--yo-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 150ms ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--yo-primary);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--yo-text);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="app2.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">App Prototype 3 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="app4.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="app-shell">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <div class="sidebar-header">
+                    <img src="../youality_emblem.svg" alt="Youality logo"
+                        style="height:30px; width:30px; object-fit: contain;" />
+                    <div>
+                        <div class="logo-word">Youality</div>
+                        <div class="logo-tagline">Navigate your reality</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="sidebar-section-title">Navigation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item active" data-nav="dashboard">
+                            <div class="nav-item-icon">🏠</div>
+                            <span>Dashboard</span>
+                        </li>
+                        <li class="nav-item" data-nav="map">
+                            <div class="nav-item-icon">🗺️</div>
+                            <span>Map of life areas</span>
+                        </li>
+                        <li class="nav-item" data-nav="journeys">
+                            <div class="nav-item-icon">🧭</div>
+                            <span>Journeys & projects</span>
+                        </li>
+                        <li class="nav-item" data-nav="rituals">
+                            <div class="nav-item-icon">🌙</div>
+                            <span>Rituals & rhythms</span>
+                        </li>
+                        <li class="nav-item" data-nav="library">
+                            <div class="nav-item-icon">📚</div>
+                            <span>Library of self</span>
+                        </li>
+                    </ul>
+
+                    <div class="sidebar-section-title nav-label-secondary">System</div>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-nav="review">
+                            <div class="nav-item-icon">📆</div>
+                            <span>Reviews</span>
+                        </li>
+                        <li class="nav-item" data-nav="settings">
+                            <div class="nav-item-icon">⚙️</div>
+                            <span>Settings</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="daily-score">
+                    <span>Today’s alignment</span>
+                    <span class="daily-score-pill">72% in sync</span>
+                </div>
+                <div class="sidebar-footer-cta">
+                    <button class="tiny-chip" id="openCheckInBtn">✨ Quick check-in</button>
+                    <button class="tiny-chip">📌 Add a focus</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="topbar-kicker">Today • Thursday</div>
+                    <div class="topbar-title">Welcome back, <span>Navigator</span></div>
+                    <div class="topbar-cta-row">
+                        <button class="pill pill-primary">
+                            <span class="icon">+</span>
+                            New intention
+                        </button>
+                        <button class="pill">🧭 Open life map</button>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input class="search-input" placeholder="Search moments, projects, rituals…" />
+                    </div>
+                    <div class="avatar-badge">
+                        <div class="avatar-circle"></div>
+                        <div class="avatar-meta">
+                            <span class="avatar-name">You</span>
+                            <span class="avatar-role">Designing your reality</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content-grid">
+                <!-- LEFT COLUMN -->
+                <div class="column">
+                    <!-- TODAY’S NAVIGATION -->
+                    <section class="card card-bg-accent" id="card-today">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Today’s navigation</div>
+                                <div class="card-subtitle">
+                                    Anchor one clear intention, then move through what matters most.
+                                </div>
+                            </div>
+                            <div class="tabs" id="todayTabs">
+                                <button class="tab active" data-view="today">Today</button>
+                                <button class="tab" data-view="week">Week</button>
+                                <button class="tab" data-view="month">Month</button>
+                            </div>
+                        </div>
+
+                        <div class="today-layout">
+                            <div class="today-left">
+                                <div class="today-heading">Core intention</div>
+                                <div class="today-main-intent" id="mainIntent">
+                                    Move with focused ease and joy.
+                                </div>
+                                <div class="today-intent-note" id="intentNote">
+                                    Keep decisions simple: say yes to what feels aligned, no to what drains.
+                                </div>
+                                <button class="intent-edit-pill" id="editIntentBtn">
+                                    <span class="icon">✏️</span>
+                                    Adjust intention
+                                </button>
+
+                                <div class="today-focus-row">
+                                    <div class="focus-card" data-focus="work" data-active="true">
+                                        <div class="focus-label">Work / Creation</div>
+                                        <div class="focus-meta">Ship 1 meaningful block</div>
+                                        <div class="focus-progress">
+                                            <div class="focus-progress-bar" style="width: 40%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="focus-card" data-focus="body">
+                                        <div class="focus-label">Body & Energy</div>
+                                        <div class="focus-meta">1h movement + nourishment</div>
+                                        <div class="focus-progress">
+                                            <div class="focus-progress-bar" style="width: 20%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="focus-card" data-focus="relationships">
+                                        <div class="focus-label">Relationships</div>
+                                        <div class="focus-meta">1 heartfelt connection</div>
+                                        <div class="focus-progress">
+                                            <div class="focus-progress-bar" style="width: 65%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="today-right">
+                                <div class="today-heading">Rituals & anchors</div>
+                                <div class="today-right-list">
+                                    <div class="ritual-row">
+                                        <div class="ritual-main">
+                                            <span class="ritual-label">Morning alignment</span>
+                                            <span class="ritual-meta">Breath, 3 gratitudes, 1 intention</span>
+                                        </div>
+                                        <button class="ritual-cta">Start</button>
+                                    </div>
+                                    <div class="ritual-row">
+                                        <div class="ritual-main">
+                                            <span class="ritual-label">Focus block</span>
+                                            <span class="ritual-meta">45 min deep work • “No notifications”</span>
+                                        </div>
+                                        <button class="ritual-cta">Begin</button>
+                                    </div>
+                                    <div class="ritual-row">
+                                        <div class="ritual-main">
+                                            <span class="ritual-label">Evening reflection</span>
+                                            <span class="ritual-meta">3 wins • 1 learning • energy check</span>
+                                        </div>
+                                        <button class="ritual-cta">Preview</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- MAP OF LIFE AREAS -->
+                    <section class="card" id="card-map">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Map of life areas</div>
+                                <div class="card-subtitle">
+                                    A systemic view of where your energy is invested right now.
+                                </div>
+                            </div>
+                            <div class="card-tag-row">
+                                <span class="tag-pill">Systemic view</span>
+                                <span class="tag-pill-ghost">Tap an area to zoom in</span>
+                            </div>
+                        </div>
+
+                        <div class="life-grid">
+                            <div class="life-card">
+                                <div class="life-header-row">
+                                    <div>
+                                        <div class="life-name">Work & Creation</div>
+                                        <div class="life-metrics-row">
+                                            <span class="metric-dot"></span>
+                                            <span>Clarity: high</span>
+                                        </div>
+                                    </div>
+                                    <div class="life-progress-ring">
+                                        <div class="life-progress-inner">7.8</div>
+                                    </div>
+                                </div>
+                                <div class="life-metrics-row">
+                                    <span class="metric-dot secondary"></span>
+                                    <span>Next visible step ready</span>
+                                </div>
+                            </div>
+
+                            <div class="life-card">
+                                <div class="life-header-row">
+                                    <div>
+                                        <div class="life-name">Body & Vitality</div>
+                                        <div class="life-metrics-row">
+                                            <span class="metric-dot"></span>
+                                            <span>Energy: steady</span>
+                                        </div>
+                                    </div>
+                                    <div class="life-progress-ring">
+                                        <div class="life-progress-inner">6.4</div>
+                                    </div>
+                                </div>
+                                <div class="life-metrics-row">
+                                    <span class="metric-dot secondary"></span>
+                                    <span>Movement & rest in balance?</span>
+                                </div>
+                            </div>
+
+                            <div class="life-card">
+                                <div class="life-header-row">
+                                    <div>
+                                        <div class="life-name">Relationships</div>
+                                        <div class="life-metrics-row">
+                                            <span class="metric-dot"></span>
+                                            <span>Connection: warm</span>
+                                        </div>
+                                    </div>
+                                    <div class="life-progress-ring">
+                                        <div class="life-progress-inner">7.1</div>
+                                    </div>
+                                </div>
+                                <div class="life-metrics-row">
+                                    <span class="metric-dot secondary"></span>
+                                    <span>1 person to reach out today</span>
+                                </div>
+                            </div>
+
+                            <div class="life-card">
+                                <div class="life-header-row">
+                                    <div>
+                                        <div class="life-name">Inner world & Spirit</div>
+                                        <div class="life-metrics-row">
+                                            <span class="metric-dot"></span>
+                                            <span>Alignment: rising</span>
+                                        </div>
+                                    </div>
+                                    <div class="life-progress-ring">
+                                        <div class="life-progress-inner">8.3</div>
+                                    </div>
+                                </div>
+                                <div class="life-metrics-row">
+                                    <span class="metric-dot secondary"></span>
+                                    <span>Space booked for reflection</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- RIGHT COLUMN -->
+                <div class="column">
+                    <!-- UPCOMING JOURNEYS -->
+                    <section class="card" id="card-journeys">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Journeys in motion</div>
+                                <div class="card-subtitle">
+                                    Track the projects that actually move your life story forward.
+                                </div>
+                            </div>
+                            <div class="tabs" id="journeyTabs">
+                                <button class="tab active" data-view="7d">Next 7 days</button>
+                                <button class="tab" data-view="all">All journeys</button>
+                            </div>
+                        </div>
+
+                        <div class="timeline" id="timeline">
+                            <div class="timeline-row">
+                                <span class="timeline-time">09:30</span>
+                                <div class="timeline-main">
+                                    <span class="timeline-label">Design Youality MVP flow</span>
+                                    <span class="timeline-meta">Work / Creation • 45 min focus block</span>
+                                </div>
+                                <span class="timeline-tag primary">Today</span>
+                            </div>
+
+                            <div class="timeline-row">
+                                <span class="timeline-time">14:00</span>
+                                <div class="timeline-main">
+                                    <span class="timeline-label">Body reset & movement</span>
+                                    <span class="timeline-meta">Body & Vitality • class / walk</span>
+                                </div>
+                                <span class="timeline-tag">Energy</span>
+                            </div>
+
+                            <div class="timeline-row">
+                                <span class="timeline-time">19:30</span>
+                                <div class="timeline-main">
+                                    <span class="timeline-label">Connection night</span>
+                                    <span class="timeline-meta">Relationships • dinner / call</span>
+                                </div>
+                                <span class="timeline-tag">Heart</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- REFLECTIONS -->
+                    <section class="card" id="card-reflections">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Reflections & check-ins</div>
+                                <div class="card-subtitle">
+                                    Capture shifts, insights, and micro-wins so your growth becomes visible.
+                                </div>
+                            </div>
+                            <button class="pill" id="newReflectionBtn">+ New note</button>
+                        </div>
+
+                        <div class="reflections-list" id="reflectionsList">
+                            <div class="reflection-row">
+                                <div class="reflection-main">
+                                    <span class="reflection-title">Morning energy check</span>
+                                    <span class="reflection-meta">Today • Mood: clear • Body: 7/10</span>
+                                </div>
+                                <div class="reflection-cta">Open</div>
+                            </div>
+
+                            <div class="reflection-row">
+                                <div class="reflection-main">
+                                    <span class="reflection-title">What worked yesterday</span>
+                                    <span class="reflection-meta">Yesterday • 3 wins • 1 lesson</span>
+                                </div>
+                                <div class="reflection-cta">Review</div>
+                            </div>
+
+                            <div class="reflection-row">
+                                <div class="reflection-main">
+                                    <span class="reflection-title">Current “why”</span>
+                                    <span class="reflection-meta">Updated this week • purpose snapshot</span>
+                                </div>
+                                <div class="reflection-cta">Refine</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Simple interactivity: tabs + focus selection + quick intent editing
+
+        // Sidebar nav highlighting (for future sub-pages)
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.addEventListener("click", () => {
+                document.querySelectorAll(".nav-item").forEach(i => i.classList.remove("active"));
+                item.classList.add("active");
+            });
+        });
+
+        // Today tabs
+        const todayTabs = document.querySelectorAll("#todayTabs .tab");
+        const mainIntent = document.getElementById("mainIntent");
+        const intentNote = document.getElementById("intentNote");
+
+        const todayPresets = {
+            today: {
+                title: "Move with focused ease and joy.",
+                note: "Keep decisions simple: say yes to what feels aligned, no to what drains."
+            },
+            week: {
+                title: "Design this week around what truly matters.",
+                note: "Protect 3–4 anchor blocks; let the rest flow around them."
+            },
+            month: {
+                title: "Shape this month as a chapter you’re proud to reread.",
+                note: "One key theme, one bold experiment, one nourishing upgrade."
+            }
+        };
+
+        todayTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                todayTabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+
+                const view = tab.getAttribute("data-view");
+                const preset = todayPresets[view];
+                if (preset) {
+                    mainIntent.textContent = preset.title;
+                    intentNote.textContent = preset.note;
+                }
+            });
+        });
+
+        // Focus cards
+        document.querySelectorAll(".focus-card").forEach(card => {
+            card.addEventListener("click", () => {
+                document.querySelectorAll(".focus-card").forEach(c => c.dataset.active = "false");
+                card.dataset.active = "true";
+            });
+        });
+
+        // Quick check-in / intent editing (lightweight prompt)
+        const editIntentBtn = document.getElementById("editIntentBtn");
+        const openCheckInBtn = document.getElementById("openCheckInBtn");
+
+        function promptIntent() {
+            const current = mainIntent.textContent.trim();
+            const updated = window.prompt("What is your core intention right now?", current);
+            if (updated && updated.trim().length > 0) {
+                mainIntent.textContent = updated.trim();
+                intentNote.textContent = "Intention updated a moment ago. Keep circling back to it today.";
+            }
+        }
+
+        if (editIntentBtn) editIntentBtn.addEventListener("click", promptIntent);
+        if (openCheckInBtn) openCheckInBtn.addEventListener("click", promptIntent);
+
+        // Journey tabs (placeholder – toggles simple state)
+        const journeyTabs = document.querySelectorAll("#journeyTabs .tab");
+        const timeline = document.getElementById("timeline");
+
+        const timelineTemplates = {
+            "7d": `
+        <div class="timeline-row">
+          <span class="timeline-time">09:30</span>
+          <div class="timeline-main">
+            <span class="timeline-label">Design Youality MVP flow</span>
+            <span class="timeline-meta">Work / Creation • 45 min focus block</span>
+          </div>
+          <span class="timeline-tag primary">Today</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-time">14:00</span>
+          <div class="timeline-main">
+            <span class="timeline-label">Body reset & movement</span>
+            <span class="timeline-meta">Body & Vitality • class / walk</span>
+          </div>
+          <span class="timeline-tag">Energy</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-time">19:30</span>
+          <div class="timeline-main">
+            <span class="timeline-label">Connection night</span>
+            <span class="timeline-meta">Relationships • dinner / call</span>
+          </div>
+          <span class="timeline-tag">Heart</span>
+        </div>
+      `,
+            "all": `
+        <div class="timeline-row">
+          <span class="timeline-time">This week</span>
+          <div class="timeline-main">
+            <span class="timeline-label">Launch v1 of Youality prototype</span>
+            <span class="timeline-meta">Work / Creation • 3 focus blocks left</span>
+          </div>
+          <span class="timeline-tag primary">Core</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-time">This month</span>
+          <div class="timeline-main">
+            <span class="timeline-label">Body foundation reset</span>
+            <span class="timeline-meta">Body & Vitality • 3x weekly rhythm</span>
+          </div>
+          <span class="timeline-tag">Habit</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-time">Ongoing</span>
+          <div class="timeline-main">
+            <span class="timeline-label">Relationship tending</span>
+            <span class="timeline-meta">Relationships • 1–2 meaningful touches a day</span>
+          </div>
+          <span class="timeline-tag">Living</span>
+        </div>
+      `
+        };
+
+        journeyTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                journeyTabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+
+                const view = tab.getAttribute("data-view");
+                timeline.innerHTML = timelineTemplates[view] || timelineTemplates["7d"];
+            });
+        });
+
+        // New reflection – lightweight example
+        const newReflectionBtn = document.getElementById("newReflectionBtn");
+        const reflectionsList = document.getElementById("reflectionsList");
+
+        if (newReflectionBtn && reflectionsList) {
+            newReflectionBtn.addEventListener("click", () => {
+                const note = window.prompt("Quick reflection – what shifted for you?");
+                if (!note || !note.trim()) return;
+
+                const row = document.createElement("div");
+                row.className = "reflection-row";
+                row.innerHTML = `
+          <div class="reflection-main">
+            <span class="reflection-title">New note</span>
+            <span class="reflection-meta">Just now • ${note.trim().slice(0, 80)}${note.trim().length > 80 ? "…" : ""}</span>
+          </div>
+          <div class="reflection-cta">Open</div>
+        `;
+                reflectionsList.prepend(row);
+            });
+        }
+    </script>
+</body>
+
+</html>

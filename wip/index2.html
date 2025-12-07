@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Navigate Your Reality, Masterfully</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Youality is a personal navigation system for people and coaches on the path of growth. Build clarity, structure, and aligned action in your life." />
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --color-bg: #edf4f3;
+            --color-bg-deep: #1e1e24;
+            --color-primary: #369799;
+            --color-primary-alt: #24769c;
+            --color-text: #1e1e24;
+            --color-soft-text: #6e7180;
+            --color-card: #ffffff;
+            --color-border-subtle: rgba(157, 162, 179, 0.3);
+            --color-accent-soft: #edeff7;
+            --radius-lg: 24px;
+            --radius-pill: 999px;
+            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.08);
+            --transition-fast: 200ms ease-out;
+            --transition-med: 300ms ease-out;
+            --gradient-primary: linear-gradient(135deg, #369799, #24769c);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #edeff7, #edf4f3 40%, #ffffff 80%);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            padding-top: 45px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -40%;
+            background: radial-gradient(circle at 10% 0%, rgba(54, 151, 153, 0.18), transparent 55%),
+                radial-gradient(circle at 90% 10%, rgba(36, 118, 156, 0.16), transparent 55%);
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: -2;
+            animation: bgPulse 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0.75;
+            }
+
+            100% {
+                transform: translate3d(-20px, 20px, 0) scale(1.03);
+                opacity: 0.95;
+            }
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+
+        /* HEADER / NAV */
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            position: sticky;
+            top: 10px;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            background: linear-gradient(120deg,
+                    rgba(237, 244, 243, 0.92),
+                    rgba(255, 255, 255, 0.9));
+            border-radius: 999px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(211, 214, 224, 0.7);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 14px;
+            background: conic-gradient(from 180deg, #369799, #24769c, #369799);
+            position: relative;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-mark::before {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 10%, #ffffff, transparent 50%);
+            opacity: 0.5;
+            transform: translate3d(-10px, -10px, 0);
+        }
+
+        .logo-mark span {
+            position: relative;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #ffffff;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--color-soft-text);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-top: -3px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 6px;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: var(--color-soft-text);
+            transition: color var(--transition-fast),
+                background-color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+            background-color: rgba(237, 239, 247, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            background-image: var(--gradient-primary);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 12px 26px rgba(36, 118, 156, 0.4);
+            transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast), filter var(--transition-fast);
+        }
+
+        .nav-cta span.icon {
+            font-size: 14px;
+            transform: translateY(1px);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: 0 18px 40px rgba(36, 118, 156, 0.45);
+        }
+
+        /* HERO */
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+            gap: 26px;
+            margin: 40px 4px 10px;
+            align-items: center;
+        }
+
+        .hero-left {
+            position: relative;
+        }
+
+        .pill-row {
+            display: inline-flex;
+            gap: 6px;
+            padding: 4px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            margin-bottom: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .pill {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--color-soft-text);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .pill span.dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background-image: var(--gradient-primary);
+            box-shadow: 0 0 0 4px rgba(54, 151, 153, 0.28);
+        }
+
+        .pill.highlight {
+            background-image: var(--gradient-primary);
+            color: #ffffff;
+            box-shadow: 0 12px 32px rgba(36, 118, 156, 0.5);
+        }
+
+        .hero-title {
+            font-size: clamp(30px, 5vw, 40px);
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        .hero-title span.focus {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: var(--color-soft-text);
+            max-width: 470px;
+            margin-bottom: 18px;
+        }
+
+        .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast), background-color var(--transition-fast),
+                color var(--transition-fast), border-color var(--transition-fast),
+                filter var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-image: var(--gradient-primary);
+            color: #ffffff;
+            box-shadow: 0 16px 42px rgba(36, 118, 156, 0.6);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: 0 20px 50px rgba(36, 118, 156, 0.65);
+        }
+
+        .btn-ghost {
+            background: rgba(237, 239, 247, 0.9);
+            color: var(--color-soft-text);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-ghost:hover {
+            background: #ffffff;
+            color: var(--color-text);
+            transform: translateY(-1px);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero-footnote {
+            font-size: 11px;
+            color: var(--color-soft-text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .hero-footnote span.tag {
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--color-soft-text);
+        }
+
+        /* HERO RIGHT – INTERACTIVE ORBIT CARD */
+
+        .hero-right {
+            position: relative;
+        }
+
+        .orbit-card {
+            position: relative;
+            border-radius: 30px;
+            padding: 18px 18px 20px;
+            background: radial-gradient(circle at top, #ffffff, #edf4f3 65%);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            overflow: hidden;
+            isolation: isolate;
+            min-height: 240px;
+        }
+
+        .orbit-card::before {
+            content: "";
+            position: absolute;
+            inset: -40px -60px auto auto;
+            background: radial-gradient(circle at 50% 70%, rgba(36, 118, 156, 0.3), transparent 60%);
+            opacity: 0.8;
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        .orbit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .orbit-title {
+            font-size: 12px;
+            color: var(--color-soft-text);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .orbit-dot-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .orbit-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(157, 162, 179, 0.7);
+        }
+
+        .orbit-dot.main {
+            background-image: var(--gradient-primary);
+            box-shadow: 0 0 0 4px rgba(36, 118, 156, 0.25);
+        }
+
+        .orbit-main {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 16px;
+        }
+
+        .orbit-main-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .orbit-main-sub {
+            font-size: 13px;
+            color: var(--color-soft-text);
+        }
+
+        .orbit-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .metric-card {
+            padding: 10px 11px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 11px;
+            color: var(--color-soft-text);
+            cursor: pointer;
+            transition: transform var(--transition-med),
+                box-shadow var(--transition-med), border-color var(--transition-med),
+                background-color var(--transition-med);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+            border-color: rgba(36, 118, 156, 0.7);
+            background-color: #ffffff;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .metric-badge {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.96);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .metric-badge span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background-image: var(--gradient-primary);
+        }
+
+        .orbit-list {
+            padding: 10px 11px;
+            border-radius: 16px;
+            background: rgba(237, 239, 247, 0.7);
+            border: 1px dashed rgba(157, 162, 179, 0.8);
+            font-size: 11px;
+            color: var(--color-soft-text);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .orbit-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .orbit-list-item span.label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .orbit-list-item span.bullet {
+            width: 5px;
+            height: 5px;
+            border-radius: 999px;
+            background-color: rgba(64, 66, 77, 0.6);
+        }
+
+        .orbit-list-item span.chip {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(157, 162, 179, 0.8);
+        }
+
+        .orbit-footer {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--color-soft-text);
+            position: relative;
+            z-index: 2;
+        }
+
+        .orbit-footer span.spark-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background-image: var(--gradient-primary);
+            box-shadow: 0 0 0 3px rgba(36, 118, 156, 0.35);
+        }
+
+        .orbit-footer-btn {
+            border-radius: 999px;
+            padding: 6px 10px;
+            border: none;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            background: #1e1e24;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+                background-color var(--transition-fast);
+        }
+
+        .orbit-footer-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+            background-color: #000000;
+        }
+
+        .orbit-footer-btn span.icon {
+            transform: translateY(1px);
+        }
+
+        /* FLOATING ORBS */
+
+        .orb {
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(0.2px);
+            opacity: 0.7;
+            pointer-events: none;
+            background: radial-gradient(circle at 30% 20%, #ffffff, rgba(237, 239, 247, 0.1));
+            border: 1px solid rgba(237, 239, 247, 0.8);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+            animation: floatOrb 16s ease-in-out infinite alternate;
+        }
+
+        .orb.one {
+            width: 80px;
+            height: 80px;
+            top: -16px;
+            right: -10px;
+            background-image: radial-gradient(circle at 20% 10%, #ffffff, #369799);
+            animation-duration: 16s;
+        }
+
+        .orb.two {
+            width: 56px;
+            height: 56px;
+            bottom: 16px;
+            left: -22px;
+            background-image: radial-gradient(circle at 20% 10%, #ffffff, #24769c);
+            animation-duration: 20s;
+        }
+
+        .orb.three {
+            width: 44px;
+            height: 44px;
+            bottom: 90px;
+            right: 18px;
+            background-image: radial-gradient(circle at 20% 10%, #ffffff, #369799);
+            animation-duration: 18s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate3d(0, 0, 0);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate3d(12px, -18px, 0);
+                opacity: 1;
+            }
+        }
+
+        /* SECTIONS */
+
+        section {
+            margin: 36px 4px 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--color-soft-text);
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--color-soft-text);
+            max-width: 420px;
+        }
+
+        .badge-soft {
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            color: var(--color-soft-text);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid var(--color-border-subtle);
+            padding: 16px 16px 18px;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--transition-med), box-shadow var(--transition-med),
+                border-color var(--transition-med), background-color var(--transition-med);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -40px auto auto -40px;
+            background: radial-gradient(circle at 0 0, rgba(54, 151, 153, 0.18), transparent 50%);
+            opacity: 0;
+            transition: opacity var(--transition-med);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
+            border-color: rgba(36, 118, 156, 0.6);
+            background-color: #ffffff;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-body {
+            font-size: 13px;
+            color: var(--color-soft-text);
+            margin-bottom: 8px;
+        }
+
+        .card-tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .chip {
+            font-size: 11px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            color: var(--color-soft-text);
+            white-space: nowrap;
+        }
+
+        /* SPLIT SECTION */
+
+        .split {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .split-card {
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid var(--color-border-subtle);
+            padding: 16px 16px 18px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--transition-med), box-shadow var(--transition-med),
+                border-color var(--transition-med), background-color var(--transition-med);
+        }
+
+        .split-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 56px rgba(0, 0, 0, 0.13);
+            border-color: rgba(36, 118, 156, 0.7);
+            background-color: #ffffff;
+        }
+
+        .split-kicker {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--color-soft-text);
+            margin-bottom: 4px;
+        }
+
+        .split-title {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .split-body {
+            font-size: 13px;
+            color: var(--color-soft-text);
+            margin-bottom: 8px;
+        }
+
+        .split-list {
+            font-size: 12px;
+            color: var(--color-soft-text);
+            list-style: none;
+            padding-left: 0;
+            margin: 6px 0 0;
+        }
+
+        .split-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .split-list li::before {
+            content: "•";
+            color: rgba(36, 118, 156, 0.9);
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        /* TIMELINE */
+
+        .timeline {
+            border-radius: var(--radius-lg);
+            background: var(--color-bg-deep);
+            color: #ffffff;
+            padding: 18px 16px 20px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            inset: -120px 30% auto -120px;
+            background: radial-gradient(circle at 0 0, rgba(54, 151, 153, 0.4), transparent 60%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .timeline-header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .timeline-badge {
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(237, 239, 247, 0.6);
+            background: rgba(30, 30, 36, 0.9);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .timeline-badge span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #edf4f3;
+        }
+
+        .timeline-steps {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .timeline-step {
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.36);
+            border-radius: 16px;
+            padding: 10px 11px;
+            border: 1px solid rgba(237, 239, 247, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .timeline-step-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: rgba(237, 239, 247, 0.8);
+            margin-bottom: 3px;
+        }
+
+        .timeline-step-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-step-body {
+            font-size: 12px;
+            color: rgba(237, 239, 247, 0.86);
+        }
+
+        /* SIGNUP / FORM */
+
+        .signup {
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid var(--color-border-subtle);
+            padding: 18px 16px 18px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 14px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup::before {
+            content: "";
+            position: absolute;
+            inset: auto -80px -100px auto;
+            background: radial-gradient(circle at 60% 0%, rgba(54, 151, 153, 0.28), transparent 60%);
+            pointer-events: none;
+        }
+
+        .signup-left {
+            position: relative;
+            z-index: 2;
+        }
+
+        .signup-title {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .signup-body {
+            font-size: 13px;
+            color: var(--color-soft-text);
+            margin-bottom: 8px;
+        }
+
+        .signup-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .signup-right {
+            position: relative;
+            z-index: 2;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 8px;
+            align-items: center;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--color-soft-text);
+        }
+
+        .form-input {
+            border-radius: 999px;
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            padding: 8px 12px;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+            background: rgba(237, 239, 247, 0.8);
+            transition: border-color var(--transition-fast),
+                box-shadow var(--transition-fast), background-color var(--transition-fast);
+        }
+
+        .form-input:focus {
+            border-color: rgba(36, 118, 156, 0.9);
+            box-shadow: 0 0 0 1px rgba(36, 118, 156, 0.7);
+            background-color: #ffffff;
+        }
+
+        .form-submit {
+            border-radius: 999px;
+            border: none;
+            padding: 9px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background-image: var(--gradient-primary);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 14px 36px rgba(36, 118, 156, 0.6);
+            transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast), filter var(--transition-fast);
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.04);
+            box-shadow: 0 18px 48px rgba(36, 118, 156, 0.65);
+        }
+
+        .form-meta {
+            grid-column: 1 / -1;
+            font-size: 10px;
+            color: var(--color-soft-text);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-top: 2px;
+        }
+
+        .form-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .checkbox-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-pill input {
+            accent-color: #24769c;
+        }
+
+        .form-message {
+            margin-top: 6px;
+            font-size: 11px;
+            color: var(--color-soft-text);
+            min-height: 16px;
+        }
+
+        .form-message.success {
+            color: #24769c;
+        }
+
+        .form-message.error {
+            color: #c0392b;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin: 32px 4px 0;
+            padding-top: 14px;
+            border-top: 1px solid rgba(211, 214, 224, 0.75);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--color-soft-text);
+            flex-wrap: wrap;
+        }
+
+        footer .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-pill {
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(237, 239, 247, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+        }
+
+        footer a {
+            color: var(--color-soft-text);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        footer a:hover {
+            color: var(--color-text);
+        }
+
+        /* REVEAL ANIMATIONS */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 550ms ease-out, transform 550ms ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 880px) {
+            .nav {
+                border-radius: 20px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-right {
+                order: -1;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .signup {
+                grid-template-columns: 1fr;
+            }
+
+            form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .page {
+                padding-inline: 14px;
+            }
+
+            .nav {
+                padding-inline: 10px;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                margin-top: 28px;
+            }
+
+            .section-header {
+                flex-direction: column;
+            }
+        }
+
+        /* Slim Navigation Bar */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--color-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: var(--color-accent-soft);
+            color: var(--color-accent-end);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--color-text);
+            padding: 6px 12px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="index1.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Landing Page 2 / 8</div>
+            <div class="prototype-nav-right">
+                <a href="index3.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <header class="nav">
+            <div class="nav-left">
+                <img src="../youality_emblem.svg" alt="Youality logo" style="height:32px; width:32px; object-fit: contain;" />
+                <div>
+                    <div class="logo-text">Youality</div>
+                    <div class="logo-sub">Navigate Your Reality</div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <nav class="nav-links" aria-label="Primary">
+                    <a href="#about">About</a>
+                    <a href="#who">For whom</a>
+                    <a href="#glimpse">Product glimpse</a>
+                    <a href="#waitlist">Stay in the loop</a>
+                </nav>
+                <button class="nav-cta" data-scroll-target="#waitlist">
+                    Join the early list
+                    <span class="icon">↳</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- HERO -->
+            <section class="hero">
+                <div class="hero-left reveal">
+                    <div class="pill-row">
+                        <div class="pill highlight">
+                            <span class="dot"></span>
+                            Personal Navigation System
+                        </div>
+                        <div class="pill">
+                            <span class="dot"></span>
+                            Made for growth-driven humans
+                        </div>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Navigate your reality, <span class="focus">masterfully</span>.
+                    </h1>
+                    <p class="hero-subtitle">
+                        Youality is an alive, visual operating system for your inner and outer world –
+                        helping you see your life as a whole, align with what matters, and move forward
+                        with clarity.
+                    </p>
+
+                    <div class="hero-cta-row">
+                        <button class="btn btn-primary" data-scroll-target="#waitlist">
+                            I’m an individual
+                            <span>✶</span>
+                        </button>
+                        <button class="btn btn-ghost" data-scroll-target="#who">
+                            I’m a coach / guide
+                        </button>
+                    </div>
+
+                    <div class="hero-footnote">
+                        <span class="tag">Currently in development</span>
+                        Private alpha · Human-first design · Coach-ready
+                    </div>
+                </div>
+
+                <div class="hero-right reveal">
+                    <div class="orbit-card" aria-label="Preview of how Youality feels">
+                        <div class="orbit-header">
+                            <div class="orbit-title">Today’s inner weather</div>
+                            <div class="orbit-dot-row">
+                                <div class="orbit-dot"></div>
+                                <div class="orbit-dot main"></div>
+                                <div class="orbit-dot"></div>
+                            </div>
+                        </div>
+
+                        <div class="orbit-main">
+                            <div class="orbit-main-title">Clear skies, strong signal.</div>
+                            <div class="orbit-main-sub">
+                                Youality weaves emotions, priorities, and long-term vision into one
+                                coherent picture – like a cockpit for your life.
+                            </div>
+                        </div>
+
+                        <div class="orbit-grid">
+                            <button class="metric-card" type="button">
+                                <div class="metric-label">Clarity</div>
+                                <div class="metric-value">87%</div>
+                                <div class="metric-badge">
+                                    <span class="dot"></span>
+                                    You know what matters this week.
+                                </div>
+                            </button>
+
+                            <button class="metric-card" type="button">
+                                <div class="metric-label">Alignment</div>
+                                <div class="metric-value">72%</div>
+                                <div class="metric-badge">
+                                    <span class="dot"></span>
+                                    3 actions synced with your inner compass.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="orbit-list" style="margin-top: 10px;">
+                            <div class="orbit-list-item">
+                                <span class="label">
+                                    <span class="bullet"></span>
+                                    Inner landscape
+                                </span>
+                                <span class="chip">emotions · energy</span>
+                            </div>
+                            <div class="orbit-list-item">
+                                <span class="label">
+                                    <span class="bullet"></span>
+                                    Outer reality
+                                </span>
+                                <span class="chip">projects · commitments</span>
+                            </div>
+                            <div class="orbit-list-item">
+                                <span class="label">
+                                    <span class="bullet"></span>
+                                    Bridge
+                                </span>
+                                <span class="chip">small steps · big shifts</span>
+                            </div>
+                        </div>
+
+                        <div class="orbit-footer">
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <span class="spark-dot"></span>
+                                <span>Glance at your day and feel where to steer next.</span>
+                            </div>
+                            <button class="orbit-footer-btn" type="button" data-scroll-target="#waitlist">
+                                Get early access
+                                <span class="icon">→</span>
+                            </button>
+                        </div>
+
+                        <div class="orb one"></div>
+                        <div class="orb two"></div>
+                        <div class="orb three"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT -->
+            <section id="about" class="reveal">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Why Youality</div>
+                        <h2 class="section-title">Life is complex. Your system doesn’t have to be.</h2>
+                        <p class="section-subtitle">
+                            Youality brings together reflection, planning, and emotional awareness in one
+                            simple, visual flow – so you can navigate change without losing yourself.
+                        </p>
+                    </div>
+                    <span class="badge-soft">Built for real humans, not productivity robots.</span>
+                </div>
+
+                <div class="grid-3">
+                    <article class="card">
+                        <div class="card-icon">👁</div>
+                        <h3 class="card-title">See the whole picture</h3>
+                        <p class="card-body">
+                            Map your life as interconnected areas, not isolated to-do lists. Spot where
+                            you’re thriving, stretching, or craving change at a glance.
+                        </p>
+                        <div class="card-tag-row">
+                            <span class="chip">Life map</span>
+                            <span class="chip">Inner &amp; outer worlds</span>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon">🎯</div>
+                        <h3 class="card-title">Align with what matters</h3>
+                        <p class="card-body">
+                            Turn vague longings into clear, resonant intentions. Then anchor them into
+                            weekly focus, without the hustle guilt.
+                        </p>
+                        <div class="card-tag-row">
+                            <span class="chip">Intentions, not just goals</span>
+                            <span class="chip">Gentle, focused action</span>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon">🧭</div>
+                        <h3 class="card-title">Navigate transitions</h3>
+                        <p class="card-body">
+                            Use rituals, check-ins, and guided questions to move through career, home,
+                            or relationship shifts with more clarity and self-trust.
+                        </p>
+                        <div class="card-tag-row">
+                            <span class="chip">Rituals &amp; reflection</span>
+                            <span class="chip">Designed for change</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- FOR WHOM -->
+            <section id="who" class="reveal">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">For individuals &amp; guides</div>
+                        <h2 class="section-title">An inner OS for you – and your clients.</h2>
+                        <p class="section-subtitle">
+                            Youality is first designed for self-navigation, with a roadmap to integrate
+                            coaching workflows next.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="split">
+                    <article class="split-card">
+                        <div class="split-kicker">Individuals</div>
+                        <h3 class="split-title">You, in the pilot seat.</h3>
+                        <p class="split-body">
+                            Ideal if you’re in a season of growth, transition, or reinvention – and want
+                            something deeper than another task app.
+                        </p>
+                        <ul class="split-list">
+                            <li>Track your “inner weather” alongside tangible commitments.</li>
+                            <li>Design weekly experiments instead of rigid plans.</li>
+                            <li>Celebrate micro-wins and identity shifts along the way.</li>
+                        </ul>
+                    </article>
+
+                    <article class="split-card">
+                        <div class="split-kicker">Coaches, mentors &amp; facilitators</div>
+                        <h3 class="split-title">A shared map for transformation.</h3>
+                        <p class="split-body">
+                            Coming soon: a way to plug your clients’ reality into a shared navigation
+                            system, without overwhelming them (or you).
+                        </p>
+                        <ul class="split-list">
+                            <li>Connect sessions to a living map of their life.</li>
+                            <li>Capture intentions, practices, and follow-ups in one place.</li>
+                            <li>See patterns over time – and help clients see them too.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <!-- GLIMPSE -->
+            <section id="glimpse" class="reveal">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Product glimpse</div>
+                        <h2 class="section-title">From foggy to grounded – in three moves.</h2>
+                        <p class="section-subtitle">
+                            Youality won’t try to run your life. It will gently reflect it back to you,
+                            reveal leverage points, and help you choose your next tiny step.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">A quick ritual with your reality.</div>
+                            <div style="font-size:11px;opacity:.85;">
+                                Imagine opening Youality for 7 minutes at the start or end of your day.
+                            </div>
+                        </div>
+                        <div class="timeline-badge">
+                            <span class="dot"></span>
+                            7-minute navigation
+                        </div>
+                    </div>
+
+                    <div class="timeline-steps">
+                        <div class="timeline-step">
+                            <div class="timeline-step-label">Step 1</div>
+                            <div class="timeline-step-title">Check your inner weather</div>
+                            <div class="timeline-step-body">
+                                Name how you feel, where your energy sits, and what’s quietly tugging at
+                                you. No fixing – just honest signal.
+                            </div>
+                        </div>
+
+                        <div class="timeline-step">
+                            <div class="timeline-step-label">Step 2</div>
+                            <div class="timeline-step-title">Glance at your map</div>
+                            <div class="timeline-step-body">
+                                See life areas as a living ecosystem. Notice what’s lush, what’s under-
+                                watered, and what can gently wait.
+                            </div>
+                        </div>
+
+                        <div class="timeline-step">
+                            <div class="timeline-step-label">Step 3</div>
+                            <div class="timeline-step-title">Choose your next move</div>
+                            <div class="timeline-step-body">
+                                Pick one aligned action – a conversation, a micro-step, a boundary – and
+                                let Youality hold it for you.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WAITLIST / SIGNUP -->
+            <section id="waitlist" class="reveal">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Early access</div>
+                        <h2 class="section-title">Be part of the first wave.</h2>
+                        <p class="section-subtitle">
+                            Leave your email and we’ll invite you to test early prototypes, share
+                            feedback, and shape what Youality becomes.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="signup" aria-label="Join the Youality early access list">
+                    <div class="signup-left">
+                        <h3 class="signup-title">Join the early access circle.</h3>
+                        <p class="signup-body">
+                            We’ll send only occasional, thoughtful updates – plus invites to try new
+                            flows when they’re ready. No spam, no overwhelm, no pressure to “optimize”
+                            your life overnight.
+                        </p>
+                        <div class="signup-tags">
+                            <span class="chip">Product sneak peeks</span>
+                            <span class="chip">Honest build-in-public notes</span>
+                            <span class="chip">Coach collaboration options</span>
+                        </div>
+                    </div>
+
+                    <div class="signup-right">
+                        <form id="waitlist-form" novalidate>
+                            <div class="form-field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" class="form-input"
+                                    placeholder="you@example.com" required autocomplete="email" />
+                            </div>
+
+                            <button type="submit" class="form-submit">
+                                Join the list
+                                <span>↗</span>
+                            </button>
+
+                            <div class="form-meta">
+                                <span>Who are you most likely to use Youality as?</span>
+                                <div class="form-checkboxes">
+                                    <label class="checkbox-pill">
+                                        <input type="checkbox" name="persona" value="individual" />
+                                        <span>Individual</span>
+                                    </label>
+                                    <label class="checkbox-pill">
+                                        <input type="checkbox" name="persona" value="coach" />
+                                        <span>Coach / guide</span>
+                                    </label>
+                                    <label class="checkbox-pill">
+                                        <input type="checkbox" name="persona" value="both" />
+                                        <span>Both</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-meta">
+                                <span>
+                                    By joining, you agree to receive emails about Youality’s development.
+                                    You can unsubscribe anytime.
+                                </span>
+                            </div>
+
+                            <div id="form-message" class="form-message" aria-live="polite"></div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-left">
+                <span>© <span id="year"></span> Youality. All rights reserved.</span>
+                <span class="footer-pill">Currently in private alpha.</span>
+            </div>
+            <div>
+                <a href="#about">About</a> ·
+                <a href="#waitlist">Early access</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Dynamic year
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Smooth scroll for nav links & data-scroll-target buttons
+        function smoothScrollTo(targetSelector) {
+            const target = document.querySelector(targetSelector);
+            if (!target) return;
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                const href = this.getAttribute("href");
+                if (!href || href === "#") return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    smoothScrollTo(href);
+                }
+            });
+        });
+
+        document
+            .querySelectorAll("[data-scroll-target]")
+            .forEach(function (element) {
+                element.addEventListener("click", function () {
+                    const targetSelector = this.getAttribute("data-scroll-target");
+                    if (targetSelector) {
+                        smoothScrollTo(targetSelector);
+                    }
+                });
+            });
+
+        // Reveal on scroll
+        const revealEls = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.18 }
+        );
+        revealEls.forEach((el) => observer.observe(el));
+
+        // Simple waitlist form handler (front-end only)
+        const form = document.getElementById("waitlist-form");
+        const messageEl = document.getElementById("form-message");
+
+        function validateEmail(value) {
+            if (!value) return false;
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return pattern.test(value);
+        }
+
+        if (form) {
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const emailInput = form.querySelector("#email");
+                const email = emailInput.value.trim();
+
+                if (!validateEmail(email)) {
+                    messageEl.textContent = "Could you double-check your email?";
+                    messageEl.classList.remove("success");
+                    messageEl.classList.add("error");
+                    emailInput.focus();
+                    return;
+                }
+
+                // Collect selected personas (for now just logged to console)
+                const personas = Array.from(
+                    form.querySelectorAll('input[name="persona"]:checked')
+                ).map((input) => input.value);
+
+                console.log("Waitlist submission", {
+                    email,
+                    personas,
+                    timestamp: new Date().toISOString(),
+                });
+
+                messageEl.textContent =
+                    "Thank you for joining. You’ll hear from us as the first prototypes are ready.";
+                messageEl.classList.remove("error");
+                messageEl.classList.add("success");
+                form.reset();
+            });
+        }
+    </script>
+</body>
+
+</html>
