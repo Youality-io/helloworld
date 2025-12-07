@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Coming Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-top: #24769C;
+            --bg-bottom: #1E1E24;
+            /* Phantom from grayscale */
+            --accent: #369799;
+            --text-main: #EDF4F3;
+            --text-muted: #9DA2B3;
+            --border-subtle: rgba(211, 214, 224, 0.18);
+            --card-bg: rgba(13, 16, 27, 0.78);
+            --progress-bg: rgba(157, 162, 179, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(54, 151, 153, 0.24), transparent 55%),
+                linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 32px 24px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            max-width: 1120px;
+            margin: 0 auto 40px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .layout {
+            width: 100%;
+            max-width: 1120px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 64px;
+            align-items: center;
+        }
+
+        /* Left column */
+        .hero-copy {
+            max-width: 540px;
+        }
+
+        .eyebrow {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(54, 151, 153, 0.8);
+        }
+
+        h1 {
+            font-size: clamp(32px, 3vw, 40px);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .subheader {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 460px;
+            margin-bottom: 28px;
+        }
+
+        /* Email + progress card */
+        .signup-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            border: 1px solid var(--border-subtle);
+            padding: 20px 20px 18px;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-card::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at 10% 0%, rgba(54, 151, 153, 0.18), transparent 55%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .signup-card-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .signup-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .signup-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .signup-input {
+            flex: 1;
+            min-width: 0;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.45);
+            background: rgba(7, 9, 18, 0.82);
+            padding: 10px 14px;
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .signup-input::placeholder {
+            color: rgba(157, 162, 179, 0.8);
+        }
+
+        .signup-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(54, 151, 153, 0.7), 0 0 20px rgba(54, 151, 153, 0.4);
+            background: rgba(7, 9, 18, 0.96);
+        }
+
+        .signup-button {
+            border-radius: 999px;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: radial-gradient(circle at 0% 0%, rgba(237, 244, 243, 0.14), transparent 60%),
+                linear-gradient(135deg, var(--accent), #24769C);
+            color: #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .signup-button span.spark {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .signup-button::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.28), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.22s ease;
+        }
+
+        .signup-button:hover::after {
+            opacity: 1;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-0.5px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+        }
+
+        .signup-button:active {
+            transform: translateY(0.3px) scale(0.99);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+        }
+
+        /* Progress indicator */
+        .progress-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .progress-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            opacity: 0.96;
+            white-space: nowrap;
+        }
+
+        .progress-bar-wrap {
+            flex: 1;
+            height: 4px;
+            border-radius: 999px;
+            background: var(--progress-bg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 33%;
+            background: linear-gradient(90deg, rgba(54, 151, 153, 0.1), var(--accent));
+            border-radius: inherit;
+            box-shadow: 0 0 12px rgba(54, 151, 153, 0.75);
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(237, 244, 243, 0.7), transparent);
+            mix-blend-mode: screen;
+            animation: sweep 2.8s ease-in-out infinite;
+        }
+
+        @keyframes sweep {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            50% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(120%);
+            }
+        }
+
+        /* Right column – radar/orbit visual */
+        .visual-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .radar-card {
+            width: min(380px, 100%);
+            aspect-ratio: 1 / 1;
+            border-radius: 32px;
+            border: 1px solid rgba(64, 66, 77, 0.9);
+            background:
+                radial-gradient(circle at 30% 0%, rgba(54, 151, 153, 0.18), transparent 60%),
+                radial-gradient(circle at 70% 100%, rgba(36, 118, 156, 0.24), transparent 65%),
+                rgba(4, 5, 12, 0.88);
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.7),
+                0 0 60px rgba(54, 151, 153, 0.16);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate3d(0, 0, 0);
+            animation: float-card 9s ease-in-out infinite;
+        }
+
+        @keyframes float-card {
+
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            50% {
+                transform: translate3d(0, -8px, 0);
+            }
+        }
+
+        .radar {
+            position: relative;
+            width: 70%;
+            height: 70%;
+            border-radius: 50%;
+            border: 1px solid rgba(157, 162, 179, 0.45);
+            box-shadow: 0 0 35px rgba(54, 151, 153, 0.45);
+            background:
+                radial-gradient(circle at center, rgba(237, 244, 243, 0.18), transparent 60%),
+                radial-gradient(circle at 0% 0%, rgba(36, 118, 156, 0.4), transparent 70%),
+                radial-gradient(circle at 100% 100%, rgba(54, 151, 153, 0.35), transparent 70%),
+                rgba(6, 8, 18, 0.96);
+            overflow: hidden;
+        }
+
+        .radar-ring {
+            position: absolute;
+            inset: 17%;
+            border-radius: 50%;
+            border: 1px dashed rgba(157, 162, 179, 0.32);
+        }
+
+        .radar-ring:nth-child(2) {
+            inset: 33%;
+            opacity: 0.8;
+        }
+
+        .radar-ring:nth-child(3) {
+            inset: 49%;
+            opacity: 0.7;
+        }
+
+        .radar-cross {
+            position: absolute;
+            inset: 12%;
+        }
+
+        .radar-line {
+            position: absolute;
+            background: linear-gradient(to right, rgba(157, 162, 179, 0.05), rgba(237, 244, 243, 0.55), rgba(157, 162, 179, 0.12));
+            opacity: 0.65;
+        }
+
+        .radar-line.horizontal {
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            transform: translateY(-50%);
+        }
+
+        .radar-line.vertical {
+            left: 50%;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            transform: translateX(-50%);
+        }
+
+        .radar-sweep {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(from 220deg, rgba(54, 151, 153, 0.7), rgba(54, 151, 153, 0), rgba(54, 151, 153, 0));
+            mix-blend-mode: screen;
+            animation: rotate 7.5s linear infinite;
+            opacity: 0.85;
+        }
+
+        .radar-dot {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow:
+                0 0 12px rgba(54, 151, 153, 0.95),
+                0 0 28px rgba(54, 151, 153, 0.9);
+            animation: pulse 2.8s ease-in-out infinite;
+        }
+
+        .radar-dot:nth-child(1) {
+            top: 18%;
+            right: 22%;
+            animation-delay: 0.2s;
+        }
+
+        .radar-dot:nth-child(2) {
+            bottom: 22%;
+            left: 26%;
+            animation-delay: 0.9s;
+        }
+
+        .radar-dot:nth-child(3) {
+            top: 38%;
+            left: 12%;
+            animation-delay: 1.6s;
+        }
+
+        .radar-dot:nth-child(4) {
+            bottom: 16%;
+            right: 18%;
+            animation-delay: 2.1s;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.55;
+            }
+        }
+
+        .radar-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: rgba(237, 244, 243, 0.85);
+            opacity: 0.9;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .caption-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(237, 244, 243, 0.85);
+            box-shadow: 0 0 14px rgba(54, 151, 153, 0.7);
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1120px;
+            margin: 40px auto 0;
+            font-size: 11px;
+            color: rgba(157, 162, 179, 0.8);
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+        }
+
+        footer span {
+            white-space: nowrap;
+        }
+
+        footer .footer-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(157, 162, 179, 0.0), rgba(157, 162, 179, 0.3), rgba(157, 162, 179, 0.0));
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 40px;
+            }
+
+            header {
+                margin-bottom: 24px;
+            }
+
+            main {
+                align-items: flex-start;
+            }
+
+            .hero-copy {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 20px 18px 24px;
+            }
+
+            .signup-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .signup-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .radar-card {
+                border-radius: 24px;
+                box-shadow:
+                    0 18px 40px rgba(0, 0, 0, 0.7),
+                    0 0 40px rgba(54, 151, 153, 0.2);
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            footer .footer-line {
+                width: 100%;
+            }
+        }
+
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(13, 16, 27, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(211, 214, 224, 0.18);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.25);
+            color: var(--text-main);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="wip7.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 8 / 12</div>
+            <div class="prototype-nav-right">
+                <a href="wip9.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <header>
+            <div class="logo">
+                <img src="../youality_logo_light.svg" alt="Youality logo"
+                    style="height: 60px; width: auto; object-fit: contain; clip-path: inset(0 0 20% 0);" />
+            </div>
+        </header>
+
+        <main>
+            <div class="layout">
+                <!-- Left: copy & form -->
+                <section class="hero-copy">
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        <span>Coming Soon</span>
+                    </div>
+
+                    <h1>Your personal navigation system is in the works.</h1>
+
+                    <p class="subheader">
+                        Youality is being built to help you see your life with clarity, protect your focus, and move
+                        through each day with intentional, aligned decisions.
+                    </p>
+
+                    <div class="signup-card">
+                        <div class="signup-card-inner">
+                            <div class="signup-label">
+                                Be the first to explore the system when Phase 01 unlocks.
+                            </div>
+
+                            <form class="signup-row" action="#" method="post">
+                                <input class="signup-input" type="email" name="email"
+                                    placeholder="Enter your best email" required />
+                                <button class="signup-button" type="submit">
+                                    <span>Notify me</span>
+                                    <span class="spark">✦</span>
+                                </button>
+                            </form>
+
+                            <div class="progress-row">
+                                <div class="progress-label">Phase 01 of 03</div>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right: radar/orbit visual -->
+                <section class="visual-wrapper">
+                    <div class="radar-card">
+                        <div class="radar">
+                            <div class="radar-ring"></div>
+                            <div class="radar-ring"></div>
+                            <div class="radar-ring"></div>
+
+                            <div class="radar-cross">
+                                <div class="radar-line horizontal"></div>
+                                <div class="radar-line vertical"></div>
+                            </div>
+
+                            <div class="radar-sweep"></div>
+
+                            <div class="radar-dot"></div>
+                            <div class="radar-dot"></div>
+                            <div class="radar-dot"></div>
+                            <div class="radar-dot"></div>
+                        </div>
+
+                        <div class="radar-caption">
+                            <span class="caption-dot"></span>
+                            <span>System mapping your next moves</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <span>© 2025 Youality / All rights reserved.</span>
+            <div class="footer-line"></div>
+            <span>Designed with clarity, built for navigation.</span>
+        </footer>
+    </div>
+</body>
+
+</html>

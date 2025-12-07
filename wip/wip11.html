@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Coming Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-soft: #EDF4F3;
+            --teal-start: #369799;
+            --teal-end: #24769C;
+            --text-main: #1E1E24;
+            /* Phantom */
+            --text-muted: #6E7180;
+            /* Graphite */
+            --card-bg: rgba(237, 244, 243, 0.85);
+            --card-border: rgba(255, 255, 255, 0.35);
+            --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --transition-fast: 160ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-soft);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 24px 16px 32px;
+        }
+
+        /* Radial wash behind content */
+        .page::before {
+            content: "";
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            height: 90vw;
+            max-width: 960px;
+            max-height: 960px;
+            background:
+                radial-gradient(circle at center,
+                    rgba(54, 151, 153, 0.55),
+                    rgba(36, 118, 156, 0.35) 35%,
+                    rgba(36, 118, 156, 0.0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(1px);
+        }
+
+        header {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(16px);
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-fallback {
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            width: 100%;
+            max-width: 1040px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 8px 24px;
+        }
+
+        .hero {
+            max-width: 720px;
+            margin-bottom: 32px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.7rem, 2.3vw, 2.2rem);
+            font-weight: 600;
+            margin: 0 0 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .cards-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 22px;
+            margin-top: 12px;
+        }
+
+        .card {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 18px 18px 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            transform: translateY(0);
+            animation: float 8s ease-in-out infinite;
+            animation-delay: var(--float-delay, 0s);
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background 200ms ease-out;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right,
+                    rgba(255, 255, 255, 0.6),
+                    transparent 65%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .placeholder-lines {
+            margin-bottom: 16px;
+        }
+
+        .placeholder-line {
+            height: 5px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.85);
+            margin-bottom: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .placeholder-line::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0.9),
+                    rgba(255, 255, 255, 0));
+            transform: translateX(-100%);
+            animation: shimmer 2.4s ease-in-out infinite;
+        }
+
+        .placeholder-line:nth-child(2) {
+            width: 78%;
+        }
+
+        .placeholder-line:nth-child(3) {
+            width: 58%;
+        }
+
+        .placeholder-line:nth-child(4) {
+            width: 44%;
+        }
+
+        .loading-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--teal-start), var(--teal-end));
+            opacity: 0.8;
+            animation: pulse 1.2s ease-in-out infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.18s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.36s;
+        }
+
+        .loading-label {
+            margin-left: auto;
+            opacity: 0.8;
+        }
+
+        .card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 26px 65px rgba(0, 0, 0, 0.12);
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(237, 244, 243, 0.95);
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1040px;
+            display: flex;
+            justify-content: center;
+            padding-top: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(0.9);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            header {
+                margin-bottom: 20px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .cards-grid {
+                gap: 18px;
+            }
+
+            .card {
+                padding: 16px 16px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                padding: 10px 16px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(211, 214, 224, 0.7);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-to);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="wip10.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 11 / 12</div>
+            <div class="prototype-nav-right">
+                <a href="wip12.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <header>
+            <div class="logo">
+                <img src="../youality_logo.svg" alt="Youality logo"
+                    style="height: 40px; width: auto; object-fit: contain;" />
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1 class="hero-title">We’re designing a new way to navigate your reality.</h1>
+                <p class="hero-subtitle">
+                    Youality is evolving into a calm, intelligent layer between you and your life –
+                    helping you map what matters, tune your rhythms, and move with clearer intention.
+                </p>
+            </section>
+
+            <section class="cards-grid" aria-label="Preview of Youality spaces">
+                <!-- Card 1 -->
+                <article class="card" style="--float-delay: 0s;">
+                    <div class="card-inner">
+                        <div class="card-label">Workspace</div>
+                        <div class="card-title">Life Map</div>
+                        <div class="placeholder-lines">
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                        </div>
+                        <div class="loading-row">
+                            <div class="loading-dots" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="loading-label">Mapping pathways…</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="card" style="--float-delay: 0.8s;">
+                    <div class="card-inner">
+                        <div class="card-label">Flow</div>
+                        <div class="card-title">Daily Rhythm</div>
+                        <div class="placeholder-lines">
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                        </div>
+                        <div class="loading-row">
+                            <div class="loading-dots" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="loading-label">Calibrating cycles…</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="card" style="--float-delay: 1.4s;">
+                    <div class="card-inner">
+                        <div class="card-label">Focus</div>
+                        <div class="card-title">Focus Space</div>
+                        <div class="placeholder-lines">
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                        </div>
+                        <div class="loading-row">
+                            <div class="loading-dots" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="loading-label">Clearing distractions…</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="card" style="--float-delay: 2.1s;">
+                    <div class="card-inner">
+                        <div class="card-label">Insight</div>
+                        <div class="card-title">Reflection</div>
+                        <div class="placeholder-lines">
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                            <div class="placeholder-line"></div>
+                        </div>
+                        <div class="loading-row">
+                            <div class="loading-dots" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="loading-label">Collecting signals…</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+
+        <footer>
+            <span>© 2025 Youality – Coming online soon.</span>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – In Progress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #EDF4F3;
+            --text-main: #1E1E24;
+            /* Phantom */
+            --text-muted: #6E7180;
+            /* Graphite */
+            --outline-soft: #BCBFCC;
+            /* Steel */
+            --outline-strong: #40424D;
+            /* Arsenic */
+            --accent-from: #369799;
+            --accent-to: #24769C;
+            --shadow-soft: 0 18px 40px rgba(30, 30, 36, 0.08);
+            --radius-lg: 18px;
+            --radius-md: 14px;
+            --transition-fast: 180ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle blueprint grid background */
+        .page::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(to right, rgba(157, 162, 179, 0.09) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(157, 162, 179, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.7;
+            z-index: -2;
+        }
+
+        .page::after {
+            /* faint radial glow behind center */
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 50% 20%, rgba(54, 151, 153, 0.18), transparent 55%),
+                radial-gradient(circle at 10% 80%, rgba(36, 118, 156, 0.12), transparent 55%);
+            z-index: -1;
+            mix-blend-mode: soft-light;
+        }
+
+        header.header {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            height: 40px;
+            object-fit: contain;
+        }
+
+        main.main {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-size: 13px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .hero-eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+            opacity: 0.85;
+        }
+
+        h1.hero-title {
+            font-size: clamp(32px, 4vw, 40px);
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        p.hero-subtitle {
+            max-width: 540px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0 auto;
+        }
+
+        .hero-actions {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .primary-button {
+            position: relative;
+            padding: 10px 22px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #ffffff;
+            background-image: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+            box-shadow: 0 12px 24px rgba(36, 118, 156, 0.35);
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                filter var(--transition-fast);
+        }
+
+        .primary-button::after {
+            content: "●";
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: 0 16px 32px rgba(36, 118, 156, 0.45);
+        }
+
+        .primary-button:active {
+            transform: translateY(0);
+            box-shadow: 0 10px 22px rgba(36, 118, 156, 0.4);
+        }
+
+        .hero-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        /* Blueprint panels section */
+        .blueprint-shell {
+            margin-top: 12px;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(188, 191, 204, 0.8);
+            padding: 18px 18px 20px;
+            background: rgba(237, 244, 243, 0.82);
+            box-shadow: 0 22px 50px rgba(30, 30, 36, 0.10);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blueprint-shell::before {
+            /* top accent line */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 12%;
+            right: 12%;
+            height: 2px;
+            border-radius: 999px;
+            background-image: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+            opacity: 0.9;
+        }
+
+        .shell-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .shell-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .shell-title-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-image: radial-gradient(circle at 30% 0, #ffffff, #369799);
+            box-shadow: 0 0 8px rgba(54, 151, 153, 0.85);
+        }
+
+        .shell-coordinates {
+            font-family: "Manrope", monospace;
+            font-size: 11px;
+            opacity: 0.85;
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .panel {
+            position: relative;
+            padding: 14px 14px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(188, 191, 204, 0.95);
+            background: rgba(237, 244, 243, 0.92);
+            box-shadow: 0 10px 24px rgba(30, 30, 36, 0.08);
+            overflow: hidden;
+            transform: translateY(0);
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background var(--transition-fast);
+        }
+
+        .panel::before {
+            /* subtle inner blueprint lines */
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, rgba(211, 214, 224, 0.4) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(211, 214, 224, 0.28) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .panel:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 38px rgba(30, 30, 36, 0.18);
+            border-color: rgba(64, 66, 77, 0.9);
+            background: rgba(237, 244, 243, 0.96);
+        }
+
+        .panel-label {
+            position: relative;
+            z-index: 1;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .panel-label-pill {
+            width: 18px;
+            height: 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            background: linear-gradient(135deg, rgba(54, 151, 153, 0.22), transparent);
+        }
+
+        .skeleton-row {
+            position: relative;
+            z-index: 1;
+            height: 7px;
+            border-radius: 999px;
+            background: linear-gradient(90deg,
+                    rgba(157, 162, 179, 0.35),
+                    rgba(211, 214, 224, 0.25),
+                    rgba(157, 162, 179, 0.35));
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .skeleton-row:nth-of-type(2) {
+            max-width: 88%;
+        }
+
+        .skeleton-row:nth-of-type(3) {
+            max-width: 72%;
+        }
+
+        .skeleton-row:nth-of-type(4) {
+            max-width: 54%;
+        }
+
+        .skeleton-row::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(120deg,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0.85),
+                    rgba(255, 255, 255, 0));
+            animation: shimmer 2.2s infinite;
+        }
+
+        .panel-meta {
+            position: relative;
+            z-index: 1;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        .panel-badge {
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px dashed rgba(156, 160, 179, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 500;
+        }
+
+        .panel-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: 1px solid rgba(54, 151, 153, 0.8);
+            background-image: radial-gradient(circle at 50% 30%, #ffffff, #369799);
+            box-shadow: 0 0 10px rgba(54, 151, 153, 0.8);
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        footer.footer {
+            width: 100%;
+            max-width: 960px;
+            margin-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .mini-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .mini-pill-accent {
+            border: none;
+            background-image: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(36, 118, 156, 0.35);
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(0.95);
+                opacity: 0.85;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .blueprint-shell {
+                padding: 14px 12px 16px;
+            }
+
+            .shell-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            footer.footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(211, 214, 224, 0.7);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-to);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="wip8.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 9 / 12</div>
+            <div class="prototype-nav-right">
+                <a href="wip10.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page">
+        <header class="header">
+            <img src="../youality_logo.svg" alt="Youality logo" class="logo"
+                style="height: 50px; width: auto; object-fit: contain;">
+        </header>
+
+        <main class="main">
+            <section class="hero">
+                <div class="hero-eyebrow">Personal Operating System</div>
+                <h1 class="hero-title">We’re building your life OS.</h1>
+                <p class="hero-subtitle">
+                    A calm, visual layer between you and your reality &mdash; helping you see clearly, focus on what
+                    matters,
+                    and move through your days with intentional rhythms.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="primary-button" type="button">
+                        Get early access updates
+                    </button>
+                    <div class="hero-hint">
+                        Private beta in development &mdash; Youality is quietly coming to life.
+                    </div>
+                </div>
+            </section>
+
+            <section class="blueprint-shell" aria-label="Youality feature blueprint loading">
+                <div class="shell-header">
+                    <div class="shell-title">
+                        <span class="shell-title-dot"></span>
+                        <span>Interface Blueprint &mdash; v0.1</span>
+                    </div>
+                    <div class="shell-coordinates">
+                        NODE&nbsp;·&nbsp;YOUALITY.OS&nbsp;/&nbsp;GRID&nbsp;[CLARITY·FOCUS·RHYTHMS·PROJECTS]
+                    </div>
+                </div>
+
+                <div class="panel-grid">
+                    <!-- Clarity Panel -->
+                    <article class="panel" aria-label="Clarity module loading">
+                        <div class="panel-label">
+                            <span class="panel-label-pill"></span>
+                            <span>Clarity</span>
+                        </div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="panel-meta">
+                            <span class="panel-badge">Perspective Map</span>
+                            <span class="panel-status-dot" aria-hidden="true"></span>
+                        </div>
+                    </article>
+
+                    <!-- Focus Panel -->
+                    <article class="panel" aria-label="Focus module loading">
+                        <div class="panel-label">
+                            <span class="panel-label-pill"></span>
+                            <span>Focus</span>
+                        </div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="panel-meta">
+                            <span class="panel-badge">Deep Work Lane</span>
+                            <span class="panel-status-dot" aria-hidden="true"></span>
+                        </div>
+                    </article>
+
+                    <!-- Rhythms Panel -->
+                    <article class="panel" aria-label="Rhythms module loading">
+                        <div class="panel-label">
+                            <span class="panel-label-pill"></span>
+                            <span>Rhythms</span>
+                        </div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="panel-meta">
+                            <span class="panel-badge">Daily Cycles</span>
+                            <span class="panel-status-dot" aria-hidden="true"></span>
+                        </div>
+                    </article>
+
+                    <!-- Projects Panel -->
+                    <article class="panel" aria-label="Projects module loading">
+                        <div class="panel-label">
+                            <span class="panel-label-pill"></span>
+                            <span>Projects</span>
+                        </div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="panel-meta">
+                            <span class="panel-badge">Systems View</span>
+                            <span class="panel-status-dot" aria-hidden="true"></span>
+                        </div>
+                    </article>
+
+                    <!-- Optional fifth panel: more OS-feel -->
+                    <article class="panel" aria-label="Signals module loading">
+                        <div class="panel-label">
+                            <span class="panel-label-pill"></span>
+                            <span>Signals</span>
+                        </div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="panel-meta">
+                            <span class="panel-badge">Notifications</span>
+                            <span class="panel-status-dot" aria-hidden="true"></span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-left">
+                © <span id="year"></span> Youality &mdash; your reality, intentionally navigated.
+            </div>
+            <div class="footer-right">
+                <div class="mini-pill">Blueprint Mode · WIP</div>
+                <div class="mini-pill mini-pill-accent">Life OS Loading</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Keep year current automatically
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

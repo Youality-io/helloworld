@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youality – Work in Progress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
+
+    <!-- Manrope font -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #EDF4F3;
+            --gradient: linear-gradient(135deg, #369799, #24769C);
+            --text-main: #1E1E24;
+            /* Phantom */
+            --text-muted: #6E7180;
+            /* Graphite */
+            --border-subtle: #D3D6E0;
+            /* Smoke */
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --accent-soft: rgba(54, 151, 153, 0.06);
+            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.08);
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --transition-fast: 180ms ease-out;
+            --transition-medium: 260ms ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top right, #EDEFF7 0, transparent 50%),
+                radial-gradient(circle at bottom left, #EDEFF7 0, transparent 50%),
+                var(--bg);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page-shell {
+            width: min(1120px, 100% - 64px);
+            margin: 32px auto;
+            padding: 24px 28px 28px;
+            border-radius: 24px;
+            background: radial-gradient(circle at top left, rgba(54, 151, 153, 0.07), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(36, 118, 156, 0.06), transparent 55%),
+                rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle floating lines to hint at “future UI” */
+        .blueprint-lines::before,
+        .blueprint-lines::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            border: 1px dashed rgba(157, 162, 179, 0.4);
+            opacity: 0.36;
+            pointer-events: none;
+        }
+
+        .blueprint-lines::before {
+            width: 56%;
+            height: 310px;
+            top: -140px;
+            right: -120px;
+            transform: rotate(-8deg);
+        }
+
+        .blueprint-lines::after {
+            width: 46%;
+            height: 220px;
+            bottom: -120px;
+            left: -80px;
+            transform: rotate(10deg);
+        }
+
+        header {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo-lockup {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Swap this text block for your actual SVG/logo image if desired */
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 28px rgba(36, 118, 156, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark::after {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.78), transparent 70%);
+            opacity: 0.7;
+            mix-blend-mode: screen;
+        }
+
+        .logo-mark span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #EDF4F3;
+            letter-spacing: 0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        .hero-copy {
+            text-align: right;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hero-eyebrow {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .hero-title {
+            font-size: clamp(24px, 3vw, 30px);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 360px;
+            margin-left: auto;
+            line-height: 1.5;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        /* Timeline Card */
+
+        .timeline-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px 20px 18px;
+            border: 1px solid rgba(211, 214, 224, 0.8);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-header {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .timeline-phase-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.9);
+        }
+
+        .phase-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--gradient);
+            position: relative;
+        }
+
+        .phase-dot::after {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: inherit;
+            border: 1px solid rgba(54, 151, 153, 0.35);
+            opacity: 0.8;
+            animation: phasePulse 1.7s ease-out infinite;
+        }
+
+        @keyframes phasePulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        .timeline-track-wrapper {
+            margin-bottom: 16px;
+        }
+
+        .timeline-track {
+            position: relative;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(211, 214, 224, 0.8);
+            overflow: hidden;
+        }
+
+        .timeline-fill {
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            transform-origin: left center;
+            transform: scaleX(0.2);
+            animation: fillSweep 16s ease-in-out infinite;
+        }
+
+        /* Moving marker */
+        .timeline-marker {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            transform: translate(-50%, -50%);
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #ffffff, #D3D6E0);
+            box-shadow: 0 0 0 4px rgba(54, 151, 153, 0.22),
+                0 10px 20px rgba(0, 0, 0, 0.12);
+            animation: markerDrift 16s ease-in-out infinite;
+        }
+
+        .timeline-marker::before {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border-radius: inherit;
+            background: var(--gradient);
+        }
+
+        @keyframes fillSweep {
+            0% {
+                transform: scaleX(0.15);
+            }
+
+            25% {
+                transform: scaleX(0.32);
+            }
+
+            50% {
+                transform: scaleX(0.63);
+            }
+
+            75% {
+                transform: scaleX(0.96);
+            }
+
+            100% {
+                transform: scaleX(0.15);
+            }
+        }
+
+        @keyframes markerDrift {
+            0% {
+                left: 0%;
+            }
+
+            25% {
+                left: 33%;
+            }
+
+            50% {
+                left: 66%;
+            }
+
+            75% {
+                left: 100%;
+            }
+
+            100% {
+                left: 0%;
+            }
+        }
+
+        .timeline-steps {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .timeline-step {
+            padding: 10px 10px 9px;
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            background: transparent;
+            transition: background var(--transition-medium), border-color var(--transition-medium), transform var(--transition-fast), box-shadow var(--transition-fast);
+            position: relative;
+        }
+
+        .timeline-step-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .timeline-step-copy {
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .timeline-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+            border-color: rgba(54, 151, 153, 0.35);
+            background: rgba(237, 244, 243, 0.95);
+        }
+
+        /* Active glow cycling through phases */
+        @keyframes stepGlow {
+
+            0%,
+            16% {
+                border-color: rgba(54, 151, 153, 0.55);
+                background: rgba(54, 151, 153, 0.06);
+                box-shadow: 0 8px 22px rgba(54, 151, 153, 0.18);
+            }
+
+            22%,
+            100% {
+                border-color: transparent;
+                background: transparent;
+                box-shadow: none;
+            }
+        }
+
+        .timeline-step:nth-child(1) {
+            animation: stepGlow 16s infinite;
+            animation-delay: 0s;
+        }
+
+        .timeline-step:nth-child(2) {
+            animation: stepGlow 16s infinite;
+            animation-delay: 4s;
+        }
+
+        .timeline-step:nth-child(3) {
+            animation: stepGlow 16s infinite;
+            animation-delay: 8s;
+        }
+
+        .timeline-step:nth-child(4) {
+            animation: stepGlow 16s infinite;
+            animation-delay: 12s;
+        }
+
+        /* Email / Invite Card */
+
+        .cta-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px 20px 18px;
+            border: 1px solid rgba(211, 214, 224, 0.95);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(237, 244, 243, 0.9);
+            border: 1px solid rgba(211, 214, 224, 0.95);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .cta-badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--gradient);
+            box-shadow: 0 0 0 3px rgba(54, 151, 153, 0.35);
+        }
+
+        .cta-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .cta-copy {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 360px;
+        }
+
+        .cta-form {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        .cta-input-wrap {
+            flex: 1 1 150px;
+            position: relative;
+        }
+
+        .cta-input {
+            width: 100%;
+            padding: 12px 12px 11px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(248, 249, 252, 0.9);
+            font-size: 13px;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium), transform var(--transition-fast);
+        }
+
+        .cta-input::placeholder {
+            color: rgba(157, 162, 179, 0.9);
+        }
+
+        .cta-input:focus {
+            border-color: rgba(54, 151, 153, 0.9);
+            box-shadow: 0 0 0 1px rgba(54, 151, 153, 0.36), 0 10px 24px rgba(36, 118, 156, 0.2);
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .cta-button {
+            flex: 0 0 auto;
+            padding: 11px 20px 11px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            background: var(--gradient);
+            color: #EDF4F3;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 12px 30px rgba(36, 118, 156, 0.45);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+        }
+
+        .cta-button span.icon {
+            font-size: 14px;
+            transform-origin: center;
+            transition: transform 160ms ease-out;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(36, 118, 156, 0.55);
+            filter: brightness(1.03);
+        }
+
+        .cta-button:hover span.icon {
+            transform: translateX(2px);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+            box-shadow: 0 8px 18px rgba(36, 118, 156, 0.4);
+            filter: brightness(0.97);
+        }
+
+        .cta-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .cta-note-pill {
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px dashed rgba(157, 162, 179, 0.7);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+        }
+
+        .cta-footer {
+            margin-top: auto;
+            font-size: 11px;
+            color: rgba(157, 162, 179, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .cta-phase-indicator {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .phase-pill {
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: rgba(36, 118, 156, 0.08);
+        }
+
+        .cta-mini {
+            opacity: 0.8;
+        }
+
+        /* Submission micro-feedback */
+        .cta-feedback {
+            font-size: 11px;
+            color: rgba(54, 151, 153, 0.95);
+            margin-top: 4px;
+            min-height: 14px;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity var(--transition-medium), transform var(--transition-medium);
+        }
+
+        .cta-feedback.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+
+        @media (max-width: 880px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy {
+                text-align: left;
+            }
+
+            .hero-subtitle {
+                margin-left: 0;
+            }
+
+            .timeline-steps {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                row-gap: 12px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                padding: 20px 18px 22px;
+                margin: 18px auto;
+                width: min(100% - 32px, 520px);
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .hero-copy {
+                width: 100%;
+            }
+
+            .timeline-card,
+            .cta-card {
+                padding: 16px 14px 14px;
+            }
+
+            .cta-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cta-button {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .cta-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.12);
+            color: var(--accent-to);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="wip9.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 10 / 12</div>
+            <div class="prototype-nav-right">
+                <a href="wip11.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
+    <div class="page-shell blueprint-lines">
+        <header>
+            <div class="logo-lockup">
+                <img src="../youality_logo.svg" alt="Youality"
+                    style="height: 65px; width: auto; object-fit: contain;" />
+            </div>
+            <div class="hero-copy">
+                <div class="hero-eyebrow">Work in progress</div>
+                <h1 class="hero-title">Youality is on its way.</h1>
+                <p class="hero-subtitle">
+                    We’re quietly building a personal navigation system to help you move through life with more clarity,
+                    focus, and intention.
+                </p>
+            </div>
+        </header>
+
+        <main>
+            <!-- Timeline Evolution -->
+            <section class="timeline-card" aria-label="Youality build phases">
+                <div class="timeline-header">
+                    <span class="timeline-title">Evolution timeline</span>
+                    <span class="timeline-phase-label">
+                        <span class="phase-dot" aria-hidden="true"></span>
+                        Evolving in phases
+                    </span>
+                </div>
+
+                <div class="timeline-track-wrapper" aria-hidden="true">
+                    <div class="timeline-track">
+                        <div class="timeline-fill"></div>
+                        <div class="timeline-marker"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-steps">
+                    <article class="timeline-step">
+                        <h2 class="timeline-step-title">Vision</h2>
+                        <p class="timeline-step-copy">
+                            Mapping a new way to see your life as a navigable system, not a to-do list.
+                        </p>
+                    </article>
+
+                    <article class="timeline-step">
+                        <h2 class="timeline-step-title">Design</h2>
+                        <p class="timeline-step-copy">
+                            Crafting calm interfaces that reflect how your mind actually plans, feels, and decides.
+                        </p>
+                    </article>
+
+                    <article class="timeline-step">
+                        <h2 class="timeline-step-title">Build</h2>
+                        <p class="timeline-step-copy">
+                            Turning the blueprint into a living platform that syncs rhythms, projects, and focus.
+                        </p>
+                    </article>
+
+                    <article class="timeline-step">
+                        <h2 class="timeline-step-title">Launch</h2>
+                        <p class="timeline-step-copy">
+                            Opening the doors to early companions who want to navigate their reality more masterfully.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Email Capture / Invite -->
+            <section class="cta-card" aria-label="Youality early access">
+                <div>
+                    <div class="cta-badge">
+                        <span class="cta-badge-dot"></span>
+                        Early companions
+                    </div>
+                    <h2 class="cta-title">Be there as the next phase unlocks.</h2>
+                    <p class="cta-copy">
+                        Leave your email and we’ll invite you when Youality shifts into its next build phase. No noise,
+                        only meaningful updates.
+                    </p>
+                </div>
+
+                <form class="cta-form" id="youality-form" novalidate>
+                    <div class="cta-input-wrap">
+                        <input type="email" id="youality-email" class="cta-input" name="email"
+                            placeholder="Enter your email" autocomplete="email" required
+                            aria-label="Email address for early access invitation" />
+                    </div>
+                    <button class="cta-button" type="submit">
+                        <span>Get invited</span>
+                        <span class="icon">➜</span>
+                    </button>
+                </form>
+
+                <div class="cta-feedback" id="youality-feedback">
+                    Got it. You’ll hear from us when the next phase unlocks. ✨
+                </div>
+
+                <div class="cta-note">
+                    <span class="cta-note-pill">Phase updates only</span>
+                    <span>Get invited when the next phase unlocks.</span>
+                </div>
+
+                <div class="cta-footer">
+                    <div class="cta-phase-indicator">
+                        <span class="phase-pill">Phase 01 → 04</span>
+                        <span class="cta-mini">Currently moving from Vision to Design.</span>
+                    </div>
+                    <div class="cta-mini">© 2025 Youality — All rights reserved.</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Simple, front-end only feedback on submit
+        const form = document.getElementById("youality-form");
+        const emailInput = document.getElementById("youality-email");
+        const feedback = document.getElementById("youality-feedback");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const value = emailInput.value.trim();
+            if (!value || !value.includes("@")) {
+                feedback.textContent = "Could you add a valid email so we know where to send your invite?";
+                feedback.classList.add("visible");
+                return;
+            }
+
+            // Simulate success (wire this up to your backend later)
+            feedback.textContent = "Got it. You’ll hear from us when the next phase unlocks. ✨";
+            feedback.classList.add("visible");
+
+            // Optional: soft clear and blur
+            setTimeout(() => {
+                emailInput.blur();
+            }, 200);
+
+            // Keep the value so it feels acknowledged; remove this line if you prefer clearing it.
+            // emailInput.value = "";
+        });
+    </script>
+</body>
+
+</html>

@@ -248,6 +248,84 @@
             background: rgba(188, 191, 204, 0.45);
         }
 
+        /* Prototype Navigation */
+        .prototype-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .prototype-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .prototype-nav-left,
+        .prototype-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prototype-nav-link {
+            padding: 6px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        .prototype-nav-link:hover {
+            background: rgba(54, 151, 153, 0.25);
+            color: var(--text-main);
+        }
+
+        .prototype-nav-link.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .prototype-nav-current {
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 6px 12px;
+        }
+
+        body {
+            padding-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .prototype-nav {
+                font-size: 0.75rem;
+            }
+
+            .prototype-nav-inner {
+                padding: 0 12px;
+            }
+
+            .prototype-nav-link {
+                padding: 6px 8px;
+            }
+
+            .prototype-nav-current {
+                display: none;
+            }
+        }
+
         @media (max-width: 600px) {
             .page {
                 border-radius: 18px;
@@ -268,6 +346,18 @@
 </head>
 
 <body>
+    <nav class="prototype-nav">
+        <div class="prototype-nav-inner">
+            <div class="prototype-nav-left">
+                <a href="index.html" class="prototype-nav-link">← Index</a>
+                <a href="wip4.html" class="prototype-nav-link">← Prev</a>
+            </div>
+            <div class="prototype-nav-current">Work in Progress 5 / 12</div>
+            <div class="prototype-nav-right">
+                <a href="wip6.html" class="prototype-nav-link">Next →</a>
+            </div>
+        </div>
+    </nav>
     <div class="page">
         <header class="top">
             <div class="brand">
