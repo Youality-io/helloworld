@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>Youality – Personal Navigation System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=0.5, maximum-scale=5, user-scalable=yes" />
     <meta name="description" content="A calm system to help you navigate your reality, masterfully." />
 
     <!-- Favicons - placed early for Safari compatibility -->
@@ -67,14 +68,20 @@
             box-sizing: border-box;
         }
 
-        html,
-        body {
+        html {
             margin: 0;
             padding: 0;
             min-height: 100%;
+            min-width: 100%;
+            width: 100%;
         }
 
         body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            min-width: 100%;
+            width: 100%;
             font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont,
                 "Segoe UI", sans-serif;
             background-color: var(--bg-base);
@@ -91,6 +98,7 @@
         .page {
             position: relative;
             width: 100%;
+            min-width: 100%;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -103,8 +111,13 @@
 
         /* Soft gradient halo in the background */
         .bg-gradient {
-            position: absolute;
-            inset: -20%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
             background:
                 radial-gradient(circle at 20% 10%,
                     rgba(54, 151, 153, 0.08),
@@ -119,8 +132,13 @@
 
         /* Subtle architectural grid */
         .bg-grid {
-            position: absolute;
-            inset: 6%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
             border-radius: 24px;
             border: 1px solid rgba(211, 214, 224, 0.7);
             background-image:
@@ -162,6 +180,7 @@
         .content-shell {
             position: relative;
             max-width: 880px;
+            min-width: 280px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -233,6 +252,7 @@
             position: relative;
             width: 100%;
             max-width: 840px;
+            min-width: 280px;
             padding: 24px 26px 26px;
             border-radius: 24px;
             border: 1px solid rgba(188, 191, 204, 0.75);
