@@ -3,367 +3,540 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Youality – Coming Soon</title>
+    <title>Youality – In Progress</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-        content="Youality – Navigate your reality. A new way to organize and live your life is coming soon." />
 
-    <link rel="icon" type="image/png" href="youality_favicon.png" />
+    <link rel="icon" type="image/png" href="../youality_favicon.png" />
 
-    <!-- Manrope (brand primary typeface) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Manrope (primary brand typeface) -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
     <style>
         :root {
-            --bg: #edf4f3;
-            /* brand primary light background */
-            --text: #1e1e24;
-            /* Phantom / deep gray */
-            --accent-from: #369799;
-            /* teal gradient start */
-            --accent-to: #24769c;
-            /* teal gradient end */
-            --card-bg: #ffffff;
-            --muted: #6e7180;
-            /* graphite */
-            --border-subtle: #d3d6e0;
+            --bg-base: #edf4f3;
+            --accent-start: #369799;
+            --accent-end: #24769c;
+            --grey-smoke: #d3d6e0;
+            --grey-steel: #bcbfcc;
+            --grey-graphite: #6e7180;
+            --grey-phantom: #1e1e24;
+            --text-main: #1e1e24;
+            --text-muted: #6e7180;
+            --parallax-x: 0px;
+            --parallax-y: 0px;
         }
 
         * {
             box-sizing: border-box;
+        }
+
+        html,
+        body {
             margin: 0;
             padding: 0;
+            height: 100%;
         }
 
         body {
-            min-height: 100vh;
-            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                sans-serif;
-            background: radial-gradient(circle at top, #e0f2f1 0, var(--bg) 40%, #e9eef0 100%);
-            color: var(--text);
+            font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
-            padding: 24px;
+            overflow: hidden;
         }
 
         .page {
             position: relative;
             width: 100%;
-            max-width: 720px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            isolation: isolate;
+            opacity: 0;
+            animation: page-fade-in 0.8s ease-out forwards;
         }
 
-        .card {
-            position: relative;
-            background: var(--card-bg);
+        /* Soft gradient halo in the background */
+        .bg-gradient {
+            position: absolute;
+            inset: -20%;
+            background:
+                radial-gradient(circle at 20% 10%,
+                    rgba(54, 151, 153, 0.08),
+                    transparent 55%),
+                radial-gradient(circle at 80% 90%,
+                    rgba(36, 118, 156, 0.10),
+                    transparent 60%);
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: -3;
+        }
+
+        /* Subtle architectural grid */
+        .bg-grid {
+            position: absolute;
+            inset: 6%;
             border-radius: 24px;
-            padding: 32px 28px 28px;
+            border: 1px solid rgba(211, 214, 224, 0.7);
+            background-image:
+                linear-gradient(to right,
+                    rgba(211, 214, 224, 0.5) 1px,
+                    transparent 1px),
+                linear-gradient(to bottom,
+                    rgba(211, 214, 224, 0.5) 1px,
+                    transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.45;
+            mask-image: radial-gradient(circle at 50% 30%, black, transparent 80%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* Cursor-follow glow */
+        .cursor-glow {
+            position: fixed;
+            width: 320px;
+            height: 320px;
+            pointer-events: none;
+            background: radial-gradient(circle,
+                    rgba(54, 151, 153, 0.30),
+                    rgba(36, 118, 156, 0));
+            opacity: 0.0;
+            filter: blur(6px);
+            transform: translate(-50%, -50%);
+            transition:
+                opacity 0.4s ease-out,
+                transform 0.08s ease-out;
+            z-index: -1;
+        }
+
+        .page:hover .cursor-glow {
+            opacity: 0.45;
+        }
+
+        .content-shell {
+            position: relative;
+            max-width: 880px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            transform: translate3d(0, 12px, 0);
+            animation: float-in 0.9s ease-out forwards;
+            animation-delay: 0.1s;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-lockup {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.7);
+            background: rgba(237, 244, 243, 0.65);
+            backdrop-filter: blur(18px);
             box-shadow:
-                0 18px 45px rgba(0, 0, 0, 0.04),
-                0 0 0 1px rgba(0, 0, 0, 0.02);
+                0 18px 40px rgba(0, 0, 0, 0.03),
+                0 0 0 1px rgba(255, 255, 255, 0.9);
+        }
+
+        .logo-lockup img {
+            height: 32px;
+            display: block;
+        }
+
+        .tagline {
+            font-size: 13px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .hero-copy {
+            text-align: center;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-copy h1 {
+            margin: 0;
+            font-weight: 600;
+            font-size: clamp(28px, 4vw, 36px);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* Work-in-progress zone */
+        .wip-shell {
+            position: relative;
+            width: 100%;
+            max-width: 840px;
+            padding: 24px 26px 26px;
+            border-radius: 24px;
+            border: 1px solid rgba(188, 191, 204, 0.75);
+            background: linear-gradient(135deg,
+                    rgba(237, 244, 243, 0.95),
+                    rgba(237, 244, 243, 0.80));
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 0.06),
+                0 0 0 1px rgba(255, 255, 255, 0.9);
             overflow: hidden;
         }
 
-        @media (min-width: 720px) {
-            .card {
-                padding: 40px 40px 34px;
-            }
+        .wip-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(54, 151, 153, 0.05),
+                    rgba(36, 118, 156, 0.08));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.7s ease-out;
         }
 
-        .glow {
+        .wip-shell:hover::before {
+            opacity: 1;
+        }
+
+        .wip-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(64, 66, 77, 0.6);
+            margin-bottom: 16px;
+        }
+
+        .wip-meta span:last-child {
+            font-weight: 500;
+            background: linear-gradient(120deg,
+                    var(--accent-start),
+                    var(--accent-end));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .wip-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            transform: translate3d(var(--parallax-x),
+                    var(--parallax-y),
+                    0);
+            transition: transform 0.16s ease-out;
+        }
+
+        .ghost-card {
+            border-radius: 18px;
+            border: 1px dashed rgba(188, 191, 204, 0.9);
+            background: rgba(237, 244, 243, 0.65);
+            position: relative;
+            padding: 14px 14px 16px;
+            overflow: hidden;
+            min-height: 112px;
+        }
+
+        .ghost-card::before {
+            content: "";
             position: absolute;
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, rgba(54, 151, 153, 0.22), transparent 60%);
-            top: -140px;
-            right: -80px;
-            pointer-events: none;
-            filter: blur(1px);
+            inset: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(211, 214, 224, 0.8);
+            opacity: 0.55;
+        }
+
+        .ghost-header-line,
+        .ghost-sub-line {
+            position: relative;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(188, 191, 204, 0.78);
+            margin-bottom: 8px;
+        }
+
+        .ghost-header-line {
+            width: 48%;
+        }
+
+        .ghost-sub-line {
+            width: 70%;
+            opacity: 0.7;
+        }
+
+        .ghost-footer-pill {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border: 1px solid rgba(168, 172, 188, 0.9);
+            color: rgba(64, 66, 77, 0.75);
+            background: rgba(237, 244, 243, 0.85);
+        }
+
+        .ghost-card:nth-child(1) .ghost-footer-pill::before {
+            content: "Perspective";
+        }
+
+        .ghost-card:nth-child(2) .ghost-footer-pill::before {
+            content: "Paths";
+        }
+
+        .ghost-card:nth-child(3) .ghost-footer-pill::before {
+            content: "Systems";
+        }
+
+        .ghost-diagonal {
+            position: absolute;
+            inset: 2px 6px;
+            border-radius: 16px;
+            border-top: 1px solid rgba(188, 191, 204, 0.6);
+            border-left: 1px solid rgba(188, 191, 204, 0.3);
+            transform: skewX(-6deg);
+            opacity: 0.5;
+        }
+
+        .wip-caption {
+            margin-top: 18px;
+            font-size: 12px;
+            color: rgba(64, 66, 77, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill {
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(188, 191, 204, 0.9);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(64, 66, 77, 0.8);
+            background: rgba(237, 244, 243, 0.9);
+            white-space: nowrap;
+        }
+
+        footer {
+            margin-top: 8px;
+            font-size: 11px;
+            color: rgba(110, 113, 128, 0.85);
+            text-align: center;
+        }
+
+        footer span {
             opacity: 0.9;
         }
 
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 28px;
-        }
+        /* Animations */
+        @keyframes page-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
 
-        .logo-mark {
-            width: 40px;
-            height: 40px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow:
-                0 10px 30px rgba(36, 118, 156, 0.35),
-                0 0 0 1px rgba(255, 255, 255, 0.6);
-            flex-shrink: 0;
-        }
-
-        .logo-mark span {
-            font-weight: 700;
-            font-size: 18px;
-            color: #ffffff;
-            letter-spacing: 0.02em;
-        }
-
-        .wordmark {
-            font-weight: 600;
-            font-size: 24px;
-            letter-spacing: 0.02em;
-            background: linear-gradient(120deg, var(--accent-from), var(--accent-to));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            white-space: nowrap;
-        }
-
-        .badge {
-            border-radius: 999px;
-            border: 1px solid rgba(211, 214, 224, 0.9);
-            padding: 6px 14px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-weight: 500;
-            color: var(--muted);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(237, 239, 247, 0.7);
-            backdrop-filter: blur(8px);
-            white-space: nowrap;
-        }
-
-        .badge-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: radial-gradient(circle, #4caf50 0, #2e7d32 60%, #1b5e20 100%);
-            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.18);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
+            to {
                 opacity: 1;
-            }
-
-            70% {
-                transform: scale(1.25);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1.25);
-                opacity: 0;
-            }
-        }
-
-        .content {
-            margin-bottom: 24px;
-        }
-
-        .title {
-            font-size: clamp(32px, 4vw, 40px);
-            line-height: 1.1;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--muted);
-            max-width: 460px;
-        }
-
-        .subtitle strong {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .cta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            margin-top: 24px;
-        }
-
-        .cta-button {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 18px;
-            border-radius: 999px;
-            border: none;
-            background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow:
-                0 12px 35px rgba(36, 118, 156, 0.45),
-                0 0 0 1px rgba(255, 255, 255, 0.3);
-            transition:
-                transform 0.16s ease-out,
-                box-shadow 0.16s ease-out,
-                filter 0.16s ease-out;
-            white-space: nowrap;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-1px) scale(1.01);
-            box-shadow:
-                0 16px 40px rgba(36, 118, 156, 0.55),
-                0 0 0 1px rgba(255, 255, 255, 0.35);
-            filter: brightness(1.02);
-        }
-
-        .cta-button:active {
-            transform: translateY(0) scale(0.99);
-            box-shadow:
-                0 6px 20px rgba(36, 118, 156, 0.45),
-                0 0 0 1px rgba(255, 255, 255, 0.3);
-        }
-
-        .cta-note {
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        .meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            padding-top: 18px;
-            border-top: 1px solid var(--border-subtle);
-            margin-top: 10px;
-            font-size: 11px;
-            color: #9da2b3;
-            flex-wrap: wrap;
-        }
-
-        .meta span {
-            opacity: 0.95;
-        }
-
-        .dots {
-            display: inline-flex;
-            gap: 4px;
-        }
-
-        .dots span {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background: #bc bfcc;
-            opacity: 0.8;
-            animation: float 1.8s ease-in-out infinite;
-        }
-
-        .dots span:nth-child(2) {
-            animation-delay: 0.18s;
-        }
-
-        .dots span:nth-child(3) {
-            animation-delay: 0.36s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
                 transform: translateY(0);
-                opacity: 0.7;
-            }
-
-            50% {
-                transform: translateY(-4px);
-                opacity: 1;
             }
         }
 
-        @media (max-width: 520px) {
-            .header {
+        @keyframes float-in {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 16px, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+
+            .page,
+            .content-shell {
+                animation: none;
+            }
+
+            .cursor-glow {
+                display: none;
+            }
+
+            .wip-grid {
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            .page {
+                padding: 24px 16px;
+            }
+
+            .bg-grid {
+                inset: 10%;
+                border-radius: 20px;
+            }
+
+            .wip-shell {
+                padding: 18px 18px 20px;
+            }
+
+            .wip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wip-meta {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-
-            .badge {
-                margin-top: 4px;
+                gap: 6px;
             }
         }
     </style>
 </head>
 
 <body>
-    <main class="page">
-        <section class="card" aria-labelledby="coming-soon-title">
-            <div class="glow" aria-hidden="true"></div>
+    <div class="page">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+        <div class="cursor-glow"></div>
 
-            <header class="header">
-                <div style="display:flex;align-items:center;gap:12px;min-width:0;">
-                    <img src="youality_emblem.svg" alt="Youality"
-                        style="width: 40px; height: 40px; object-fit: contain;" />
-                    <div style="display:flex;flex-direction:column;gap:2px;min-width:0;">
-                        <div class="wordmark">Youality</div>
-                        <div style="font-size:11px;color:var(--muted);white-space:nowrap;">
-                            Navigate your reality, masterfully.
-                        </div>
-                    </div>
+        <div class="content-shell">
+            <header>
+                <div class="logo-lockup">
+                    <img src="../youality_logo.svg" alt="Youality logo"
+                        style="height: 40px; width: auto; object-fit: contain;" />
                 </div>
-                <div class="badge">
-                    <span class="badge-dot" aria-hidden="true"></span>
-                    <span>Private beta in motion</span>
-                </div>
+                <div class="tagline">Navigation for an aligned life</div>
             </header>
 
-            <div class="content">
-                <h1 class="title" id="coming-soon-title">Something new is taking shape.</h1>
-                <p class="subtitle">
-                    We’re crafting a focused space to help you design, navigate, and live your life with
-                    <strong>clarity</strong> and <strong>intention</strong>. Youality is in active development and
-                    will open up gradually.
+            <section class="hero-copy">
+                <h1>Youality is coming to life</h1>
+                <p>
+                    A calm system to help you navigate your reality masterfully—clarifying
+                    what matters, and turning it into aligned, everyday action.
                 </p>
+            </section>
 
-                <div class="cta">
-                    <button class="cta-button" type="button"
-                        onclick="window.location.href='mailto:hello@youality.io?subject=Youality%20Beta%20Waitlist';">
-                        Request early access
-                    </button>
-                    <span class="cta-note">
-                        Or just check back here soon – things are evolving.
-                    </span>
+            <section class="wip-shell" aria-label="Youality interface preview">
+                <div class="wip-meta">
+                    <span>Interface Blueprint · V0.3</span>
+                    <span>Quietly in progress</span>
                 </div>
-            </div>
 
-            <div class="meta">
-                <span>© <span id="year"></span> Youality · All rights reserved</span>
-                <span>
-                    Building in quiet mode
-                    <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                </span>
-            </div>
-        </section>
-    </main>
+                <div class="wip-grid">
+                    <div class="ghost-card">
+                        <div class="ghost-diagonal"></div>
+                        <div class="ghost-header-line"></div>
+                        <div class="ghost-sub-line"></div>
+                        <div class="ghost-sub-line" style="width: 52%; opacity: 0.55;"></div>
+                        <div class="ghost-footer-pill"></div>
+                    </div>
+                    <div class="ghost-card">
+                        <div class="ghost-diagonal"></div>
+                        <div class="ghost-header-line" style="width: 40%;"></div>
+                        <div class="ghost-sub-line" style="width: 64%;"></div>
+                        <div class="ghost-sub-line" style="width: 48%; opacity: 0.55;"></div>
+                        <div class="ghost-footer-pill"></div>
+                    </div>
+                    <div class="ghost-card">
+                        <div class="ghost-diagonal"></div>
+                        <div class="ghost-header-line" style="width: 44%;"></div>
+                        <div class="ghost-sub-line" style="width: 58%;"></div>
+                        <div class="ghost-sub-line" style="width: 40%; opacity: 0.52;"></div>
+                        <div class="ghost-footer-pill"></div>
+                    </div>
+                </div>
+
+                <div class="wip-caption">
+                    <span class="pill">Work in progress</span>
+                    <span>We’re sketching the first navigation layer—the scaffolding for your future reality map.</span>
+                </div>
+            </section>
+
+            <footer>
+                <span>© Youality 2025 · Currently under quiet construction</span>
+            </footer>
+        </div>
+    </div>
 
     <script>
-        // Keep the footer year current
-        document.getElementById("year").textContent = new Date().getFullYear();
+        (function () {
+            const root = document.documentElement;
+            const glow = document.querySelector(".cursor-glow");
+            const page = document.querySelector(".page");
+
+            if (!page || !glow) return;
+
+            function handleMove(e) {
+                const xNorm = e.clientX / window.innerWidth - 0.5;
+                const yNorm = e.clientY / window.innerHeight - 0.5;
+
+                const maxShift = 12; // subtle parallax
+                const shiftX = xNorm * maxShift;
+                const shiftY = yNorm * maxShift;
+
+                root.style.setProperty("--parallax-x", shiftX.toFixed(2) + "px");
+                root.style.setProperty("--parallax-y", shiftY.toFixed(2) + "px");
+
+                glow.style.transform =
+                    "translate(calc(" +
+                    e.clientX +
+                    "px - 50%), calc(" +
+                    e.clientY +
+                    "px - 50%))";
+            }
+
+            page.addEventListener("mousemove", handleMove, { passive: true });
+
+            // On touch devices, keep things simple (no glow/parallax).
+            function detectTouch() {
+                if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+                    glow.style.display = "none";
+                    root.style.setProperty("--parallax-x", "0px");
+                    root.style.setProperty("--parallax-y", "0px");
+                    page.removeEventListener("mousemove", handleMove);
+                }
+            }
+
+            detectTouch();
+            window.addEventListener("resize", detectTouch);
+        })();
     </script>
 </body>
 
