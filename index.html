@@ -406,6 +406,12 @@
             white-space: nowrap;
         }
 
+        .pill.easter-egg {
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
         footer {
             margin-top: 8px;
             font-size: 11px;
@@ -497,7 +503,7 @@
         <div class="content-shell">
             <header>
                 <div class="logo-lockup">
-                    <img src="../youality_logo.svg" alt="Youality logo"
+                    <img src="youality_logo.svg" alt="Youality logo"
                         style="height: 40px; width: auto; object-fit: contain;" />
                 </div>
                 <div class="tagline">Navigation for an aligned life</div>
@@ -542,7 +548,8 @@
                 </div>
 
                 <div class="wip-caption">
-                    <span class="pill">Work in progress</span>
+                    <span class="pill easter-egg" id="wip-easter-egg">Work in
+                        progress</span>
                     <span>We’re sketching the first navigation layer—the scaffolding for your future reality map.</span>
                 </div>
             </section>
@@ -594,6 +601,37 @@
 
             detectTouch();
             window.addEventListener("resize", detectTouch);
+        })();
+
+        // Easter egg: 3 clicks on "Work in progress" pill
+        (function () {
+            const easterEgg = document.getElementById('wip-easter-egg');
+            if (!easterEgg) return;
+
+            let clickCount = 0;
+            let resetTimeout;
+
+            function resetCounter() {
+                clickCount = 0;
+            }
+
+            easterEgg.addEventListener('click', function (e) {
+                e.preventDefault();
+                clickCount++;
+
+                // Clear any existing timeout
+                if (resetTimeout) {
+                    clearTimeout(resetTimeout);
+                }
+
+                // Reset counter after 2 seconds of inactivity
+                resetTimeout = setTimeout(resetCounter, 2000);
+
+                // After 3 clicks, redirect
+                if (clickCount >= 3) {
+                    window.location.href = 'wip/index.html';
+                }
+            });
         })();
     </script>
 </body>
